@@ -9,6 +9,10 @@ import {
   decrementAsync
 } from '../../modules/counter'
 
+import {
+  login
+} from '../../modules/user'
+
 const Home = props => (
   <div>
     <h1>Home</h1>
@@ -24,6 +28,10 @@ const Home = props => (
       <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
     </p>
 
+    <p>
+      <button onClick={() => props.login('luke', '19bby')}>Login</button>
+    </p>
+
     <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
   </div>
 )
@@ -31,7 +39,9 @@ const Home = props => (
 const mapStateToProps = state => ({
   count: state.counter.count,
   isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing
+  isDecrementing: state.counter.isDecrementing,
+  name: state.user.name,
+  password: state.user.password,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -39,6 +49,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   incrementAsync,
   decrement,
   decrementAsync,
+  login,
   changePage: () => push('/about-us')
 }, dispatch)
 
