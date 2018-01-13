@@ -11,7 +11,7 @@ import {
 
 import {
   login
-} from '../../modules/user'
+} from '../../actions/user.actions'
 
 const Home = props => (
   <div>

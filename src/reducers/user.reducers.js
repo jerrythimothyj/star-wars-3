@@ -1,5 +1,4 @@
-export const LOGIN_REQUESTED = 'user/LOGIN_REQUESTED'
-export const LOGIN = 'user/LOGIN'
+import { LOGIN_REQUESTED, LOGIN} from '../constants/user.constants';
 
 const initialState = {
   name: '',
@@ -22,19 +21,5 @@ export default (state = initialState, action) => {
 
     default:
       return state
-  }
-}
-
-export const login = (name, password) => {
-  return dispatch => {
-    dispatch({
-      type: LOGIN_REQUESTED
-    })
-
-    dispatch({
-      type: LOGIN,
-      name,
-      password
-    })
   }
 }
