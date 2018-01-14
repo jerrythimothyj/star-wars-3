@@ -13,6 +13,6 @@ export const login = (name, password) => {
         password
       })
 
-      dispatch(push('/about-us'));
+      dispatch(push('/planets'));
     }
   }

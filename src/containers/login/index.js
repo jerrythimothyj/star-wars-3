@@ -13,7 +13,7 @@ import {
   login
 } from '../../actions/user.actions'
 
-class Home extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     
@@ -26,7 +26,7 @@ class Home extends Component {
     }
     return (
       <div>
-      <h1>Home</h1>
+      <h1>Login</h1>
       <p>Count: {this.props.count}</p>
   
       <p>
@@ -48,28 +48,7 @@ class Home extends Component {
     )
   }
 }
-// const Home = props => (
-//   <div>
-//     <h1>Home</h1>
-//     <p>Count: {this.props.count}</p>
 
-//     <p>
-//       <button onClick={this.props.increment} disabled={this.props.isIncrementing}>Increment</button>
-//       <button onClick={this.props.incrementAsync} disabled={this.props.isIncrementing}>Increment Async</button>
-//     </p>
-
-//     <p>
-//       <button onClick={this.props.decrement} disabled={this.props.isDecrementing}>Decrementing</button>
-//       <button onClick={this.props.decrementAsync} disabled={this.props.isDecrementing}>Decrement Async</button>
-//     </p>
-
-//     <p>
-//       <button onClick={() => this.props.login('luke', '19bby')}>Login</button>
-//     </p>
-
-//     <p><button onClick={() => this.props.changePage()}>Go to about page via redux</button></p>
-//   </div>
-// )
 
 const mapStateToProps = state => ({
   count: state.counter.count,
@@ -91,4 +70,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home) 
+)(Login) 
