@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
 
 import {
   login, 
@@ -24,7 +17,9 @@ class Login extends Component {
     this.state = {
         username: '',
         password: '',
-        submitted: false
+        submitted: false,
+        loginSucceeded: false,
+        loginFailed: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,30 +42,18 @@ handleSubmit(e) {
     }
 }
 
-  render() {
-    const { username, password, submitted } = this.state;
+componentWillReceiveProps(nextProps) {
+  this.setState({
+    loginSucceeded: nextProps.loginSucceeded,
+    loginFailed: nextProps.loginFailed
+  });
+}
 
+  render() {
+    const { username, password, submitted, loginSucceeded, loginFailed } = this.state;
     return (
       <div>
       <h1>Login</h1>
-      <p>Count: {this.props.count}</p>
-  
-      <p>
-        <button onClick={this.props.increment} disabled={this.props.isIncrementing}>Increment</button>
-        <button onClick={this.props.incrementAsync} disabled={this.props.isIncrementing}>Increment Async</button>
-      </p>
-  
-      <p>
-        <button onClick={this.props.decrement} disabled={this.props.isDecrementing}>Decrementing</button>
-        <button onClick={this.props.decrementAsync} disabled={this.props.isDecrementing}>Decrement Async</button>
-      </p>
-  
-      <p>
-        <button onClick={() => this.props.login('luke', '19bby')}>Login</button>
-      </p>
-  
-      <p><button onClick={() => this.props.changePage()}>Go to about page via redux</button></p>
-
       <form name="form" onSubmit={this.handleSubmit}>
         <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>
@@ -81,11 +64,14 @@ handleSubmit(e) {
         </div>
         <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
             <label htmlFor="password">Password</label>
-            <input type="text" className="form-control" name="password" value={password} onChange={this.handleChange} />
+            <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
             {submitted && !password &&
                 <div className="help-block">Password is required</div>
             }
         </div>
+        {submitted && loginFailed && !loginSucceeded && 
+          <div className="help-block">Invalid Credentials</div>
+        }
         <div className="form-group">
             <button className="btn btn-primary">Login</button>
         </div>
@@ -97,22 +83,19 @@ handleSubmit(e) {
 }
 
 
-const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing,
-  username: state.user.username,
-  password: state.user.password,
-})
+const mapStateToProps = state => {
+  return ({
+    username: state.user.username,
+    password: state.user.password,
+    submitted: state.user.submitted,
+    loginSucceeded: state.user.loginSucceeded,
+    loginFailed: state.user.loginFailed,
+  })
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync,
   login,
-  logout,
-  changePage: () => push('/about-us')
+  logout
 }, dispatch)
 
 export default connect(

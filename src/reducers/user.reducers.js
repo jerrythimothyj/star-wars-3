@@ -3,6 +3,7 @@ import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED } from '
 const initialState = {
   username: '',
   password: '',
+  submitted: false,
   loginSucceeded: false,
   loginFailed: false
 }
@@ -11,7 +12,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUESTED:
       return {
-        ...state
+        ...state,
+        submitted: true
       }
 
     case LOGIN:
@@ -19,12 +21,16 @@ export default (state = initialState, action) => {
         ...state,
         username: action.username,
         password: action.password,
-        loginSucceeded: true
+        submitted: true,
+        loginSucceeded: true,
+        loginFailed: false
       }
     
     case LOGIN_FAILED:
       return {
         ...state,
+        submitted: true,
+        loginSucceeded: false,
         loginFailed: true
       }
     

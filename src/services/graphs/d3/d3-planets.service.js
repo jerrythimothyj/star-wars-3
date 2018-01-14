@@ -266,16 +266,7 @@ export const drawOrbit = (_data) => {
         _orbitLayout.mode = function(_mode) {
             //Atomic, Solar, other?
             if (!arguments.length) return orbitMode;
-    
-            if (_mode == "solar") {
-                fixedOrbitArray = [1]
-            }
-            if (_mode == "atomic") {
-                fixedOrbitArray = [2,8]
-            }
-            if (_mode == "flat") {
-                fixedOrbitArray = [99]
-            }
+            fixedOrbitArray = [1]
             orbitMode = _mode;
             if (Array.isArray(_mode)) {
                 fixedOrbitArray = _mode;
