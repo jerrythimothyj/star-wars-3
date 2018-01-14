@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { randomIntFromInterval } from '../../math/math'
 
 let planets = [
     {
@@ -229,7 +230,8 @@ export const makeViz = () => {
         planet.key = planet.name;
         // planet.radius = planet.diameter;
         planet.radius = planet.diameter / 2;
-        planet.orbital_period = "" + Math.random(0, 1);
+        planet.orbital_period = "" + randomIntFromInterval(1, 3);
+        console.log(planet.orbital_period);
         return planets;
     })
 
