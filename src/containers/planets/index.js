@@ -12,7 +12,7 @@ class About extends Component {
   }
 
   render() {
-    console.log(makeViz());
+    makeViz();
 return(
   <div>
     <h1>About Us</h1>
