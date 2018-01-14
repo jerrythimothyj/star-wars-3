@@ -1,0 +1,11 @@
+#viz, svg {
+    width: 1000px;
+    height: 1000px;
+    background: white;
+    color: white;
+}
+
+.viz, .ring, .node {
+    background: white;
+    color: white;
+}

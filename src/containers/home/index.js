@@ -22,7 +22,7 @@ class Home extends Component {
   render() {
     // Where to put this condition
     if(this.props.name != '') {
-      this.props.changePage()
+      // this.props.changePage()
     }
     return (
       <div>
