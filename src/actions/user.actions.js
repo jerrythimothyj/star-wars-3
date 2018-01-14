@@ -8,19 +8,20 @@ export const login = (username, password) => {
         type: LOGIN_REQUESTED
       })
 
-      if(loginService(username, password)) {
-        dispatch({
-          type: LOGIN,
-          username,
-          password
-        })
-  
-        dispatch(push('/planets'));
-      } else {
-        dispatch({
-          type: LOGIN_FAILED
-        })
-      }
+      loginService(username, password).then(response => {
+        if(response) {
+          dispatch({
+            type: LOGIN,
+            username,
+            password
+          })
+          dispatch(push('/planets'));
+        } else {
+          dispatch({
+            type: LOGIN_FAILED
+          })
+        }
+      })
     }
   }
 
