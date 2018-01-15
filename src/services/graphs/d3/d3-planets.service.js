@@ -9,7 +9,6 @@ export const makeViz = (planets) => {
             // planet.radius = planet.diameter;
             planet.radius = planet.diameter / 2;
             planet.orbital_period = "" + randomIntFromInterval(1, 3);
-            console.log(planet.orbital_period);
             return planets;
         })
 

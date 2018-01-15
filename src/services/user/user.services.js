@@ -10,7 +10,7 @@ export const loginService = (username, password) =>  {
                 response.data.results[0].name === username && 
                 response.data.results[0].birth_year === password
             ) {
-                sessionStorage.setItem('loggedInUser', response.data.results[0].name + response.data.results[0].birth_year);
+                sessionStorage.setItem('loggedInUser', response.data.results[0].name);
                 return true;
             } else {
                 return false;
