@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import PlanetGraph from '../../components/planet-graph'
 import {
   searchPlanets, isSearchAllowedFn
 } from '../../actions/planet.actions'
 import {
   makeViz
 } from '../../services/graphs/d3/d3-planets.service'
-
-import './planets.css';
 
 class Planet extends Component {
   constructor(props) {
@@ -29,10 +28,6 @@ class Planet extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    const { planet } = this.state;
-    // if() {
-    //   this.props.searchPlanets(nextProps.planet);
-    // }
     this.props.isSearchAllowedFn();
   }
 
@@ -64,10 +59,7 @@ return(
       {!isSearchAllowed && 
       <h3>Please reload the screen to search</h3>}
     </form>
-    <div id="viz">
-      <svg></svg>
-    </div>
-    
+    <PlanetGraph></PlanetGraph>
   </div>
 )
   }

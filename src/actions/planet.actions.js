@@ -1,5 +1,4 @@
 import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants/planet.constants';
-import { push } from 'react-router-redux'
 import { planetService } from '../services/planet/planet.services';
 import { isSearchAllowedService } from '../services/search/search.services'
 

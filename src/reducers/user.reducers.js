@@ -1,11 +1,13 @@
-import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED } from '../constants/user.constants';
+import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants/user.constants';
 
 const initialState = {
   username: '',
   password: '',
   submitted: false,
   loginSucceeded: false,
-  loginFailed: false
+  loginFailed: false,
+  logoutSucceeded: false,
+  logoutFailed: false
 }
 
 export default (state = initialState, action) => {
@@ -41,8 +43,17 @@ export default (state = initialState, action) => {
 
     case LOGOUT:
       return {
-        ...state
+        ...state,
+        logoutSucceeded: true,
+        logoutFailed: false
       }
+    
+      case LOGOUT_FAILED:
+        return {
+          ...state,
+          logoutSucceeded: false,
+          logoutFailed: true
+        }
 
     default:
       return state

@@ -1,43 +1,67 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from 'reactstrap';
+  logout
+} from '../../actions/user.actions'
+import { getSessionStorageItem } from '../../services/storage/storage.services';
 
-export default class Example extends React.Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      loginSucceeded: false,
+      loginFailed: false,
+      logoutSucceeded: false,
+      logoutFailed: false
     };
+
   }
-  toggle() {
+
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      isOpen: !this.state.isOpen
+      loginSucceeded: nextProps.loginSucceeded,
+      loginFailed: nextProps.loginFailed,
+      logoutSucceeded: nextProps.logoutSucceeded,
+      logoutFailed: nextProps.logoutFailed
     });
   }
+  
   render() {
+    this.isUserLoggedIn = getSessionStorageItem('loggedInUser')
+
     return (
-      <div>
-        <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">Star Wars</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/logout/">Logout</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand">Star Wars</a>
+        <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              {this.isUserLoggedIn && 
+                <a className="nav-link" href="#" onClick={() => this.props.logout()}>Logout</a>
+              }
+            </li>
+          </ul>
+        </div>
+      </nav>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return ({
+    loginSucceeded: state.user.loginSucceeded,
+    loginFailed: state.user.loginFailed,
+    logoutSucceeded: state.user.logoutSucceeded,
+    logoutFailed: state.user.logoutFailed,
+  })
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  logout
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header)

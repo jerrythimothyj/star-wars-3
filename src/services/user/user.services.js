@@ -1,4 +1,5 @@
 import axios from '../axios/axios-base.service';
+import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
 
 export const loginService = (username, password) =>  {
     return axios.get('people/?search=' + username)
@@ -10,7 +11,7 @@ export const loginService = (username, password) =>  {
                 response.data.results[0].name === username && 
                 response.data.results[0].birth_year === password
             ) {
-                sessionStorage.setItem('loggedInUser', response.data.results[0].name);
+                setSessionStorageItem('loggedInUser', response.data.results[0].name);
                 return true;
             } else {
                 return false;
@@ -21,6 +22,11 @@ export const loginService = (username, password) =>  {
         })
 }
 
-export const logout = () => {
-    sessionStorage.removeItem('loggedInUser')
+export const logoutService = () => {
+    removeSessionStorageItem('loggedInUser')
+    if(!getSessionStorageItem('loggedInUser')) {
+        return true;
+    } else {
+        return false;
+    }
 }

@@ -1,6 +1,6 @@
-import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED } from '../constants/user.constants';
+import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants/user.constants';
 import { push } from 'react-router-redux'
-import { loginService } from '../services/user/user.services';
+import { loginService, logoutService } from '../services/user/user.services';
 
 export const login = (username, password) => {
     return dispatch => {
@@ -30,11 +30,19 @@ export const login = (username, password) => {
       dispatch({
         type: LOGOUT_REQUESTED
       })
-  
-      dispatch({
-        type: LOGOUT
-      })
-
-      dispatch(push('/'));
+      if(logoutService()) {
+        dispatch({
+          type: LOGOUT,
+          logoutSucceeded: true,
+          logoutFailed: false
+        })
+        dispatch(push('/'));
+      } else {
+        dispatch({
+          type: LOGOUT_FAILED,
+          logoutSucceeded: false,
+          logoutFailed: true
+        })
+      }
     }
   }

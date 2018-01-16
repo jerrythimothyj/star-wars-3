@@ -7,6 +7,8 @@ import {
   logout
 } from '../../actions/user.actions'
 
+import './index.css';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,9 @@ class Login extends Component {
         password: '',
         submitted: false,
         loginSucceeded: false,
-        loginFailed: false
+        loginFailed: false,
+        logoutSucceeded: false,
+        logoutFailed: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,14 +49,16 @@ handleSubmit(e) {
 componentWillReceiveProps(nextProps) {
   this.setState({
     loginSucceeded: nextProps.loginSucceeded,
-    loginFailed: nextProps.loginFailed
+    loginFailed: nextProps.loginFailed,
+    logoutSucceeded: nextProps.logoutSucceeded,
+    logoutFailed: nextProps.logoutFailed
   });
 }
 
   render() {
     const { username, password, submitted, loginSucceeded, loginFailed } = this.state;
     return (
-      <div>
+      <div className="login">
       <h1>Login</h1>
       <form name="form" onSubmit={this.handleSubmit}>
         <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
@@ -90,6 +96,8 @@ const mapStateToProps = state => {
     submitted: state.user.submitted,
     loginSucceeded: state.user.loginSucceeded,
     loginFailed: state.user.loginFailed,
+    logoutSucceeded: state.user.logoutSucceeded,
+    logoutFailed: state.user.logoutFailed
   })
 }
 
