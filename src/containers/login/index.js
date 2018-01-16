@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
   login, 
   logout
-} from '../../actions/user.actions'
+} from '../../actions'
 
 import './index.css';
 

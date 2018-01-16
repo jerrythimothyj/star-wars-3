@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PlanetGraph from '../../components/planet-graph'
 import {
   searchPlanets, isSearchAllowedFn
-} from '../../actions/planet.actions'
+} from '../../actions'
 import {
   makeViz
 } from '../../services/graphs/d3/d3-planets.service'
