@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {
   logout
-} from '../../actions'
+} from '../../actions/user.sagas'
 import { getSessionStorageItem } from '../../services/storage/storage.services';
 
 class Header extends Component {

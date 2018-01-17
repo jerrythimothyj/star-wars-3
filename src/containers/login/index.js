@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
   login, 
   logout
-} from '../../actions'
+} from '../../actions/user.sagas'
 
 import './index.css';
 
@@ -14,7 +14,8 @@ class Login extends Component {
     super(props);
 
     // reset login status
-    this.props.logout();
+    console.log(this.props);
+    this.props.dispatch(logout());
 
     this.state = {
         username: '',
