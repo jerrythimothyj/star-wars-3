@@ -6,7 +6,7 @@ import {
 } from '../../actions'
 import { getSessionStorageItem } from '../../services/storage/storage.services';
 
-class Header extends Component {
+export class Header extends Component {
   constructor(props) {
     super(props);
 

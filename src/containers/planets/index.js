@@ -9,7 +9,7 @@ import {
   makeViz
 } from '../../services/graphs/d3/d3-planets.service'
 
-class Planet extends Component {
+export class Planet extends Component {
   constructor(props) {
     super(props);
 
