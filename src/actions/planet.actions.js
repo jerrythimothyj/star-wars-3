@@ -36,22 +36,34 @@ export const searchPlanets = (planet) => {
     }
 }
 
+export function searchPlanetAllowedRequested() {
+    return {
+      type: SEARCH_PLANET_ALLOWED_REQUESTED
+    }
+}
+
+export function searchPlanetAllowedAC() {
+    return {
+      type: SEARCH_PLANET_ALLOWED,
+      isSearchAllowed: true
+    }
+}
+
+export function searchPlanetAllowedFailed() {
+    return {
+      type: SEARCH_PLANET_ALLOWED_FAILED,
+      isSearchAllowed: false
+    }
+}
+
 export const isSearchAllowedFn = () => {
     return dispatch => {
-        dispatch({
-            type: SEARCH_PLANET_ALLOWED_REQUESTED
-        })
+        dispatch(searchPlanetAllowedRequested());
 
         if(isSearchAllowedService()) {
-            dispatch({
-                type: SEARCH_PLANET_ALLOWED,
-                isSearchAllowed: true
-            })
+            dispatch(searchPlanetAllowedAC());
         } else {
-            dispatch({
-                type: SEARCH_PLANET_ALLOWED_FAILED,
-                isSearchAllowed: false
-            })
+            dispatch(searchPlanetAllowedFailed());
         }
     }
 }
