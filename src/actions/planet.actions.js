@@ -2,24 +2,36 @@ import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH
 import { planetService } from '../services/planet/planet.services';
 import { isSearchAllowedService } from '../services/search/search.services'
 
+export function searchPlanetsRequested() {
+    return {
+      type: SEARCH_PLANETS_REQUESTED
+    }
+}
+
+export function searchPlanetsAC(planet, planets) {
+    return {
+      type: SEARCH_PLANETS,
+      planet,
+      planets
+    }
+}
+
+export function searchPlanetsFailed() {
+    return {
+      type: SEARCH_PLANETS_FAILED
+    }
+}
+
 export const searchPlanets = (planet) => {
     return dispatch => {
-        dispatch({
-            type: SEARCH_PLANETS_REQUESTED
-        })
+        dispatch(searchPlanetsRequested())
 
         planetService(planet).then(planets => {
-        if(planets) {
-            dispatch({
-                type: SEARCH_PLANETS,
-                planet,
-                planets
-            })
-        } else {
-            dispatch({
-                type: SEARCH_PLANETS_FAILED
-            })
-        }
+            if(planets) {
+                dispatch(searchPlanetsAC(planet, planets))
+            } else {
+                dispatch(searchPlanetsFailed())
+            }
         })
     }
 }

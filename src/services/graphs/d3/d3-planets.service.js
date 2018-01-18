@@ -12,6 +12,7 @@ export const makeViz = (planets) => {
             return planets;
         })
 
+        // console.log(document.querySelector('#viz'));
         if(document.querySelector('#viz')) {
             document.querySelector('#viz').innerHTML = '';
             document.querySelector('#viz').innerHTML = '<svg></svg>';
@@ -21,7 +22,7 @@ export const makeViz = (planets) => {
 }
   
 export const drawOrbit = (_data) => {
-
+    // console.log(_data);
     d3.layout.orbit = function() {
         var currentTickStep = 0;
         var orbitNodes;
