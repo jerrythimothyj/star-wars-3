@@ -4,7 +4,9 @@ import { loginService, logoutService } from '../services/user/user.services';
 
 export function loginRequested() {
   return {
-    type: LOGIN_REQUESTED
+    type: LOGIN_REQUESTED,
+    submitted: true,
+    loaded: false
   }
 }
 
@@ -12,13 +14,21 @@ export function loginAC(username, password) {
   return {
     type: LOGIN,
     username,
-    password
+    password,
+    submitted: true,
+    loginSucceeded: true,
+    loginFailed: false,
+    loaded: true
   }
 }
 
 export function loginFailed() {
   return {
-    type: LOGIN_FAILED
+    type: LOGIN_FAILED,
+    submitted: true,
+    loginSucceeded: false,
+    loginFailed: true,
+    loaded: true
   }
 }
 

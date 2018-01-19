@@ -2,27 +2,24 @@ import * as d3 from "d3";
 import { randomIntFromInterval } from '../../math/math'
 
 export const makeViz = (planets) => {
-    // d3.json(planets, (planets) => {
 
         planets.map((planet) => {
             planet.key = planet.name;
-            // planet.radius = planet.diameter;
             planet.radius = planet.diameter / 2;
             planet.orbital_period = "" + randomIntFromInterval(1, 3);
             return planets;
         })
 
-        // console.log(document.querySelector('#viz'));
         if(document.querySelector('#viz')) {
-            document.querySelector('#viz').innerHTML = '';
-            document.querySelector('#viz').innerHTML = '<svg></svg>';
-            drawOrbit(planets)
+            setTimeout(() => {
+                document.querySelector('#viz').innerHTML = '';
+                document.querySelector('#viz').innerHTML = '<svg></svg>';
+                drawOrbit(planets)
+            })
         }
-    // });
 }
   
 export const drawOrbit = (_data) => {
-    // console.log(_data);
     d3.layout.orbit = function() {
         var currentTickStep = 0;
         var orbitNodes;
@@ -238,10 +235,7 @@ export const drawOrbit = (_data) => {
     }
   
     let orbitScale = d3.scale.linear().domain([1, 3]).range([3.8, 1.5]).clamp(true);
-    let radiusScale = d3.scale.linear().domain([210.64,2500,10000,71492.68]).range([2,4,8,16]);
-  
-    // let planetColors = {Mercury: "gray", Venus: "#d6bb87", Earth: "#677188", Mars: "#7c5541", Jupiter: "#a36a3e", Saturn: "#e9ba85", Uranus: "#73cbf0", Neptune: "#6383d1"}
-  
+    let radiusScale = d3.scale.linear().domain([210.64,2500,10000,71492.68]).range([2,4,8,16]);  
   
     let orbit = d3.layout.orbit().size([900,900])
         .children(function(d) {return d.values})
@@ -266,7 +260,6 @@ export const drawOrbit = (_data) => {
     d3.selectAll("g.node")
         .append("circle")
         .attr("r", function(d) {return d.radius ? radiusScale(d.radius) : 20})
-        // .style("fill", function(d) {return d.depth === 0 ? "#FFCC00" : d.depth === 1 ? planetColors[d.key] : "lightgray"});
         .style("fill", function(d) {return d.depth === 0 ? "#FFCC00" : '#'+(Math.random()*0xFFFFFF<<0).toString(16); });
   
     d3.selectAll("g.node").filter(function(d) {return d.depth === 1})
@@ -284,12 +277,7 @@ export const drawOrbit = (_data) => {
         .attr("r", function(d) {return d.r})
         .attr("cx", function(d) {return d.x})
         .attr("cy", function(d) {return d.y})
-  
-    // d3.select("#buttons").append("button").html("solar").on("click", function() {newMode("solar")})
-    // d3.select("#buttons").append("button").html("flat").on("click", function() {newMode("flat")})
-    // d3.select("#buttons").append("button").html("atomic").on("click", function() {newMode("atomic")})
-    // d3.select("#buttons").append("button").html("custom").on("click", function() {newMode([4,4])})
-  
+    
     orbit.on("tick", function() {
       d3.selectAll("g.node")
         .attr("transform", function(d) {return "translate(" +d.x +"," + d.y+")"});
@@ -300,34 +288,6 @@ export const drawOrbit = (_data) => {
     });
   
     orbit.start();
-  
-    // let newMode = (_mode) => {
-    //   orbit.mode(_mode)
-    //   .nodes(_data);
-  
-    //     d3.select("g.viz")
-    //     .selectAll("circle.ring")
-    //     .data(orbit.orbitalRings())
-    //     .exit()
-    //     .transition()
-    //     .duration(500)
-    //     .style("stroke-opacity", 0)
-    //     .style("stroke-width", 3)
-    //     .remove();
-    
-    //     d3.select("g.viz")
-    //     .selectAll("circle.ring")
-    //     .data(orbit.orbitalRings())
-    //     .enter()
-    //     .insert("circle", "g")
-    //     .attr("class", "ring");
-        
-    //     d3.selectAll("circle.ring")
-    //     .attr("r", function(d) {return d.r})
-    //     .attr("cx", function(d) {return d.x})
-    //     .attr("cy", function(d) {return d.y});
-  
-    // }
   
     function nodeOver(d) {
       orbit.stop();

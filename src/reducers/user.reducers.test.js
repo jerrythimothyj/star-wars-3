@@ -11,7 +11,8 @@ describe('user reducer', () => {
         loginSucceeded: false,
         loginFailed: false,
         logoutSucceeded: false,
-        logoutFailed: false
+        logoutFailed: false,
+        loaded: true
       }
     )
   })
@@ -20,10 +21,13 @@ describe('user reducer', () => {
     expect(
       reducer({}, {
         type: LOGIN_REQUESTED,
+        submitted: true,
+        loaded: false
       })
     ).toEqual(
         {
-            submitted: true
+            submitted: true,
+            loaded: false
         }
     )
   });
@@ -36,7 +40,8 @@ describe('user reducer', () => {
         password: '19BBY',
         submitted: true,
         loginSucceeded: true,
-        loginFailed: false
+        loginFailed: false,
+        loaded: true
       })
     ).toEqual(
         {
@@ -44,7 +49,8 @@ describe('user reducer', () => {
             password: '19BBY',
             submitted: true,
             loginSucceeded: true,
-            loginFailed: false
+            loginFailed: false,
+            loaded: true
         }
     )
   });
@@ -55,13 +61,15 @@ describe('user reducer', () => {
         type: LOGIN_FAILED,
         submitted: true,
         loginSucceeded: false,
-        loginFailed: true
+        loginFailed: true,
+        loaded: true
       })
     ).toEqual(
         {
             submitted: true,
             loginSucceeded: false,
-            loginFailed: true
+            loginFailed: true,
+            loaded: true
         }
     )
   });

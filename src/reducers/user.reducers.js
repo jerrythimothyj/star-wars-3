@@ -7,7 +7,8 @@ const initialState = {
   loginSucceeded: false,
   loginFailed: false,
   logoutSucceeded: false,
-  logoutFailed: false
+  logoutFailed: false,
+  loaded: true
 }
 
 export default (state = initialState, action) => {
@@ -15,7 +16,8 @@ export default (state = initialState, action) => {
     case LOGIN_REQUESTED:
       return {
         ...state,
-        submitted: true
+        submitted: action.submitted,
+        loaded: action.loaded
       }
 
     case LOGIN:
@@ -23,17 +25,19 @@ export default (state = initialState, action) => {
         ...state,
         username: action.username,
         password: action.password,
-        submitted: true,
-        loginSucceeded: true,
-        loginFailed: false
+        submitted: action.submitted,
+        loginSucceeded: action.loginSucceeded,
+        loginFailed: action.loginFailed,
+        loaded: action.loaded
       }
     
     case LOGIN_FAILED:
       return {
         ...state,
-        submitted: true,
-        loginSucceeded: false,
-        loginFailed: true
+        submitted: action.submitted,
+        loginSucceeded: action.loginSucceeded,
+        loginFailed: action.loginFailed,
+        loaded: action.loaded
       }
     
     case LOGOUT_REQUESTED:
@@ -44,15 +48,15 @@ export default (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        logoutSucceeded: true,
-        logoutFailed: false
+        logoutSucceeded: action.logoutSucceeded,
+        logoutFailed: action.logoutFailed
       }
     
       case LOGOUT_FAILED:
         return {
           ...state,
-          logoutSucceeded: false,
-          logoutFailed: true
+          logoutSucceeded: action.logoutSucceeded,
+          logoutFailed: action.logoutFailed
         }
 
     default:

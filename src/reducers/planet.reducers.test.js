@@ -7,7 +7,8 @@ describe('planet reducer', () => {
       {
         planet: '',
         planets: [],
-        isSearchAllowed: true
+        isSearchAllowed: true,
+        loaded: true
       }
     )
   })

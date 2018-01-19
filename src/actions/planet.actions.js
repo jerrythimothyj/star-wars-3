@@ -4,7 +4,8 @@ import { isSearchAllowedService } from '../services/search/search.services'
 
 export function searchPlanetsRequested() {
     return {
-      type: SEARCH_PLANETS_REQUESTED
+      type: SEARCH_PLANETS_REQUESTED,
+      loaded: false
     }
 }
 
@@ -12,13 +13,15 @@ export function searchPlanetsAC(planet, planets) {
     return {
       type: SEARCH_PLANETS,
       planet,
-      planets
+      planets,
+      loaded: true
     }
 }
 
 export function searchPlanetsFailed() {
     return {
-      type: SEARCH_PLANETS_FAILED
+      type: SEARCH_PLANETS_FAILED,
+      loaded: true
     }
 }
 
@@ -38,30 +41,34 @@ export const searchPlanets = (planet) => {
 
 export function searchPlanetAllowedRequested() {
     return {
-      type: SEARCH_PLANET_ALLOWED_REQUESTED
+      type: SEARCH_PLANET_ALLOWED_REQUESTED,
+      loaded: true
     }
 }
 
-export function searchPlanetAllowedAC() {
+export function searchPlanetAllowedAC(planet) {
     return {
       type: SEARCH_PLANET_ALLOWED,
-      isSearchAllowed: true
+      planet,
+      isSearchAllowed: true,
+      loaded: true
     }
 }
 
 export function searchPlanetAllowedFailed() {
     return {
       type: SEARCH_PLANET_ALLOWED_FAILED,
-      isSearchAllowed: false
+      isSearchAllowed: false,
+      loaded: true
     }
 }
 
-export const isSearchAllowedFn = () => {
+export const isSearchAllowedFn = (planet) => {
     return dispatch => {
         dispatch(searchPlanetAllowedRequested());
 
         if(isSearchAllowedService()) {
-            dispatch(searchPlanetAllowedAC());
+            dispatch(searchPlanetAllowedAC(planet));
         } else {
             dispatch(searchPlanetAllowedFailed());
         }
