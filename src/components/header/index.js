@@ -6,6 +6,9 @@ import {
 } from '../../actions'
 import { getSessionStorageItem } from '../../services/storage/storage.services';
 
+import './index.css';
+
+
 export class Header extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +35,8 @@ export class Header extends Component {
     this.isUserLoggedIn = getSessionStorageItem('loggedInUser')
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand">Star Wars</a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light header-navbar">
+        {/* <a className="navbar-brand">Star Wars</a> */}
         <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
           <ul className="navbar-nav">
             <li className="nav-item">
