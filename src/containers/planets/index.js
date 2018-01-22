@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import PlanetGraph from '../../components/planet-graph'
+import PlanetGrid from '../../components/planet-grid'
 import Loader from 'react-loader'
 import { searchPlanets, isSearchAllowedFn } from '../../actions'
 import { makeViz } from '../../services/graphs/d3/d3-planets.service'
@@ -71,6 +72,8 @@ return(
         <h3>Please reload the screen to search</h3>}
       </form>
     <Loader loaded={loaded}></Loader>
+    {/* {planets} */}
+      <PlanetGrid planets={planets}></PlanetGrid>
       <PlanetGraph></PlanetGraph>
   </div>
 )
