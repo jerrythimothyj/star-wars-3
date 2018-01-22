@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import { getValue } from '../../services/data/data.services';
 
 export class PlanetGrid extends Component {
     constructor(props) {
       super(props);
 
-      console.log('props=', props);
+    this.getValueByKey = (apiPath, key) => {
+        return getValue(apiPath, key)
+                .then(response => {
+                    return response;
+                })
+                .then(response => {
+                    return Promise.resolve(response)
+                })
+}
 
       this.state = {
           planets: this.props.planets
@@ -21,10 +30,9 @@ export class PlanetGrid extends Component {
 
     render() {
         const { planets } = this.state;
-        console.log(this.props);
         return (
-            <div class="table-responsive">
-                <table class="table">
+            <div className="table-responsive">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -42,7 +50,7 @@ export class PlanetGrid extends Component {
                     </thead>
                     <tbody>
                     { planets.map((planet) => {
-                        return (<tr>
+                        return (<tr key={planet.name}>
                             <th>{planet.name}</th>
                             <th>{planet.rotation_period}</th>
                             <th>{planet.orbital_period}</th>
@@ -55,14 +63,18 @@ export class PlanetGrid extends Component {
                             <th>
                                 {planet.residents.map(resident => {
                                     return (
-                                        <p>{resident}</p>
+                                        <p key={resident}>
+                                            {
+                                                console.log(this.getValueByKey(resident, 'name'))
+                                            }
+                                        </p>
                                     )
                                 })}
                             </th>
                             <th>
                                 {planet.films.map(film => {
                                     return (
-                                        <p>{film}</p>
+                                        <p key={film}>{film}</p>
                                     )
                                 })}
                             </th>
