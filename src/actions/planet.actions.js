@@ -9,11 +9,14 @@ export function searchPlanetsRequested() {
     }
 }
 
-export function searchPlanetsAC(planet, planets) {
+export function searchPlanetsAC(planet, planets, previous, next, page) {
     return {
       type: SEARCH_PLANETS,
       planet,
       planets,
+      previousAllowed: previous? true: false,
+      nextAllowed: next? true: false,
+      page,
       loaded: true
     }
 }
@@ -25,13 +28,13 @@ export function searchPlanetsFailed() {
     }
 }
 
-export const searchPlanets = (planet) => {
+export const searchPlanets = (planet, page) => {
     return dispatch => {
         dispatch(searchPlanetsRequested())
 
-        planetService(planet).then(planets => {
-            if(planets) {
-                dispatch(searchPlanetsAC(planet, planets))
+        planetService(planet, page).then(planetsData => {
+            if(planetsData.results.length > 0) {
+                dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page))
             } else {
                 dispatch(searchPlanetsFailed())
             }

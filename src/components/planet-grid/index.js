@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { getValue } from '../../services/data/data.services';
 
 export class PlanetGrid extends Component {
     constructor(props) {
       super(props);
-
-    this.getValueByKey = (apiPath, key) => {
-        return getValue(apiPath, key)
-                .then(response => {
-                    return response;
-                })
-                .then(response => {
-                    return Promise.resolve(response)
-                })
-}
 
       this.state = {
           planets: this.props.planets
@@ -29,7 +18,7 @@ export class PlanetGrid extends Component {
     }
 
     render() {
-        const { planets } = this.state;
+        let { planets } = this.state;
         return (
             <div className="table-responsive">
                 <table className="table">
@@ -44,8 +33,6 @@ export class PlanetGrid extends Component {
                             <th>Terrain</th>
                             <th>Surface Water</th>
                             <th>Population</th>
-                            <th>Residents</th>
-                            <th>Films</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,24 +47,6 @@ export class PlanetGrid extends Component {
                             <th>{planet.terrain}</th>
                             <th>{planet.surface_water}</th>
                             <th>{planet.population}</th>
-                            <th>
-                                {planet.residents.map(resident => {
-                                    return (
-                                        <p key={resident}>
-                                            {
-                                                console.log(this.getValueByKey(resident, 'name'))
-                                            }
-                                        </p>
-                                    )
-                                })}
-                            </th>
-                            <th>
-                                {planet.films.map(film => {
-                                    return (
-                                        <p key={film}>{film}</p>
-                                    )
-                                })}
-                            </th>
                         </tr>)
                     }) }
                     </tbody>

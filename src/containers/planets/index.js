@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import PlanetGraph from '../../components/planet-graph'
+// import PlanetGraph from '../../components/planet-graph'
 import PlanetGrid from '../../components/planet-grid'
 import Loader from 'react-loader'
 import { searchPlanets, isSearchAllowedFn } from '../../actions'
@@ -25,7 +25,10 @@ export class Planet extends Component {
       planet: '',
       planets: [],
       isSearchAllowed: true,
-      loaded: true
+      loaded: true,
+      previousAllowed: false,
+      nextAllowed: false,
+      page: 1
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,11 +46,14 @@ export class Planet extends Component {
       planet: nextProps.planet,
       planets: nextProps.planets,
       isSearchAllowed: nextProps.isSearchAllowed,
-      loaded: nextProps.loaded
+      loaded: nextProps.loaded,
+      previousAllowed: nextProps.previousAllowed,
+      nextAllowed: nextProps.nextAllowed,
+      page: nextProps.page
     });
-    setTimeout(() => {
-      makeViz(nextProps.planets);
-    })
+    // setTimeout(() => {
+    //   makeViz(nextProps.planets);
+    // })
   }
 
   componentWillMount() {
@@ -55,10 +61,15 @@ export class Planet extends Component {
     this.init = true;
   }
 
+  navToPage(page) {
+    const { planet } = this.state;
+    this.props.searchPlanets(planet, page);
+  }
+
   render() {
-    const { planet, planets, isSearchAllowed, loaded } = this.state;
+    const { planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page } = this.state;
     if(isSearchAllowed && ( this.searchKeyChanged || this.init)) {
-      this.props.searchPlanets(planet);
+      this.props.searchPlanets(planet, page);
       this.searchKeyChanged = false;
       this.init = false;
     }
@@ -74,8 +85,10 @@ return(
     <Loader loaded={loaded}></Loader>
     {/* {planets} */}
       <PlanetGrid planets={planets}></PlanetGrid>
-      <PlanetGraph></PlanetGraph>
-  </div>
+      {/* <PlanetGraph></PlanetGraph> */}
+      { previousAllowed && <span onClick={() => this.navToPage(page-1)}>Click Previous</span> }
+      { nextAllowed && <span onClick={() => this.navToPage(page+1)}>Click Next</span> }
+      </div>
 )
   }
 }
@@ -85,7 +98,10 @@ const mapStateToProps = state => {
     planet: state.planet.planet,
     planets: state.planet.planets,
     isSearchAllowed: state.planet.isSearchAllowed,
-    loaded: state.planet.loaded
+    loaded: state.planet.loaded,
+    previousAllowed: state.planet.previousAllowed,
+    nextAllowed: state.planet.nextAllowed,
+    page: state.planet.page
   })
 }
 

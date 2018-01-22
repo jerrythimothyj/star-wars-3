@@ -4,7 +4,10 @@ const initialState = {
   planet: '',
   planets: [],
   isSearchAllowed: true,
-  loaded: true
+  loaded: true,
+  previousAllowed: false,
+  nextAllowed: false,
+  page: 1
 }
 
 export default (state = initialState, action) => {
@@ -20,7 +23,10 @@ export default (state = initialState, action) => {
         ...state,
         planet: action.planet,
         planets: action.planets,
-        loaded: action.loaded
+        loaded: action.loaded,
+        previousAllowed: action.previousAllowed,
+        nextAllowed: action.nextAllowed,
+        page: action.page
       }
     
     case SEARCH_PLANETS_FAILED:
