@@ -37,14 +37,14 @@ export class PeopleGrid extends Component {
                     <tbody>
                     { peoples.map((people) => {
                         return (<tr key={people.name}>
-                            <th>{people.name}</th>
-                            <th>{people.height}</th>
-                            <th>{people.mass}</th>
-                            <th>{people.hair_color}</th>
-                            <th>{people.skin_color}</th>
-                            <th>{people.eye_color}</th>
-                            <th>{people.birth_year}</th>
-                            <th>{people.gender}</th>
+                            <td>{people.name}</td>
+                            <td>{people.height}</td>
+                            <td>{people.mass}</td>
+                            <td>{people.hair_color}</td>
+                            <td>{people.skin_color}</td>
+                            <td>{people.eye_color}</td>
+                            <td>{people.birth_year}</td>
+                            <td>{people.gender}</td>
                         </tr>)
                     }) }
                     </tbody>

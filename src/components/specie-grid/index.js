@@ -38,15 +38,15 @@ export class SpecieGrid extends Component {
                     <tbody>
                     { species.map((specie) => {
                         return (<tr key={specie.name}>
-                            <th>{specie.name}</th>
-                            <th>{specie.classification}</th>
-                            <th>{specie.designation}</th>
-                            <th>{specie.average_height}</th>
-                            <th>{specie.skin_colors}</th>
-                            <th>{specie.hair_colors}</th>
-                            <th>{specie.eye_colors}</th>
-                            <th>{specie.average_lifespan}</th>
-                            <th>{specie.language}</th>
+                            <td>{specie.name}</td>
+                            <td>{specie.classification}</td>
+                            <td>{specie.designation}</td>
+                            <td>{specie.average_height}</td>
+                            <td>{specie.skin_colors}</td>
+                            <td>{specie.hair_colors}</td>
+                            <td>{specie.eye_colors}</td>
+                            <td>{specie.average_lifespan}</td>
+                            <td>{specie.language}</td>
                         </tr>)
                     }) }
                     </tbody>

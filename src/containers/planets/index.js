@@ -1,21 +1,20 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 // import PlanetGraph from '../../components/planet-graph'
-import PlanetGrid from '../../components/planet-grid'
-import Loader from 'react-loader'
-import { searchPlanets, isSearchAllowedFn } from '../../actions'
-import { makeViz } from '../../services/graphs/d3/d3-planets.service'
-import { authUser } from '../../services/auth/auth.services'
-import { logout } from '../../actions'
+import PlanetGrid from '../../components/planet-grid';
+import Loader from 'react-loader';
+import { searchPlanets, isSearchAllowedFn } from '../../actions';
+import { makeViz } from '../../services/graphs/d3/d3-planets.service';
+import { authUser } from '../../services/auth/auth.services';
+import { logout } from '../../actions';
 import { setTimeout } from 'timers';
 
 export class Planet extends Component {
   constructor(props) {
     super(props);
 
-    if(!authUser()) {
+    if (!authUser()) {
       this.props.logout();
     }
 
@@ -28,7 +27,7 @@ export class Planet extends Component {
       loaded: true,
       previousAllowed: false,
       nextAllowed: false,
-      page: 1
+      page: 1,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +48,7 @@ export class Planet extends Component {
       loaded: nextProps.loaded,
       previousAllowed: nextProps.previousAllowed,
       nextAllowed: nextProps.nextAllowed,
-      page: nextProps.page
+      page: nextProps.page,
     });
     // setTimeout(() => {
     //   makeViz(nextProps.planets);
@@ -67,51 +66,51 @@ export class Planet extends Component {
   }
 
   render() {
-    const { planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page } = this.state;
-    if(isSearchAllowed && ( this.searchKeyChanged || this.init)) {
+    const {
+      planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page,
+    } = this.state;
+    if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
       this.props.searchPlanets(planet, page);
       this.searchKeyChanged = false;
       this.init = false;
     }
-    
-return(
-  <div>
-      <h1>Search Planets</h1>
-      <form name="form">
-        <input type="text" className="form-control" name="planet" value={planet} onChange={this.handleChange} disabled={!isSearchAllowed} />
-        {!isSearchAllowed && 
-        <h3>Please reload the screen to search</h3>}
-      </form>
-    <Loader loaded={loaded}></Loader>
-    {/* {planets} */}
-      <PlanetGrid planets={planets}></PlanetGrid>
-      {/* <PlanetGraph></PlanetGraph> */}
-      { previousAllowed && <span onClick={() => this.navToPage(page-1)}>Click Previous</span> }
-      { nextAllowed && <span onClick={() => this.navToPage(page+1)}>Click Next</span> }
+
+    return (
+      <div>
+        <h1>Search Planets</h1>
+        <form name="form">
+          <input type="text" className="form-control" name="planet" value={planet} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          {!isSearchAllowed &&
+          <h3>Please reload the screen to search</h3>}
+        </form>
+        <Loader loaded={loaded} />
+        {/* {planets} */}
+        <PlanetGrid planets={planets} />
+        {/* <PlanetGraph></PlanetGraph> */}
+        { previousAllowed && <span onClick={() => this.navToPage(page - 1)}>Click Previous</span> }
+        { nextAllowed && <span onClick={() => this.navToPage(page + 1)}>Click Next</span> }
       </div>
-)
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return ({
-    planet: state.planet.planet,
-    planets: state.planet.planets,
-    isSearchAllowed: state.planet.isSearchAllowed,
-    loaded: state.planet.loaded,
-    previousAllowed: state.planet.previousAllowed,
-    nextAllowed: state.planet.nextAllowed,
-    page: state.planet.page
-  })
-}
+const mapStateToProps = state => ({
+  planet: state.planet.planet,
+  planets: state.planet.planets,
+  isSearchAllowed: state.planet.isSearchAllowed,
+  loaded: state.planet.loaded,
+  previousAllowed: state.planet.previousAllowed,
+  nextAllowed: state.planet.nextAllowed,
+  page: state.planet.page,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchPlanets,
   isSearchAllowedFn,
-  logout
-}, dispatch)
+  logout,
+}, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Planet)
+  mapDispatchToProps,
+)(Planet);
