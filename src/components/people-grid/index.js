@@ -25,28 +25,26 @@ export class PeopleGrid extends Component {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Rotation Period</th>
-                            <th>Orbital_Period</th>
-                            <th>Diameter</th>
-                            <th>Climate</th>
-                            <th>Gravity</th>
-                            <th>Terrain</th>
-                            <th>Surface Water</th>
-                            <th>Population</th>
+                            <th>Height</th>
+                            <th>Mass</th>
+                            <th>Hair Color</th>
+                            <th>Skin Color</th>
+                            <th>Eye Color</th>
+                            <th>Birth Year</th>
+                            <th>Gender</th>
                         </tr>
                     </thead>
                     <tbody>
                     { peoples.map((people) => {
                         return (<tr key={people.name}>
                             <th>{people.name}</th>
-                            <th>{people.rotation_period}</th>
-                            <th>{people.orbital_period}</th>
-                            <th>{people.diameter}</th>
-                            <th>{people.climate}</th>
-                            <th>{people.gravity}</th>
-                            <th>{people.terrain}</th>
-                            <th>{people.surface_water}</th>
-                            <th>{people.population}</th>
+                            <th>{people.height}</th>
+                            <th>{people.mass}</th>
+                            <th>{people.hair_color}</th>
+                            <th>{people.skin_color}</th>
+                            <th>{people.eye_color}</th>
+                            <th>{people.birth_year}</th>
+                            <th>{people.gender}</th>
                         </tr>)
                     }) }
                     </tbody>
