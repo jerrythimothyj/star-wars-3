@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-// import PeopleGraph from '../../components/people-graph'
-import PeopleGrid from '../../components/people-grid';
 import Loader from 'react-loader';
-import { searchPeoples, isSearchAllowedFn } from '../../actions';
-import { makeViz } from '../../services/graphs/d3/d3-peoples.service';
+import { PeopleGrid } from '../../components/people-grid';
+import { searchPeoples, isSearchAllowedFn, logout } from '../../actions';
 import { authUser } from '../../services/auth/auth.services';
-import { logout } from '../../actions';
-import { setTimeout } from 'timers';
 
 export class People extends Component {
   constructor(props) {
@@ -41,9 +36,13 @@ export class People extends Component {
     this.props.isSearchAllowedFn(e.target.value);
   }
 
+  componentWillMount() {
+    this.init = true;
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
-      people: nextProps.people,
+      // people: nextProps.people,
       peoples: nextProps.peoples,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -51,14 +50,6 @@ export class People extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
     });
-    // setTimeout(() => {
-    //   makeViz(nextProps.peoples);
-    // })
-  }
-
-  componentWillMount() {
-    const { people } = this.state;
-    this.init = true;
   }
 
   navToPage(page) {

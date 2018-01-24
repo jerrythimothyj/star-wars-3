@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 import PlanetGrid from '../../components/planet-grid';
 import Loader from 'react-loader';
 import { searchPlanets, isSearchAllowedFn } from '../../actions';
-import { makeViz } from '../../services/graphs/d3/d3-planets.service';
 import { authUser } from '../../services/auth/auth.services';
 import { logout } from '../../actions';
-import { setTimeout } from 'timers';
 
 export class Planet extends Component {
   constructor(props) {
@@ -42,7 +40,7 @@ export class Planet extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      planet: nextProps.planet,
+      // planet: nextProps.planet,
       planets: nextProps.planets,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -50,9 +48,6 @@ export class Planet extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
     });
-    // setTimeout(() => {
-    //   makeViz(nextProps.planets);
-    // })
   }
 
   componentWillMount() {

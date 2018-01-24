@@ -6,10 +6,8 @@ import { push } from 'react-router-redux';
 import SpecieGrid from '../../components/specie-grid';
 import Loader from 'react-loader';
 import { searchSpecies, isSearchAllowedFn } from '../../actions';
-import { makeViz } from '../../services/graphs/d3/d3-species.service';
 import { authUser } from '../../services/auth/auth.services';
 import { logout } from '../../actions';
-import { setTimeout } from 'timers';
 
 export class Specie extends Component {
   constructor(props) {
@@ -43,7 +41,7 @@ export class Specie extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      specie: nextProps.specie,
+      // specie: nextProps.specie,
       species: nextProps.species,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -51,9 +49,6 @@ export class Specie extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
     });
-    // setTimeout(() => {
-    //   makeViz(nextProps.species);
-    // })
   }
 
   componentWillMount() {
@@ -82,7 +77,7 @@ export class Specie extends Component {
         <form name="form">
           <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
-        <h3>Please reload the screen to search</h3>}
+          <h3>Please reload the screen to search</h3>}
         </form>
         <Loader loaded={loaded} />
         {/* {species} */}
