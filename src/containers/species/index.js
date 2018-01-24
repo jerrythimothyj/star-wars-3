@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 // import SpecieGraph from '../../components/specie-graph'
-import SpecieGrid from '../../components/specie-grid'
-import Loader from 'react-loader'
-import { searchSpecies, isSearchAllowedFn } from '../../actions'
-import { makeViz } from '../../services/graphs/d3/d3-species.service'
-import { authUser } from '../../services/auth/auth.services'
-import { logout } from '../../actions'
+import SpecieGrid from '../../components/specie-grid';
+import Loader from 'react-loader';
+import { searchSpecies, isSearchAllowedFn } from '../../actions';
+import { makeViz } from '../../services/graphs/d3/d3-species.service';
+import { authUser } from '../../services/auth/auth.services';
+import { logout } from '../../actions';
 import { setTimeout } from 'timers';
 
 export class Specie extends Component {
   constructor(props) {
     super(props);
 
-    if(!authUser()) {
+    if (!authUser()) {
       this.props.logout();
     }
 
@@ -28,7 +28,7 @@ export class Specie extends Component {
       loaded: true,
       previousAllowed: false,
       nextAllowed: false,
-      page: 1
+      page: 1,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +49,7 @@ export class Specie extends Component {
       loaded: nextProps.loaded,
       previousAllowed: nextProps.previousAllowed,
       nextAllowed: nextProps.nextAllowed,
-      page: nextProps.page
+      page: nextProps.page,
     });
     // setTimeout(() => {
     //   makeViz(nextProps.species);
@@ -67,51 +67,53 @@ export class Specie extends Component {
   }
 
   render() {
-    const { specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page } = this.state;
-    if(isSearchAllowed && ( this.searchKeyChanged || this.init)) {
+    const {
+      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page,
+    } = this.state;
+    if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
       this.props.searchSpecies(specie, page);
       this.searchKeyChanged = false;
       this.init = false;
     }
-    
-return(
-  <div>
-      <h1>Search Species</h1>
-      <form name="form">
-        <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
-        {!isSearchAllowed && 
+
+    return (
+      <div>
+        <h1>Search Species</h1>
+        <form name="form">
+          <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          {!isSearchAllowed &&
         <h3>Please reload the screen to search</h3>}
-      </form>
-    <Loader loaded={loaded}></Loader>
-    {/* {species} */}
-      <SpecieGrid species={species}></SpecieGrid>
-      {/* <SpecieGraph></SpecieGraph> */}
-      { previousAllowed && <span onClick={() => this.navToPage(page-1)}>Click Previous</span> }
-      { nextAllowed && <span onClick={() => this.navToPage(page+1)}>Click Next</span> }
+        </form>
+        <Loader loaded={loaded} />
+        {/* {species} */}
+        <SpecieGrid species={species} />
+        {/* <SpecieGraph></SpecieGraph> */}
+        <div className="text-center">
+          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" /></span> }
+          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" /></span> }
+        </div>
       </div>
-)
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return ({
-    specie: state.specie.specie,
-    species: state.specie.species,
-    isSearchAllowed: state.specie.isSearchAllowed,
-    loaded: state.specie.loaded,
-    previousAllowed: state.specie.previousAllowed,
-    nextAllowed: state.specie.nextAllowed,
-    page: state.specie.page
-  })
-}
+const mapStateToProps = state => ({
+  specie: state.specie.specie,
+  species: state.specie.species,
+  isSearchAllowed: state.specie.isSearchAllowed,
+  loaded: state.specie.loaded,
+  previousAllowed: state.specie.previousAllowed,
+  nextAllowed: state.specie.nextAllowed,
+  page: state.specie.page,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchSpecies,
   isSearchAllowedFn,
-  logout
-}, dispatch)
+  logout,
+}, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Specie)
+  mapDispatchToProps,
+)(Specie);

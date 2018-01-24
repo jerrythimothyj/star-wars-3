@@ -27,31 +27,39 @@ export class PlanetGrid extends Component {
             <tr>
               <th>Name</th>
               <th>Rotation Period</th>
-              <th>Orbital_Period</th>
+              <th>Orbital Period</th>
               <th>Diameter</th>
-              {/* <th>Population</th> */}
+              <th>Climate</th>
+              <th>Gravity</th>
+              <th>Terrain</th>
+              <th>Surface Water</th>
               <th>Population</th>
+              <th />
             </tr>
           </thead>
           <tbody>
             { planets.map(planet => (<tr key={planet.name}>
               <td>{planet.name}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.orbital_period}</td>
-              <td>
-                <div>{planet.diameter}</div>
+              <td className="text-right">{planet.rotation_period}</td>
+              <td className="text-right">{planet.orbital_period}</td>
+              <td className="text-right">{planet.diameter}</td>
+              <td>{planet.climate}</td>
+              <td>{planet.gravity}</td>
+              <td>{planet.terrain}</td>
+              <td className="text-right">{planet.surface_water}</td>
+              <td className="text-right">
+                {planet.population}
+                <div className="progress">
+                  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${planet.population / (planet.diameter * 5000)}%` }} />
+                </div>
+              </td>
+              <td className="text-center">
                 <div
                   className="planet-diameter bg-success"
                   style={{
  width: `${planet.diameter / 500}px`, height: `${planet.diameter / 500}px`, borderRadius: '50%', animationDuration: `${planet.rotation_period}s`,
 }}
                 />
-              </td>
-              <td>
-                {planet.population}
-                <div className="progress">
-                  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${planet.population / (planet.diameter * 5000)}%` }} />
-                </div>
               </td>
             </tr>)) }
           </tbody>

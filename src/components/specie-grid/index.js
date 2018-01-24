@@ -1,72 +1,72 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 export class SpecieGrid extends Component {
-    constructor(props) {
-      super(props);
+  constructor(props) {
+    super(props);
 
-      this.state = {
-          species: this.props.species
-      }
-    }
+    this.state = {
+      species: this.props.species,
+    };
+  }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            species: nextProps.species
-        })
-    }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      species: nextProps.species,
+    });
+  }
 
-    render() {
-        let { species } = this.state;
-        return (
-            <div className="table-responsive">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Classification</th>
-                            <th>Designation</th>
-                            <th>Average Height</th>
-                            <th>Skin Colors</th>
-                            <th>Hair Colors</th>
-                            <th>Eye Colors</th>
-                            <th>Average Lifespan</th>
-                            <th>Language</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    { species.map((specie) => {
-                        return (<tr key={specie.name}>
-                            <td>{specie.name}</td>
-                            <td>{specie.classification}</td>
-                            <td>{specie.designation}</td>
-                            <td>{specie.average_height}</td>
-                            <td>{specie.skin_colors}</td>
-                            <td>{specie.hair_colors}</td>
-                            <td>{specie.eye_colors}</td>
-                            <td>{specie.average_lifespan}</td>
-                            <td>{specie.language}</td>
-                        </tr>)
-                    }) }
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
+  render() {
+    const { species } = this.state;
+    return (
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Classification</th>
+              <th>Designation</th>
+              <th>Average Height</th>
+              <th>Skin Colors</th>
+              <th>Hair Colors</th>
+              <th>Eye Colors</th>
+              <th>Average Lifespan</th>
+              <th>Language</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            { species.map(specie => (<tr key={specie.name}>
+              <td>{specie.name}</td>
+              <td>{specie.classification}</td>
+              <td>{specie.designation}</td>
+              <td className="text-right">{specie.average_height}</td>
+              <td>{specie.skin_colors}</td>
+              <td>{specie.hair_colors}</td>
+              <td>{specie.eye_colors}</td>
+              <td className="text-right">{specie.average_lifespan}</td>
+              <td>{specie.language}</td>
+              <td className="text-center">
+                {specie.classification && <img src={`./images/${specie.classification}.png`} style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />}
+              </td>
+                                     </tr>)) }
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return ({
-        species: state.specie.species
-    })
-}
+const mapStateToProps = state => ({
+  species: state.specie.species,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    // logout
-}, dispatch)
+  // logout
+}, dispatch);
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SpecieGrid)
+  mapStateToProps,
+  mapDispatchToProps,
+)(SpecieGrid);

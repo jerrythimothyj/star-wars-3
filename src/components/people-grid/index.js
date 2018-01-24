@@ -1,70 +1,74 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 export class PeopleGrid extends Component {
-    constructor(props) {
-      super(props);
+  constructor(props) {
+    super(props);
 
-      this.state = {
-          peoples: this.props.peoples
-      }
-    }
+    this.state = {
+      peoples: this.props.peoples,
+    };
+  }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            peoples: nextProps.peoples
-        })
-    }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      peoples: nextProps.peoples,
+    });
+  }
 
-    render() {
-        let { peoples } = this.state;
-        return (
-            <div className="table-responsive">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Height</th>
-                            <th>Mass</th>
-                            <th>Hair Color</th>
-                            <th>Skin Color</th>
-                            <th>Eye Color</th>
-                            <th>Birth Year</th>
-                            <th>Gender</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    { peoples.map((people) => {
-                        return (<tr key={people.name}>
-                            <td>{people.name}</td>
-                            <td>{people.height}</td>
-                            <td>{people.mass}</td>
-                            <td>{people.hair_color}</td>
-                            <td>{people.skin_color}</td>
-                            <td>{people.eye_color}</td>
-                            <td>{people.birth_year}</td>
-                            <td>{people.gender}</td>
-                        </tr>)
-                    }) }
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
+  render() {
+    const { peoples } = this.state;
+    return (
+      <div className="table-responsive planet-grid">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Height</th>
+              <th>Mass</th>
+              <th>Hair Color</th>
+              <th>Skin Color</th>
+              <th>Eye Color</th>
+              <th>Birth Year</th>
+              <th>Gender</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            { peoples.map(people => (<tr key={people.name}>
+              <td>{people.name}</td>
+              <td className="text-right">{people.height}</td>
+              <td className="text-right">{people.mass}</td>
+              <td>{people.hair_color}</td>
+              <td>{people.skin_color}</td>
+              <td>{people.eye_color}</td>
+              <td>{people.birth_year}</td>
+              <td>{people.gender}</td>
+              <td className="text-center">{
+                        people.gender == 'male' && <img src="./images/male.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                        ||
+                        people.gender == 'female' && <img src="./images/female.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                        ||
+                        people.gender == 'n/a' && <img src="./images/c3po.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
+              </td>
+                                     </tr>)) }
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return ({
-        peoples: state.people.peoples
-    })
-}
+const mapStateToProps = state => ({
+  peoples: state.people.peoples,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    // logout
-}, dispatch)
+  // logout
+}, dispatch);
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PeopleGrid)
+  mapStateToProps,
+  mapDispatchToProps,
+)(PeopleGrid);

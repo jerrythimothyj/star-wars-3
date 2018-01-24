@@ -41,13 +41,13 @@ export class Header extends Component {
           {this.isUserLoggedIn &&
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/planets">Planets</NavLink>
+              <NavLink className="nav-link" to="/planets">Planets</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/peoples">People</NavLink>
+              <NavLink className="nav-link" to="/peoples">People</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/species">Species</NavLink>
+              <NavLink className="nav-link" to="/species">Species</NavLink>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={() => this.props.logout()}>Logout</a>

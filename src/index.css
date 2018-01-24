@@ -11,3 +11,11 @@ html, body {
 main {
   padding: 20px;
 }
+
+.nav-item a {
+  color: #0f0 !important;
+}
+
+.next-previous {
+  cursor: pointer;
+}
