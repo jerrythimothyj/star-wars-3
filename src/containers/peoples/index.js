@@ -3,8 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { PeopleGrid } from '../../components/people-grid';
-import { searchPeoples, isSearchAllowedFn, logout } from '../../actions';
+import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
 import { authUser } from '../../services/auth/auth.services';
+import remainingSeconds from '../../services/search/search.services';
+
+let searchKey = '';
 
 export class People extends Component {
   constructor(props) {
@@ -24,6 +27,7 @@ export class People extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
+      remainingSeconds,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,6 +46,7 @@ export class People extends Component {
       previousAllowed: nextProps.previousAllowed,
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
+      remainingSeconds: nextProps.remainingSeconds,
     });
   }
 
@@ -49,7 +54,7 @@ export class People extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isSearchAllowedFn(e.target.value);
+    this.props.isPeopleSearchAllowedFn(e.target.value);
   }
 
   navToPage(page) {
@@ -59,8 +64,15 @@ export class People extends Component {
 
   render() {
     const {
-      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page,
+      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
     } = this.state;
+
+    if (!isSearchAllowed) {
+      searchKey = people;
+      const that = this;
+      setTimeout(() => { that.props.isPeopleSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
+    }
+
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
       this.props.searchPeoples(people, page);
       this.searchKeyChanged = false;
@@ -73,7 +85,7 @@ export class People extends Component {
         <form name="form">
           <input type="text" className="form-control" name="people" value={people} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
-          <h3>Please reload the screen to search</h3>}
+          <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
         {/* {peoples} */}
@@ -96,11 +108,12 @@ const mapStateToProps = state => ({
   previousAllowed: state.people.previousAllowed,
   nextAllowed: state.people.nextAllowed,
   page: state.people.page,
+  remainingSeconds: state.people.remainingSeconds,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchPeoples,
-  isSearchAllowedFn,
+  isPeopleSearchAllowedFn,
   logout,
 }, dispatch);
 

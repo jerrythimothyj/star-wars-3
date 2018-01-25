@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import PlanetGrid from '../../components/planet-grid';
-import { searchPlanets, isSearchAllowedFn, logout } from '../../actions';
+import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
 import { authUser } from '../../services/auth/auth.services';
 import remainingSeconds from '../../services/search/search.services';
 
@@ -56,7 +56,7 @@ export class Planet extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isSearchAllowedFn(e.target.value);
+    this.props.isPlanetSearchAllowedFn(e.target.value);
   }
 
   navToPage(page) {
@@ -73,7 +73,7 @@ export class Planet extends Component {
     if (!isSearchAllowed) {
       searchKey = planet;
       const that = this;
-      setTimeout(() => { that.props.isSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
+      setTimeout(() => { that.props.isPlanetSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
     }
 
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
@@ -84,7 +84,6 @@ export class Planet extends Component {
 
     return (
       <div>
-        <div id="mycounter" />
         <h1>Search Planets</h1>
         <form name="form">
           <input type="text" className="form-control" name="planet" value={planet} onChange={this.handleChange} disabled={!isSearchAllowed} />
@@ -117,7 +116,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchPlanets,
-  isSearchAllowedFn,
+  isPlanetSearchAllowedFn,
   logout,
 }, dispatch);
 

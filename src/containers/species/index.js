@@ -5,9 +5,12 @@ import { push } from 'react-router-redux';
 // import SpecieGraph from '../../components/specie-graph'
 import SpecieGrid from '../../components/specie-grid';
 import Loader from 'react-loader';
-import { searchSpecies, isSearchAllowedFn } from '../../actions';
+import { searchSpecies, isSpecieSearchAllowedFn } from '../../actions';
 import { authUser } from '../../services/auth/auth.services';
 import { logout } from '../../actions';
+import remainingSeconds from '../../services/search/search.services';
+
+let searchKey = '';
 
 export class Specie extends Component {
   constructor(props) {
@@ -27,6 +30,7 @@ export class Specie extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
+      remainingSeconds,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,7 +40,7 @@ export class Specie extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isSearchAllowedFn(e.target.value);
+    this.props.isSpecieSearchAllowedFn(e.target.value);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,6 +52,7 @@ export class Specie extends Component {
       previousAllowed: nextProps.previousAllowed,
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
+      remainingSeconds: nextProps.remainingSeconds,
     });
   }
 
@@ -63,8 +68,15 @@ export class Specie extends Component {
 
   render() {
     const {
-      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page,
+      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
     } = this.state;
+
+    if (!isSearchAllowed) {
+      searchKey = specie;
+      const that = this;
+      setTimeout(() => { that.props.isSpecieSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
+    }
+
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
       this.props.searchSpecies(specie, page);
       this.searchKeyChanged = false;
@@ -77,7 +89,7 @@ export class Specie extends Component {
         <form name="form">
           <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
-          <h3>Please reload the screen to search</h3>}
+          <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
         {/* {species} */}
@@ -100,11 +112,12 @@ const mapStateToProps = state => ({
   previousAllowed: state.specie.previousAllowed,
   nextAllowed: state.specie.nextAllowed,
   page: state.specie.page,
+  remainingSeconds: state.people.remainingSeconds,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchSpecies,
-  isSearchAllowedFn,
+  isSpecieSearchAllowedFn,
   logout,
 }, dispatch);
 

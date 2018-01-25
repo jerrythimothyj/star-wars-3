@@ -1,4 +1,5 @@
 import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants/people.constants';
+import remainingSeconds from '../services/search/search.services';
 
 const initialState = {
   people: '',
@@ -8,6 +9,7 @@ const initialState = {
   previousAllowed: false,
   nextAllowed: false,
   page: 1,
+  remainingSeconds,
 };
 
 export default (state = initialState, action) => {
@@ -54,6 +56,7 @@ export default (state = initialState, action) => {
         ...state,
         isSearchAllowed: action.isSearchAllowed,
         loaded: action.loaded,
+        remainingSeconds: action.remainingSeconds,
       };
 
     default:

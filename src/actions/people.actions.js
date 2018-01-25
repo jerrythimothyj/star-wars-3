@@ -28,17 +28,17 @@ export function searchPeoplesFailed() {
   };
 }
 
-export const searchPeoples = (people, page) => dispatch => {
-        dispatch(searchPeoplesRequested())
+export const searchPeoples = (people, page) => (dispatch) => {
+  dispatch(searchPeoplesRequested());
 
-        peopleService(people, page).then(peoplesData => {
-            if(peoplesData.results.length > 0) {
-                dispatch(searchPeoplesAC(people, peoplesData.results, peoplesData.previous, peoplesData.next, page))
-            } else {
-                dispatch(searchPeoplesFailed())
-            }
-        })
-    };
+  peopleService(people, page).then((peoplesData) => {
+    if (peoplesData.results) {
+      dispatch(searchPeoplesAC(people, peoplesData.results, peoplesData.previous, peoplesData.next, page));
+    } else {
+      dispatch(searchPeoplesFailed());
+    }
+  });
+};
 
 export function searchPeopleAllowedRequested() {
   return {
@@ -56,20 +56,22 @@ export function searchPeopleAllowedAC(people) {
   };
 }
 
-export function searchPeopleAllowedFailed() {
+export function searchPeopleAllowedFailed(remainingSeconds) {
   return {
     type: SEARCH_PEOPLE_ALLOWED_FAILED,
+    remainingSeconds,
     isSearchAllowed: false,
     loaded: true,
   };
 }
 
-export const isSearchAllowedFn = (people) => dispatch => {
-        dispatch(searchPeopleAllowedRequested());
+export const isPeopleSearchAllowedFn = people => (dispatch) => {
+  dispatch(searchPeopleAllowedRequested());
 
-        if(isSearchAllowedService()) {
-            dispatch(searchPeopleAllowedAC(people));
-        } else {
-            dispatch(searchPeopleAllowedFailed());
-        }
-    };
+  const remainingSeconds = isSearchAllowedService();
+  if (remainingSeconds === true) {
+    dispatch(searchPeopleAllowedAC(people));
+  } else {
+    dispatch(searchPeopleAllowedFailed(remainingSeconds));
+  }
+};
