@@ -7,16 +7,16 @@ const initialState = {
   loaded: true,
   previousAllowed: false,
   nextAllowed: false,
-  page: 1
-}
+  page: 1,
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_PEOPLES_REQUESTED:
       return {
         ...state,
-        loaded: action.loaded
-      }
+        loaded: action.loaded,
+      };
 
     case SEARCH_PEOPLES:
       return {
@@ -26,37 +26,37 @@ export default (state = initialState, action) => {
         loaded: action.loaded,
         previousAllowed: action.previousAllowed,
         nextAllowed: action.nextAllowed,
-        page: action.page
-      }
-    
+        page: action.page,
+      };
+
     case SEARCH_PEOPLES_FAILED:
       return {
         ...state,
-        loaded: action.loaded
-      }
-    
+        loaded: action.loaded,
+      };
+
     case SEARCH_PEOPLE_ALLOWED_REQUESTED:
       return {
         ...state,
-        loaded: action.loaded
-      }
+        loaded: action.loaded,
+      };
 
     case SEARCH_PEOPLE_ALLOWED:
       return {
         ...state,
         isSearchAllowed: action.isSearchAllowed,
         people: action.people,
-        loaded: action.loaded
-      }
+        loaded: action.loaded,
+      };
 
     case SEARCH_PEOPLE_ALLOWED_FAILED:
       return {
         ...state,
         isSearchAllowed: action.isSearchAllowed,
-        loaded: action.loaded
-      }
+        loaded: action.loaded,
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};

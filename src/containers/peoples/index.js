@@ -29,13 +29,6 @@ export class People extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    this.searchKeyChanged = true;
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-    this.props.isSearchAllowedFn(e.target.value);
-  }
-
   componentWillMount() {
     this.init = true;
   }
@@ -50,6 +43,13 @@ export class People extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
     });
+  }
+
+  handleChange(e) {
+    this.searchKeyChanged = true;
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    this.props.isSearchAllowedFn(e.target.value);
   }
 
   navToPage(page) {

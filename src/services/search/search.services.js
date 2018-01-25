@@ -1,15 +1,34 @@
-let apiTimings = [];
+import { setTimeout } from 'timers';
 
-export const isSearchAllowedService = () =>  {
-    let d = new Date();
-    apiTimings.push(d.getTime());
-    if(
-        apiTimings.length > 15 && 
-        sessionStorage.loggedInUser && 
-        sessionStorage.loggedInUser !== 'Luke Skywalker' &&  
-        ((apiTimings[15] - apiTimings[0])/1000)/60
-    ) {
-        return false;
-    }
-    return true
-}
+
+const secondsMax = 30;
+const noOfSearchesMax = 14;
+export default secondsMax;
+let secondsCtr = secondsMax;
+let noOfSearches = 0;
+
+const timer = () => {
+  secondsCtr -= 1;
+
+  if (secondsCtr < 0) {
+    secondsCtr = secondsMax;
+    noOfSearches = 0;
+  } else {
+    setTimeout(timer, 1000);
+  }
+};
+
+export const isSearchAllowedService = () => {
+  if (secondsCtr === secondsMax || secondsCtr === 0) { timer(); }
+  noOfSearches += 1;
+
+  if (
+    noOfSearches > noOfSearchesMax &&
+          sessionStorage.loggedInUser &&
+          sessionStorage.loggedInUser !== 'Luke Skywalker'
+  ) {
+    return secondsCtr;
+  }
+  return true;
+};
+

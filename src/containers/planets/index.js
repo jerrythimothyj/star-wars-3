@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import PlanetGraph from '../../components/planet-graph'
-import PlanetGrid from '../../components/planet-grid';
 import Loader from 'react-loader';
-import { searchPlanets, isSearchAllowedFn } from '../../actions';
+import PlanetGrid from '../../components/planet-grid';
+import { searchPlanets, isSearchAllowedFn, logout } from '../../actions';
 import { authUser } from '../../services/auth/auth.services';
-import { logout } from '../../actions';
+import remainingSeconds from '../../services/search/search.services';
+
+let searchKey = '';
+
 
 export class Planet extends Component {
   constructor(props) {
@@ -26,16 +28,15 @@ export class Planet extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
+      remainingSeconds,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    this.searchKeyChanged = true;
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-    this.props.isSearchAllowedFn(e.target.value);
+
+  componentWillMount() {
+    this.init = true;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,12 +48,15 @@ export class Planet extends Component {
       previousAllowed: nextProps.previousAllowed,
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
+      remainingSeconds: nextProps.remainingSeconds,
     });
   }
 
-  componentWillMount() {
-    const { planet } = this.state;
-    this.init = true;
+  handleChange(e) {
+    this.searchKeyChanged = true;
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    this.props.isSearchAllowedFn(e.target.value);
   }
 
   navToPage(page) {
@@ -60,10 +64,18 @@ export class Planet extends Component {
     this.props.searchPlanets(planet, page);
   }
 
+
   render() {
     const {
-      planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page,
+      planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
     } = this.state;
+
+    if (!isSearchAllowed) {
+      searchKey = planet;
+      const that = this;
+      setTimeout(() => { that.props.isSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
+    }
+
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
       this.props.searchPlanets(planet, page);
       this.searchKeyChanged = false;
@@ -72,11 +84,12 @@ export class Planet extends Component {
 
     return (
       <div>
+        <div id="mycounter" />
         <h1>Search Planets</h1>
         <form name="form">
           <input type="text" className="form-control" name="planet" value={planet} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
-          <h3>Please reload the screen to search</h3>}
+          <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
         {/* {planets} */}
@@ -99,6 +112,7 @@ const mapStateToProps = state => ({
   previousAllowed: state.planet.previousAllowed,
   nextAllowed: state.planet.nextAllowed,
   page: state.planet.page,
+  remainingSeconds: state.planet.remainingSeconds,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
