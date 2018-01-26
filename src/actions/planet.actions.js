@@ -34,7 +34,10 @@ export const searchPlanets = (planet, page, format) => (dispatch) => {
 
   dispatch(planetService(planet, page, format)).then((planetsData) => {
     if (planetsData.results) {
-      dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page, format));
+      dispatch(searchPlanetsAC(
+        planet, planetsData.results, planetsData.previous,
+        planetsData.next, page, format,
+      ));
     } else {
       dispatch(searchPlanetsFailed());
     }

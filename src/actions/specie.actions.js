@@ -34,7 +34,10 @@ export const searchSpecies = (specie, page, format) => (dispatch) => {
 
   specieService(specie, page, format).then((speciesData) => {
     if (speciesData.results) {
-      dispatch(searchSpeciesAC(specie, speciesData.results, speciesData.previous, speciesData.next, page, format));
+      dispatch(searchSpeciesAC(
+        specie, speciesData.results, speciesData.previous,
+        speciesData.next, page, format,
+      ));
     } else {
       dispatch(searchSpeciesFailed());
     }

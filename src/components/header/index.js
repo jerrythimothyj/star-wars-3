@@ -11,25 +11,25 @@ import './index.css';
 
 
 export class Header extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //  super(props);
 
-    this.state = {
-      loginSucceeded: false,
-      loginFailed: false,
-      logoutSucceeded: false,
-      logoutFailed: false,
-    };
-  }
+  //   this.state = {
+  //     loginSucceeded: false,
+  //     loginFailed: false,
+  //     logoutSucceeded: false,
+  //     logoutFailed: false,
+  //   };
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loginSucceeded: nextProps.loginSucceeded,
-      loginFailed: nextProps.loginFailed,
-      logoutSucceeded: nextProps.logoutSucceeded,
-      logoutFailed: nextProps.logoutFailed,
-    });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     loginSucceeded: nextProps.loginSucceeded,
+  //     loginFailed: nextProps.loginFailed,
+  //     logoutSucceeded: nextProps.logoutSucceeded,
+  //     logoutFailed: nextProps.logoutFailed,
+  //   });
+  // }
 
   render() {
     this.isUserLoggedIn = getSessionStorageItem('loggedInUser');

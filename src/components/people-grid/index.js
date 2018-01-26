@@ -36,23 +36,24 @@ export class PeopleGrid extends Component {
             </tr>
           </thead>
           <tbody>
-            { peoples.map(people => (<tr key={people.name}>
-              <td>{people.name}</td>
-              <td className="text-right">{people.height}</td>
-              <td className="text-right">{people.mass}</td>
-              <td>{people.hair_color}</td>
-              <td>{people.skin_color}</td>
-              <td>{people.eye_color}</td>
-              <td>{people.birth_year}</td>
-              <td>{people.gender}</td>
-              <td className="text-center">{
+            { peoples.map(people => (
+              <tr key={people.name}>
+                <td>{people.name}</td>
+                <td className="text-right">{people.height}</td>
+                <td className="text-right">{people.mass}</td>
+                <td>{people.hair_color}</td>
+                <td>{people.skin_color}</td>
+                <td>{people.eye_color}</td>
+                <td>{people.birth_year}</td>
+                <td>{people.gender}</td>
+                <td className="text-center">{
                         (people.gender === 'male' || people.gender === 'scraanwo') && <img src="./images/male.png" alt="" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
                         ||
                         (people.gender === 'female' || people.gender === 'wwwoscraanwo') && <img src="./images/female.png" alt=""style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
                         ||
                         (people.gender === 'n/a' || people.gender === 'wh/ra') && <img src="./images/c3po.png" alt="" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
-              </td>
-                                     </tr>)) }
+                </td>
+              </tr>)) }
           </tbody>
         </table>
       </div>

@@ -1,13 +1,13 @@
+import { push } from 'react-router-redux';
 import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants/user.constants';
-import { push } from 'react-router-redux'
 import { loginService, logoutService } from '../services/user/user.services';
 
 export function loginRequested() {
   return {
     type: LOGIN_REQUESTED,
     submitted: true,
-    loaded: false
-  }
+    loaded: false,
+  };
 }
 
 export function loginAC(username, password) {
@@ -18,8 +18,8 @@ export function loginAC(username, password) {
     submitted: true,
     loginSucceeded: true,
     loginFailed: false,
-    loaded: true
-  }
+    loaded: true,
+  };
 }
 
 export function loginFailed() {
@@ -28,55 +28,51 @@ export function loginFailed() {
     submitted: true,
     loginSucceeded: false,
     loginFailed: true,
-    loaded: true
-  }
+    loaded: true,
+  };
 }
 
-export const login = (username, password) => {
-    return dispatch => {
-      dispatch(loginRequested())
+export const login = (username, password) => (dispatch) => {
+  dispatch(loginRequested());
 
-      loginService(username, password).then(response => {
-        if(response) {
-          dispatch(loginAC(username, password))
-          dispatch(push('/planets'));
-        } else {
-          dispatch(loginFailed())
-        }
-      })
+  loginService(username, password).then((response) => {
+    if (response) {
+      dispatch(loginAC(username, password));
+      dispatch(push('/planets'));
+    } else {
+      dispatch(loginFailed());
     }
-  }
+  });
+};
 
-  export function logoutRequested() {
-    return {
-      type: LOGOUT_REQUESTED
-    }
-  }
-  
-  export function logoutAC() {
-    return {
-      type: LOGOUT,
-      logoutSucceeded: true,
-      logoutFailed: false
-    }
-  }
-  
-  export function logoutFailed() {
-    return {
-      type: LOGOUT_FAILED,
-      logoutSucceeded: false,
-      logoutFailed: true
-    }
-  }
+export function logoutRequested() {
+  return {
+    type: LOGOUT_REQUESTED,
+  };
+}
 
-  export const logout = () => {
-    return dispatch => {
-      dispatch(logoutRequested())
-      if(logoutService()) {
-        dispatch(logoutAC())
-        dispatch(push('/'));
-      } else {
-        dispatch(logoutFailed())
-      }
-    }
+export function logoutAC() {
+  return {
+    type: LOGOUT,
+    logoutSucceeded: true,
+    logoutFailed: false,
+  };
+}
+
+export function logoutFailed() {
+  return {
+    type: LOGOUT_FAILED,
+    logoutSucceeded: false,
+    logoutFailed: true,
+  };
+}
+
+export const logout = () => (dispatch) => {
+  dispatch(logoutRequested());
+  if (logoutService()) {
+    dispatch(logoutAC());
+    dispatch(push('/'));
+  } else {
+    dispatch(logoutFailed());
   }
+};
