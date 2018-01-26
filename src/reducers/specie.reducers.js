@@ -10,6 +10,7 @@ const initialState = {
   nextAllowed: false,
   page: 1,
   remainingSeconds,
+  format: '',
 };
 
 export default (state = initialState, action) => {
