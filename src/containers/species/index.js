@@ -31,16 +31,17 @@ export class Specie extends Component {
       nextAllowed: false,
       page: 1,
       remainingSeconds,
+      format: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.isWookie = this.isWookie.bind(this);
   }
 
-  handleChange(e) {
-    this.searchKeyChanged = true;
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-    this.props.isSpecieSearchAllowedFn(e.target.value);
+
+  componentWillMount() {
+    const { specie } = this.state;
+    this.init = true;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,22 +54,31 @@ export class Specie extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
       remainingSeconds: nextProps.remainingSeconds,
+      format: nextProps.format,
     });
   }
 
-  componentWillMount() {
-    const { specie } = this.state;
-    this.init = true;
+  handleChange(e) {
+    this.searchKeyChanged = true;
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    this.props.isSpecieSearchAllowedFn(e.target.value);
   }
 
   navToPage(page) {
-    const { specie } = this.state;
-    this.props.searchSpecies(specie, page);
+    const { specie, format } = this.state;
+    this.props.searchSpecies(specie, page, format);
+  }
+
+  isWookie(e) {
+    const { specie, page } = this.state;
+    const format = e.target.checked ? 'wookiee' : '';
+    this.props.searchSpecies(specie, page, format);
   }
 
   render() {
     const {
-      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
+      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -78,14 +88,23 @@ export class Specie extends Component {
     }
 
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchSpecies(specie, page);
+      this.props.searchSpecies(specie, page, format);
       this.searchKeyChanged = false;
       this.init = false;
     }
 
     return (
       <div>
-        <h1>Search Species</h1>
+        <div className="row">
+          <div className="col"><h1>Search Species</h1></div>
+          <div className="col text-right">
+             Wookiee<br />
+            <label className="switch">
+              <input type="checkbox" name="wookiee" onClick={this.isWookie} />
+              <span className="slider round" />
+            </label>
+          </div>
+        </div>
         <form name="form">
           <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
@@ -112,7 +131,8 @@ const mapStateToProps = state => ({
   previousAllowed: state.specie.previousAllowed,
   nextAllowed: state.specie.nextAllowed,
   page: state.specie.page,
-  remainingSeconds: state.people.remainingSeconds,
+  remainingSeconds: state.specie.remainingSeconds,
+  format: state.specie.format,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

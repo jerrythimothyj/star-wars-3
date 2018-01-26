@@ -9,7 +9,7 @@ export function searchSpeciesRequested() {
   };
 }
 
-export function searchSpeciesAC(specie, species, previous, next, page) {
+export function searchSpeciesAC(specie, species, previous, next, page, format) {
   return {
     type: SEARCH_SPECIES,
     specie,
@@ -17,6 +17,7 @@ export function searchSpeciesAC(specie, species, previous, next, page) {
     previousAllowed: !!previous,
     nextAllowed: !!next,
     page,
+    format,
     loaded: true,
   };
 }
@@ -28,12 +29,12 @@ export function searchSpeciesFailed() {
   };
 }
 
-export const searchSpecies = (specie, page) => (dispatch) => {
+export const searchSpecies = (specie, page, format) => (dispatch) => {
   dispatch(searchSpeciesRequested());
 
-  specieService(specie, page).then((speciesData) => {
+  specieService(specie, page, format).then((speciesData) => {
     if (speciesData.results) {
-      dispatch(searchSpeciesAC(specie, speciesData.results, speciesData.previous, speciesData.next, page));
+      dispatch(searchSpeciesAC(specie, speciesData.results, speciesData.previous, speciesData.next, page, format));
     } else {
       dispatch(searchSpeciesFailed());
     }
