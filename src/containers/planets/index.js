@@ -113,8 +113,8 @@ export class Planet extends Component {
         <PlanetGrid planets={planets} />
         {/* <PlanetGraph></PlanetGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" /></span> }
+          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
+          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 // import SpecieGraph from '../../components/specie-graph'
 import SpecieGrid from '../../components/specie-grid';
 import Loader from 'react-loader';
@@ -40,7 +40,7 @@ export class Specie extends Component {
 
 
   componentWillMount() {
-    const { specie } = this.state;
+    // const { specie } = this.state;
     this.init = true;
   }
 
@@ -115,8 +115,8 @@ export class Specie extends Component {
         <SpecieGrid species={species} />
         {/* <SpecieGraph></SpecieGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" /></span> }
+          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
+          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
         </div>
       </div>
     );
