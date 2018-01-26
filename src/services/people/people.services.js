@@ -1,7 +1,7 @@
 import axios from '../axios/axios-base.service';
 import { wookieeToEnglish } from '../data/data.service.js';
 
-export const peopleService = (people, page, format = 'wookiee') => axios.get(`people/?search=${people}&page=${page}&format=${format}`)
+export const peopleService = (people, page, format = '') => axios.get(`people/?search=${people}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
     if (response &&

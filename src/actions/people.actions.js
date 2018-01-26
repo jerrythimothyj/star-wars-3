@@ -9,7 +9,7 @@ export function searchPeoplesRequested() {
   };
 }
 
-export function searchPeoplesAC(people, peoples, previous, next, page) {
+export function searchPeoplesAC(people, peoples, previous, next, page, format) {
   return {
     type: SEARCH_PEOPLES,
     people,
@@ -17,6 +17,7 @@ export function searchPeoplesAC(people, peoples, previous, next, page) {
     previousAllowed: !!previous,
     nextAllowed: !!next,
     page,
+    format,
     loaded: true,
   };
 }
@@ -28,12 +29,12 @@ export function searchPeoplesFailed() {
   };
 }
 
-export const searchPeoples = (people, page) => (dispatch) => {
+export const searchPeoples = (people, page, format) => (dispatch) => {
   dispatch(searchPeoplesRequested());
 
-  peopleService(people, page).then((peoplesData) => {
+  peopleService(people, page, format).then((peoplesData) => {
     if (peoplesData.results) {
-      dispatch(searchPeoplesAC(people, peoplesData.results, peoplesData.previous, peoplesData.next, page));
+      dispatch(searchPeoplesAC(people, peoplesData.results, peoplesData.previous, peoplesData.next, page, format));
     } else {
       dispatch(searchPeoplesFailed());
     }

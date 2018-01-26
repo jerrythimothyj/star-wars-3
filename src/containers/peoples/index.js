@@ -28,9 +28,11 @@ export class People extends Component {
       nextAllowed: false,
       page: 1,
       remainingSeconds,
+      format: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.isWookie = this.isWookie.bind(this);
   }
 
   componentWillMount() {
@@ -47,6 +49,7 @@ export class People extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
       remainingSeconds: nextProps.remainingSeconds,
+      format: nextProps.format,
     });
   }
 
@@ -58,13 +61,19 @@ export class People extends Component {
   }
 
   navToPage(page) {
-    const { people } = this.state;
-    this.props.searchPeoples(people, page);
+    const { people, format } = this.state;
+    this.props.searchPeoples(people, page, format);
+  }
+
+  isWookie(e) {
+    const { people, page } = this.state;
+    const format = e.target.checked ? 'wookiee' : '';
+    this.props.searchPeoples(people, page, format);
   }
 
   render() {
     const {
-      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
+      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -74,14 +83,23 @@ export class People extends Component {
     }
 
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchPeoples(people, page);
+      this.props.searchPeoples(people, page, format);
       this.searchKeyChanged = false;
       this.init = false;
     }
 
     return (
       <div>
-        <h1>Search Peoples</h1>
+        <div className="row">
+          <div className="col"><h1>Search Peoples</h1></div>
+          <div className="col text-right">
+            Wookiee<br />
+            <label className="switch">
+              <input type="checkbox" name="wookiee" onClick={this.isWookie} />
+              <span className="slider round" />
+            </label>
+          </div>
+        </div>
         <form name="form">
           <input type="text" className="form-control" name="people" value={people} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
@@ -109,6 +127,7 @@ const mapStateToProps = state => ({
   nextAllowed: state.people.nextAllowed,
   page: state.people.page,
   remainingSeconds: state.people.remainingSeconds,
+  format: state.people.format,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -46,13 +46,13 @@ export class PeopleGrid extends Component {
               <td>{people.birth_year}</td>
               <td>{people.gender}</td>
               <td className="text-center">{
-                        people.gender == 'male' || people.gender == 'scraanwo' && <img src="./images/male.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                        (people.gender == 'male' || people.gender == 'scraanwo') && <img src="./images/male.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
                         ||
-                        people.gender == 'female' || people.gender == 'wwwoscraanwo' && <img src="./images/female.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                        (people.gender == 'female' || people.gender == 'wwwoscraanwo') && <img src="./images/female.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
                         ||
-                        people.gender == 'n/a' || people.gender == 'wh/ra' && <img src="./images/c3po.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
+                        (people.gender == 'n/a' || people.gender == 'wh/ra') && <img src="./images/c3po.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
               </td>
-            </tr>)) }
+                                     </tr>)) }
           </tbody>
         </table>
       </div>
