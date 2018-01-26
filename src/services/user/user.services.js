@@ -2,8 +2,6 @@ import { push } from 'react-router-redux';
 import axiosInstance from '../axios/axios-base.service';
 import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
 import * as actions from '../../actions';
-import '../../mock-localstorage';
-
 
 export const loginService = (username, password) => dispatch => axiosInstance.get(`people/?search=${username}`)
   .then((response) => {
