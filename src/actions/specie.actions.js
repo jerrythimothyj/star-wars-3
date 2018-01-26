@@ -40,6 +40,7 @@ export const searchSpecies = (specie, page, format) => (dispatch) => {
   //   }
   // });
   dispatch(specieService(specie, page, format));
+
 };
 
 export function searchSpecieAllowedRequested() {

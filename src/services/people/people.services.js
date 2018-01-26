@@ -1,8 +1,8 @@
-import axios from '../axios/axios-base.service';
+import { axiosInstance } from '../axios/axios-base.service';
 import { wookieeToEnglish } from '../data/data.service';
 import * as actions from '../../actions';
 
-export const peopleService = (people, page, format = '') => dispatch => axios.get(`people/?search=${people}&page=${page}&format=${format}`)
+export const peopleService = (people, page, format = '') => dispatch => axiosInstance.get(`people/?search=${people}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
     if (response &&

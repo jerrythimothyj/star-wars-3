@@ -1,7 +1,8 @@
-import axios from '../axios/axios-base.service';
+import { axiosInstance } from '../axios/axios-base.service';
 import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
 
 export const loginService = (username, password) => axios.get(`people/?search=${username}`)
+
   .then((response) => {
     if (response &&
                 response.data &&
