@@ -1,9 +1,9 @@
 export const setSessionStorageItem = (key, value) => {
-  sessionStorage.setItem(key, value);
+  window.sessionStorage.setItem(key, value);
 };
 
 export const removeSessionStorageItem = (key) => {
-  sessionStorage.removeItem('loggedInUser');
+  window.sessionStorage.removeItem(key);
 };
 
-export const getSessionStorageItem = key => sessionStorage.getItem('loggedInUser');
+export const getSessionStorageItem = key => window.sessionStorage.getItem(key);

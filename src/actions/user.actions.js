@@ -43,7 +43,7 @@ export const login = (username, password) => (dispatch) => {
   //     dispatch(loginFailed());
   //   }
   // });
-  loginService(username, password);
+  dispatch(loginService(username, password));
 };
 
 export function logoutRequested() {
