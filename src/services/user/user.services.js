@@ -1,7 +1,9 @@
+import { push } from 'react-router-redux';
 import axios from '../axios/axios-base.service';
 import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
+import * as actions from '../../actions';
 
-export const loginService = (username, password) => axios.get(`people/?search=${username}`)
+export const loginService = (username, password) => dispatch => axios.get(`people/?search=${username}`)
   .then((response) => {
     if (response &&
                 response.data &&
@@ -11,12 +13,17 @@ export const loginService = (username, password) => axios.get(`people/?search=${
                 response.data.results[0].birth_year === password
     ) {
       setSessionStorageItem('loggedInUser', response.data.results[0].name);
-      return true;
+      //   return true;
+      dispatch(actions.loginAC(username, password));
+      dispatch(push('/planets'));
+    } else {
+      dispatch(actions.loginFailed());
     }
-    return false;
+    // return false;
   }, (error) => {
     console.log(error);
-    return false;
+    // return false;
+    dispatch(actions.loginFailed());
   });
 
 export const logoutService = () => {

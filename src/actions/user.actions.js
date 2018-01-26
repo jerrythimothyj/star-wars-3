@@ -35,14 +35,15 @@ export function loginFailed() {
 export const login = (username, password) => (dispatch) => {
   dispatch(loginRequested());
 
-  loginService(username, password).then((response) => {
-    if (response) {
-      dispatch(loginAC(username, password));
-      dispatch(push('/planets'));
-    } else {
-      dispatch(loginFailed());
-    }
-  });
+  // loginService(username, password).then((response) => {
+  //   if (response) {
+  //     dispatch(loginAC(username, password));
+  //     dispatch(push('/planets'));
+  //   } else {
+  //     dispatch(loginFailed());
+  //   }
+  // });
+  loginService(username, password);
 };
 
 export function logoutRequested() {

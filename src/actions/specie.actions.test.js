@@ -1,44 +1,63 @@
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { specieService } from '../services/specie/specie.services';
-import { SEARCH_SPECIES } from '../constants/specie.constants';
-import remainingSeconds from '../services/search/search.services';
+import * as actions from './specie.actions';
+import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants/specie.constants';
 
 
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
-const mockStore = configureStore(middlewares);
-const initialState = {
-  specie: '',
-  species: [],
-  isSearchAllowed: true,
-  loaded: true,
-  previousAllowed: false,
-  nextAllowed: false,
-  page: 1,
-  remainingSeconds,
-  format: '',
-};
+describe('specie actions', () => {
+  it('should create SEARCH_SPECIES_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIES_REQUESTED,
+      loaded: false,
+    };
+    expect(actions.searchSpeciesRequested()).toEqual(expectedAction);
+  });
 
-it('should execute specieService', () => {
-  const store = mockStore({ initialState });
+  it('should create SEARCH_SPECIES', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIES,
+      specie: 'huttt',
+      species: [],
+      previousAllowed: false,
+      nextAllowed: false,
+      page: 1,
+      format: '',
+      loaded: true,
+    };
+    expect(actions.searchSpeciesAC('huttt', [], false, false, 1, '')).toEqual(expectedAction);
+  });
 
-  return store.dispatch(specieService('hutt', 1, ''))
-    .then(() => {
-      const actions = store.getActions();
-      const expectedActions = [
-        {
-          type: SEARCH_SPECIES,
-          specie: 'hutt',
-          species: [{
-            name: 'Hutt', classification: 'gastropod', designation: 'sentient', average_height: '300', skin_colors: 'green, brown, tan', hair_colors: 'n/a', eye_colors: 'yellow, red', average_lifespan: '1000', homeworld: 'https://swapi.co/api/planets/24/', language: 'Huttese', people: ['https://swapi.co/api/people/16/'], films: ['https://swapi.co/api/films/3/', 'https://swapi.co/api/films/1/'], created: '2014-12-10T17:12:50.410000Z', edited: '2014-12-20T21:36:42.146000Z', url: 'https://swapi.co/api/species/5/',
-          }],
-          previousAllowed: false,
-          nextAllowed: false,
-          page: 1,
-          format: '',
-          loaded: true,
-        },
-      ];
-      expect(actions).toEqual(expectedActions);
-    });
+  it('should create SEARCH_SPECIES_FAILED', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIES_FAILED,
+      loaded: true,
+    };
+    expect(actions.searchSpeciesFailed()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_SPECIE_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIE_ALLOWED_REQUESTED,
+      loaded: true,
+    };
+    expect(actions.searchSpecieAllowedRequested()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_SPECIE_ALLOWED', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIE_ALLOWED,
+      specie: 'huttt',
+      isSearchAllowed: true,
+      loaded: true,
+    };
+    expect(actions.searchSpecieAllowedAC('huttt')).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_SPECIE_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_SPECIE_ALLOWED_FAILED,
+      remainingSeconds: '3',
+      isSearchAllowed: false,
+      loaded: true,
+    };
+    expect(actions.searchSpecieAllowedFailed('3')).toEqual(expectedAction);
+  });
 });

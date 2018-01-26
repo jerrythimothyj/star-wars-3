@@ -1,44 +1,63 @@
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { planetService } from '../services/planet/planet.services';
-import { SEARCH_PLANETS } from '../constants/planet.constants';
-import remainingSeconds from '../services/search/search.services';
+import * as actions from './planet.actions';
+import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants/planet.constants';
 
 
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
-const mockStore = configureStore(middlewares);
-const initialState = {
-  planet: '',
-  planets: [],
-  isSearchAllowed: true,
-  loaded: true,
-  previousAllowed: false,
-  nextAllowed: false,
-  page: 1,
-  remainingSeconds,
-  format: '',
-};
+describe('planet actions', () => {
+  it('should create SEARCH_PLANETS_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PLANETS_REQUESTED,
+      loaded: false,
+    };
+    expect(actions.searchPlanetsRequested()).toEqual(expectedAction);
+  });
 
-it('should execute planetService', () => {
-  const store = mockStore({ initialState });
+  it('should create SEARCH_PLANETS', () => {
+    const expectedAction = {
+      type: SEARCH_PLANETS,
+      planet: 'alderaaan',
+      planets: [],
+      previousAllowed: false,
+      nextAllowed: false,
+      page: 1,
+      format: '',
+      loaded: true,
+    };
+    expect(actions.searchPlanetsAC('alderaaan', [], false, false, 1, '')).toEqual(expectedAction);
+  });
 
-  return store.dispatch(planetService('alderaan', 1, ''))
-    .then(() => {
-      const actions = store.getActions();
-      const expectedActions = [
-        {
-          type: SEARCH_PLANETS,
-          planet: 'alderaan',
-          planets: [{
-            name: 'Alderaan', rotation_period: '24', orbital_period: '364', diameter: '12500', climate: 'temperate', gravity: '1 standard', terrain: 'grasslands, mountains', surface_water: '40', population: '2000000000', residents: ['https://swapi.co/api/people/5/', 'https://swapi.co/api/people/68/', 'https://swapi.co/api/people/81/'], films: ['https://swapi.co/api/films/6/', 'https://swapi.co/api/films/1/'], created: '2014-12-10T11:35:48.479000Z', edited: '2014-12-20T20:58:18.420000Z', url: 'https://swapi.co/api/planets/2/',
-          }],
-          previousAllowed: false,
-          nextAllowed: false,
-          page: 1,
-          format: '',
-          loaded: true,
-        },
-      ];
-      expect(actions).toEqual(expectedActions);
-    });
+  it('should create SEARCH_PLANETS_FAILED', () => {
+    const expectedAction = {
+      type: SEARCH_PLANETS_FAILED,
+      loaded: true,
+    };
+    expect(actions.searchPlanetsFailed()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PLANET_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PLANET_ALLOWED_REQUESTED,
+      loaded: true,
+    };
+    expect(actions.searchPlanetAllowedRequested()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PLANET_ALLOWED', () => {
+    const expectedAction = {
+      type: SEARCH_PLANET_ALLOWED,
+      planet: 'alderaaan',
+      isSearchAllowed: true,
+      loaded: true,
+    };
+    expect(actions.searchPlanetAllowedAC('alderaaan')).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PLANET_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PLANET_ALLOWED_FAILED,
+      remainingSeconds: '3',
+      isSearchAllowed: false,
+      loaded: true,
+    };
+    expect(actions.searchPlanetAllowedFailed('3')).toEqual(expectedAction);
+  });
 });

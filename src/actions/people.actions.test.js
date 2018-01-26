@@ -1,44 +1,63 @@
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { peopleService } from '../services/people/people.services';
-import { SEARCH_PEOPLES } from '../constants/people.constants';
-import remainingSeconds from '../services/search/search.services';
+import * as actions from './people.actions';
+import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants/people.constants';
 
 
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
-const mockStore = configureStore(middlewares);
-const initialState = {
-  people: '',
-  peoples: [],
-  isSearchAllowed: true,
-  loaded: true,
-  previousAllowed: false,
-  nextAllowed: false,
-  page: 1,
-  remainingSeconds,
-  format: '',
-};
+describe('people actions', () => {
+  it('should create SEARCH_PEOPLES_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLES_REQUESTED,
+      loaded: false,
+    };
+    expect(actions.searchPeoplesRequested()).toEqual(expectedAction);
+  });
 
-it('should execute peopleService', () => {
-  const store = mockStore({ initialState });
+  it('should create SEARCH_PEOPLES', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLES,
+      people: 'lukey',
+      peoples: [],
+      previousAllowed: false,
+      nextAllowed: false,
+      page: 1,
+      format: '',
+      loaded: true,
+    };
+    expect(actions.searchPeoplesAC('lukey', [], false, false, 1, '')).toEqual(expectedAction);
+  });
 
-  return store.dispatch(peopleService('luke', 1, ''))
-    .then(() => {
-      const actions = store.getActions();
-      const expectedActions = [
-        {
-          type: SEARCH_PEOPLES,
-          people: 'luke',
-          peoples: [{
-            name: 'Luke Skywalker', height: '172', mass: '77', hair_color: 'blond', skin_color: 'fair', eye_color: 'blue', birth_year: '19BBY', gender: 'male', homeworld: 'https://swapi.co/api/planets/1/', films: ['https://swapi.co/api/films/2/', 'https://swapi.co/api/films/6/', 'https://swapi.co/api/films/3/', 'https://swapi.co/api/films/1/', 'https://swapi.co/api/films/7/'], species: ['https://swapi.co/api/species/1/'], vehicles: ['https://swapi.co/api/vehicles/14/', 'https://swapi.co/api/vehicles/30/'], starships: ['https://swapi.co/api/starships/12/', 'https://swapi.co/api/starships/22/'], created: '2014-12-09T13:50:51.644000Z', edited: '2014-12-20T21:17:56.891000Z', url: 'https://swapi.co/api/people/1/',
-          }],
-          previousAllowed: false,
-          nextAllowed: false,
-          page: 1,
-          format: '',
-          loaded: true,
-        },
-      ];
-      expect(actions).toEqual(expectedActions);
-    });
+  it('should create SEARCH_PEOPLES_FAILED', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLES_FAILED,
+      loaded: true,
+    };
+    expect(actions.searchPeoplesFailed()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PEOPLE_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLE_ALLOWED_REQUESTED,
+      loaded: true,
+    };
+    expect(actions.searchPeopleAllowedRequested()).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PEOPLE_ALLOWED', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLE_ALLOWED,
+      people: 'lukey',
+      isSearchAllowed: true,
+      loaded: true,
+    };
+    expect(actions.searchPeopleAllowedAC('lukey')).toEqual(expectedAction);
+  });
+
+  it('should create SEARCH_PEOPLE_ALLOWED_REQUESTED', () => {
+    const expectedAction = {
+      type: SEARCH_PEOPLE_ALLOWED_FAILED,
+      remainingSeconds: '3',
+      isSearchAllowed: false,
+      loaded: true,
+    };
+    expect(actions.searchPeopleAllowedFailed('3')).toEqual(expectedAction);
+  });
 });

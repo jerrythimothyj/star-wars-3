@@ -1,9 +1,9 @@
 import axios from '../axios/axios-base.service';
-import { wookieeToEnglish } from '../data/data.service';
+import wookieeToEnglish from '../data/data.service';
 import * as actions from '../../actions';
 
 
-export const specieService = (specie, page, format = 'wookiee') => dispatch => axios.get(`species/?search=${specie}&page=${page}&format=${format}`)
+const specieService = (specie, page, format = 'wookiee') => dispatch => axios.get(`species/?search=${specie}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
     if (response &&
@@ -19,3 +19,4 @@ export const specieService = (specie, page, format = 'wookiee') => dispatch => a
     dispatch(actions.searchSpeciesFailed());
   });
 
+export default specieService;
