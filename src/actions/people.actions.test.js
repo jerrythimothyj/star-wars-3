@@ -19,7 +19,7 @@ const initialState = {
   format: '',
 };
 
-it('should execute fetch data', () => {
+it('should execute peopleService', () => {
   const store = mockStore({ initialState });
 
   return store.dispatch(peopleService('luke', 1, ''))

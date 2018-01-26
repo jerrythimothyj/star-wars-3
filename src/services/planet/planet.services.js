@@ -1,5 +1,6 @@
 import axios from '../axios/axios-base.service';
-import { wookieeToEnglish } from '../data/data.service.js';
+import { wookieeToEnglish } from '../data/data.service';
+import * as actions from '../../actions';
 
 
 export const planetService = (planet, page, format = '') => dispatch => axios.get(`planets/?search=${planet}&page=${page}&format=${format}`)
@@ -9,10 +10,9 @@ export const planetService = (planet, page, format = '') => dispatch => axios.ge
                 response.data &&
                 response.data.results
     ) {
-      return response.data;
-    }
-    return false;
+      dispatch(actions.searchPlanetsAC(planet, response.data.results, response.data.previous, response.data.next, page, format));
+    } else { dispatch(actions.searchPlanetsFailed()); }
   }, (error) => {
     console.log(error);
-    return false;
+    dispatch(actions.searchPlanetsFailed());
   });
