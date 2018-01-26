@@ -29,9 +29,11 @@ export class Planet extends Component {
       nextAllowed: false,
       page: 1,
       remainingSeconds,
+      format: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.isWookie = this.isWookie.bind(this);
   }
 
 
@@ -49,6 +51,7 @@ export class Planet extends Component {
       nextAllowed: nextProps.nextAllowed,
       page: nextProps.page,
       remainingSeconds: nextProps.remainingSeconds,
+      format: nextProps.format,
     });
   }
 
@@ -60,14 +63,19 @@ export class Planet extends Component {
   }
 
   navToPage(page) {
-    const { planet } = this.state;
-    this.props.searchPlanets(planet, page);
+    const { planet, format } = this.state;
+    this.props.searchPlanets(planet, page, format);
   }
 
+  isWookie(e) {
+    const { planet, page } = this.state;
+    const format = e.target.checked ? 'wookiee' : '';
+    this.props.searchPlanets(planet, page, format);
+  }
 
   render() {
     const {
-      planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds,
+      planet, planets, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -77,14 +85,24 @@ export class Planet extends Component {
     }
 
     if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchPlanets(planet, page);
+      this.props.searchPlanets(planet, page, format);
       this.searchKeyChanged = false;
       this.init = false;
     }
 
     return (
       <div>
-        <h1>Search Planets</h1>
+        <div className="row">
+          <div className="col"><h1>Search Planets</h1></div>
+          <div className="col text-right">
+            Wookiee<br />
+            <label className="switch">
+              <input type="checkbox" name="wookiee" onClick={this.isWookie} />
+              <span className="slider round" />
+            </label>
+          </div>
+        </div>
+
         <form name="form">
           <input type="text" className="form-control" name="planet" value={planet} onChange={this.handleChange} disabled={!isSearchAllowed} />
           {!isSearchAllowed &&
@@ -112,6 +130,7 @@ const mapStateToProps = state => ({
   nextAllowed: state.planet.nextAllowed,
   page: state.planet.page,
   remainingSeconds: state.planet.remainingSeconds,
+  format: state.planet.format,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

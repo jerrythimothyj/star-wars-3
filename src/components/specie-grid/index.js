@@ -48,9 +48,19 @@ export class SpecieGrid extends Component {
               <td className="text-right">{specie.average_lifespan}</td>
               <td>{specie.language}</td>
               <td className="text-center">
-                {specie.classification && <img src={`./images/${specie.classification}.png`} style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />}
+                {specie.classification == 'amphibian' || specie.classification == 'rascakacahrhahrawh' && <img src="./images/amphibian.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'artificial' || specie.classification == 'rarcaoahwwahoaahraan' && <img src="./images/artificial.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'gastropod' || specie.classification == 'rrracaorcooakoowa' && <img src="./images/gastropod.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'insectoid' || specie.classification == 'ahwhcwooaaoooahwa' && <img src="./images/insectoid.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'mammal' || specie.classification == 'scrascscraan' && <img src="./images/mammal.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'mammals' || specie.classification == 'scrascscraanc' && <img src="./images/mammals.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'reptile' || specie.classification == 'rcwoakaoahanwo' && <img src="./images/reptile.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'reptilian' || specie.classification == 'rcwoakaoahanahrawh' && <img src="./images/reptilian.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'sentient' || specie.classification == 'cwowhaoahwowhao' && <img src="./images/sentient.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                || specie.classification == 'unknown' || specie.classification == 'huwhorwhooohwh' && <img src="./images/unknown.png" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+              }
               </td>
-                                     </tr>)) }
+            </tr>)) }
           </tbody>
         </table>
       </div>

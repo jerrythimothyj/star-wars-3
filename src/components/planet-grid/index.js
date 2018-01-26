@@ -61,7 +61,7 @@ export class PlanetGrid extends Component {
 }}
                 />
               </td>
-            </tr>)) }
+                                     </tr>)) }
           </tbody>
         </table>
       </div>

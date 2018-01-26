@@ -9,7 +9,7 @@ export function searchPlanetsRequested() {
   };
 }
 
-export function searchPlanetsAC(planet, planets, previous, next, page) {
+export function searchPlanetsAC(planet, planets, previous, next, page, format) {
   return {
     type: SEARCH_PLANETS,
     planet,
@@ -17,6 +17,7 @@ export function searchPlanetsAC(planet, planets, previous, next, page) {
     previousAllowed: !!previous,
     nextAllowed: !!next,
     page,
+    format,
     loaded: true,
   };
 }
@@ -28,12 +29,12 @@ export function searchPlanetsFailed() {
   };
 }
 
-export const searchPlanets = (planet, page) => (dispatch) => {
+export const searchPlanets = (planet, page, format) => (dispatch) => {
   dispatch(searchPlanetsRequested());
 
-  planetService(planet, page).then((planetsData) => {
+  planetService(planet, page, format).then((planetsData) => {
     if (planetsData.results) {
-      dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page));
+      dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page, format));
     } else {
       dispatch(searchPlanetsFailed());
     }

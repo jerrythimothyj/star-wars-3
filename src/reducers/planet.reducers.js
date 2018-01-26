@@ -29,6 +29,7 @@ export default (state = initialState, action) => {
         previousAllowed: action.previousAllowed,
         nextAllowed: action.nextAllowed,
         page: action.page,
+        format: action.format,
       };
 
     case SEARCH_PLANETS_FAILED:
