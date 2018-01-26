@@ -52,7 +52,7 @@ export class PeopleGrid extends Component {
                         ||
                         (people.gender == 'n/a' || people.gender == 'wh/ra') && <img src="./images/c3po.png" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
               </td>
-                                     </tr>)) }
+            </tr>)) }
           </tbody>
         </table>
       </div>
