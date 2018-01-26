@@ -89,6 +89,10 @@ export class Login extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    this.props.logout();
+  }
 }
 
 

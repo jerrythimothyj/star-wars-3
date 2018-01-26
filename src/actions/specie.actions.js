@@ -32,16 +32,15 @@ export function searchSpeciesFailed() {
 export const searchSpecies = (specie, page, format) => (dispatch) => {
   dispatch(searchSpeciesRequested());
 
-  specieService(specie, page, format).then((speciesData) => {
-    if (speciesData.results) {
-      dispatch(searchSpeciesAC(
-        specie, speciesData.results, speciesData.previous,
-        speciesData.next, page, format,
-      ));
-    } else {
-      dispatch(searchSpeciesFailed());
-    }
-  });
+  // specieService(specie, page, format).then((speciesData) => {
+  //   if (speciesData.results) {
+  //     dispatch(searchSpeciesAC(specie, speciesData.results, speciesData.previous, speciesData.next, page, format));
+  //   } else {
+  //     dispatch(searchSpeciesFailed());
+  //   }
+  // });
+  dispatch(specieService(specie, page, format));
+
 };
 
 export function searchSpecieAllowedRequested() {

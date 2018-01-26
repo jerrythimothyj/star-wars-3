@@ -1,7 +1,8 @@
 import { axiosInstance } from '../axios/axios-base.service';
 import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
 
-export const loginService = (username, password) => axiosInstance.get(`people/?search=${username}`)
+export const loginService = (username, password) => axios.get(`people/?search=${username}`)
+
   .then((response) => {
     if (response &&
                 response.data &&
@@ -14,7 +15,10 @@ export const loginService = (username, password) => axiosInstance.get(`people/?s
       return true;
     }
     return false;
-  }, () => false);
+  }, (error) => {
+    console.log(error);
+    return false;
+  });
 
 export const logoutService = () => {
   removeSessionStorageItem('loggedInUser');
