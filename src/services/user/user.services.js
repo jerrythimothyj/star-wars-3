@@ -1,9 +1,9 @@
 import { push } from 'react-router-redux';
-import axios from '../axios/axios-base.service';
+import axiosInstance from '../axios/axios-base.service';
 import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
 import * as actions from '../../actions';
 
-export const loginService = (username, password) => dispatch => axios.get(`people/?search=${username}`)
+export const loginService = (username, password) => dispatch => axiosInstance.get(`people/?search=${username}`)
   .then((response) => {
     if (response &&
                 response.data &&

@@ -35,7 +35,8 @@ export const searchPeoples = (people, page, format) => (dispatch) => {
 
   // dispatch(peopleService(people, page, format)).then((peoplesData) => {
   //   if (peoplesData.body.results) {
-  //     dispatch(searchPeoplesAC(people, peoplesData.body.results, peoplesData.previous, peoplesData.next, page, format));
+  //     dispatch(searchPeoplesAC(people, peoplesData.body.results,
+  //              peoplesData.previous, peoplesData.next, page, format));
   //   } else {
   //     dispatch(searchPeoplesFailed());
   //   }

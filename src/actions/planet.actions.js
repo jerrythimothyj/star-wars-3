@@ -32,6 +32,7 @@ export function searchPlanetsFailed() {
 export const searchPlanets = (planet, page, format) => (dispatch) => {
   dispatch(searchPlanetsRequested());
 
+
   // dispatch(planetService(planet, page, format)).then((planetsData) => {
   //   if (planetsData.results) {
   //     dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page, format));
@@ -40,6 +41,7 @@ export const searchPlanets = (planet, page, format) => (dispatch) => {
   //   }
   // });
   dispatch(planetService(planet, page, format));
+
 };
 
 export function searchPlanetAllowedRequested() {
