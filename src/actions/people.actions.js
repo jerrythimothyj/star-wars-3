@@ -2,6 +2,7 @@ import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH
 import { peopleService } from '../services/people/people.services';
 import { isSearchAllowedService } from '../services/search/search.services';
 
+
 export function searchPeoplesRequested() {
   return {
     type: SEARCH_PEOPLES_REQUESTED,
@@ -32,13 +33,14 @@ export function searchPeoplesFailed() {
 export const searchPeoples = (people, page, format) => (dispatch) => {
   dispatch(searchPeoplesRequested());
 
-  peopleService(people, page, format).then((peoplesData) => {
-    if (peoplesData.results) {
-      dispatch(searchPeoplesAC(people, peoplesData.results, peoplesData.previous, peoplesData.next, page, format));
-    } else {
-      dispatch(searchPeoplesFailed());
-    }
-  });
+  // dispatch(peopleService(people, page, format)).then((peoplesData) => {
+  //   if (peoplesData.body.results) {
+  //     dispatch(searchPeoplesAC(people, peoplesData.body.results, peoplesData.previous, peoplesData.next, page, format));
+  //   } else {
+  //     dispatch(searchPeoplesFailed());
+  //   }
+  // });
+  dispatch(peopleService(people, page, format));
 };
 
 export function searchPeopleAllowedRequested() {

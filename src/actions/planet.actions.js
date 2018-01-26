@@ -32,7 +32,7 @@ export function searchPlanetsFailed() {
 export const searchPlanets = (planet, page, format) => (dispatch) => {
   dispatch(searchPlanetsRequested());
 
-  planetService(planet, page, format).then((planetsData) => {
+  dispatch(planetService(planet, page, format)).then((planetsData) => {
     if (planetsData.results) {
       dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page, format));
     } else {
