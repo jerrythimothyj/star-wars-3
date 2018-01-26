@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { removeCommas } from '../../services';
 
 
-class PeopleGrid extends Component {
+export class PeopleGrid extends Component {
   constructor(props) {
     super(props);
 

@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { loginService } from './user.services';
-
+import '../../mock-localstorage';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -16,7 +16,7 @@ const initialState = {
   loaded: true,
 };
 
-it('should execute userService', () => {
+it('should execute userService valid', () => {
   const store = mockStore({ initialState });
 
   return store.dispatch(loginService('Luke Skywalker', '19BBY'))
@@ -29,6 +29,23 @@ it('should execute userService', () => {
         submitted: true,
         loginSucceeded: true,
         loginFailed: false,
+        loaded: true,
+      };
+      expect(actions[0]).toEqual(expectedActions);
+    });
+});
+
+it('should execute userService invalid', () => {
+  const store = mockStore({ initialState });
+
+  return store.dispatch(loginService('Luke Skywalker1', '19BBY1'))
+    .then(() => {
+      const actions = store.getActions();
+      const expectedActions = {
+        type: 'user/LOGIN_FAILED',
+        submitted: true,
+        loginSucceeded: false,
+        loginFailed: true,
         loaded: true,
       };
       expect(actions[0]).toEqual(expectedActions);

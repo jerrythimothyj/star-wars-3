@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './index.css';
 
-class PlanetGrid extends Component {
+export class PlanetGrid extends Component {
   constructor(props) {
     super(props);
 

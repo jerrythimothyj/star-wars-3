@@ -10,7 +10,7 @@ import { getSessionStorageItem } from '../../services/storage/storage.services';
 import './index.css';
 
 
-class Header extends Component {
+export class Header extends Component {
   render() {
     this.isUserLoggedIn = getSessionStorageItem('loggedInUser');
 

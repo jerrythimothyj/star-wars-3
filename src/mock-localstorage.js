@@ -1,4 +1,5 @@
-// import localStorage from 'mock-local-storage';
+/* eslint-disable */
+import localStorage from 'mock-local-storage';
 
 global.window = {};
 
