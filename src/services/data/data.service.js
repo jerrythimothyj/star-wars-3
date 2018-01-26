@@ -1,5 +1,5 @@
 const wookieeToEnglish = (json) => {
-  let replacedJson = '';
+  let replacedJson = json;
   if (typeof json === 'object') {
     replacedJson = JSON.stringify(json);
   }

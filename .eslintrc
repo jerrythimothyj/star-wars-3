@@ -13,9 +13,20 @@
             ],
             "allowSamePrecedence": true
         }],
-        "jsx-a11y/href-no-hash": "off"
+        "jsx-a11y/href-no-hash": "off",
+        "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
+        "prefer-destructuring": ["error", {
+            "array": false,
+            "object": false
+        }, {
+            "enforceForRenamedProperties": false
+        }],
+        "no-use-before-define": ["error", { "functions": false, "classes": true }],
+        "no-param-reassign": ["error", {"props": false}],
+        "react/prop-types": [0]
     },
     "env": {
-        "jest": true
+        "jest": true,
+        "browser": true,
     }
 }

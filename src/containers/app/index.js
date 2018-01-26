@@ -1,14 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
-import Login from '../login'
-import Planets from '../planets'
-import Peoples from '../peoples'
-import Species from '../species'
-import Header from '../../components/header'
+import { Route } from 'react-router-dom';
+import Login from '../login';
+import Planets from '../planets';
+import Peoples from '../peoples';
+import Species from '../species';
+import { Header } from '../../components';
 
 const App = () => (
   <div>
-    <Header></Header>
+    <Header />
 
     <main id="main">
       <Route exact path="/" component={Login} />
@@ -17,6 +17,6 @@ const App = () => (
       <Route exact path="/species" component={Species} />
     </main>
   </div>
-)
+);
 
 export default App;

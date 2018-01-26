@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants/user.constants';
+import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants';
 import { loginService, logoutService } from '../services/user/user.services';
 
 export function loginRequested() {
@@ -34,15 +34,6 @@ export function loginFailed() {
 
 export const login = (username, password) => (dispatch) => {
   dispatch(loginRequested());
-
-  // loginService(username, password).then((response) => {
-  //   if (response) {
-  //     dispatch(loginAC(username, password));
-  //     dispatch(push('/planets'));
-  //   } else {
-  //     dispatch(loginFailed());
-  //   }
-  // });
   dispatch(loginService(username, password));
 };
 

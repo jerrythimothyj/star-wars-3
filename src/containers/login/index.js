@@ -6,7 +6,7 @@ import { login, logout } from '../../actions';
 
 import './index.css';
 
-export class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -19,13 +19,19 @@ export class Login extends Component {
       submitted: false,
       loginSucceeded: false,
       loginFailed: false,
-      logoutSucceeded: false,
-      logoutFailed: false,
       loaded: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      loginSucceeded: nextProps.loginSucceeded,
+      loginFailed: nextProps.loginFailed,
+      loaded: nextProps.loaded,
+    });
   }
 
   handleChange(e) {
@@ -43,16 +49,6 @@ export class Login extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loginSucceeded: nextProps.loginSucceeded,
-      loginFailed: nextProps.loginFailed,
-      logoutSucceeded: nextProps.logoutSucceeded,
-      logoutFailed: nextProps.logoutFailed,
-      loaded: nextProps.loaded,
-    });
-  }
-
   render() {
     const {
       username, password, submitted, loginSucceeded, loginFailed, loaded,
@@ -65,14 +61,26 @@ export class Login extends Component {
             <form name="form" onSubmit={this.handleSubmit}>
               <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
                 <label htmlFor="username">Username</label>
-                <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
                 {submitted && !username &&
                   <div className="text-danger">Username is required</div>
                   }
               </div>
               <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
                 <label htmlFor="password">Password</label>
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
                 {submitted && !password &&
                   <div className="text-danger">Password is required</div>
                   }
@@ -88,10 +96,6 @@ export class Login extends Component {
         </Loader>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.props.logout();
   }
 }
 

@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { loginService } from './user.services';
 
 
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const initialState = {
   username: '',

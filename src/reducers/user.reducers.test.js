@@ -1,5 +1,5 @@
 import reducer from './user.reducers';
-import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants/user.constants';
+import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants';
 
 describe('user reducer', () => {
   it('should return the initial state', () => {

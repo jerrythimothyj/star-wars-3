@@ -1,4 +1,4 @@
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants/planet.constants';
+import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants';
 import planetService from '../services/planet/planet.services';
 import { isSearchAllowedService } from '../services/search/search.services';
 
@@ -31,17 +31,7 @@ export function searchPlanetsFailed() {
 
 export const searchPlanets = (planet, page, format) => (dispatch) => {
   dispatch(searchPlanetsRequested());
-
-
-  // dispatch(planetService(planet, page, format)).then((planetsData) => {
-  //   if (planetsData.results) {
-  //     dispatch(searchPlanetsAC(planet, planetsData.results, planetsData.previous, planetsData.next, page, format));
-  //   } else {
-  //     dispatch(searchPlanetsFailed());
-  //   }
-  // });
   dispatch(planetService(planet, page, format));
-
 };
 
 export function searchPlanetAllowedRequested() {

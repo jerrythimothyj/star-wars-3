@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { push } from 'react-router-redux';
-// import SpecieGraph from '../../components/specie-graph'
-import SpecieGrid from '../../components/specie-grid';
 import Loader from 'react-loader';
-import { searchSpecies, isSpecieSearchAllowedFn } from '../../actions';
-import { authUser } from '../../services/auth/auth.services';
-import { logout } from '../../actions';
-import remainingSeconds from '../../services/search/search.services';
+import { SpecieGrid } from '../../components';
+import { searchSpecies, isSpecieSearchAllowedFn, logout } from '../../actions';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 
-export class Specie extends Component {
+class Specie extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +26,7 @@ export class Specie extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
-      remainingSeconds,
+      remainingSeconds: secondsMax,
       format: '',
     };
 
@@ -40,13 +36,11 @@ export class Specie extends Component {
 
 
   componentWillMount() {
-    // const { specie } = this.state;
     this.init = true;
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      // specie: nextProps.specie,
       species: nextProps.species,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -78,7 +72,15 @@ export class Specie extends Component {
 
   render() {
     const {
-      specie, species, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
+      specie,
+      species,
+      isSearchAllowed,
+      loaded,
+      previousAllowed,
+      nextAllowed,
+      page,
+      remainingSeconds,
+      format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -99,24 +101,45 @@ export class Specie extends Component {
           <div className="col"><h1>Search Species</h1></div>
           <div className="col text-right">
              Wookiee<br />
-            <label className="switch">
+            <label htmlFor="wookiee" className="switch">
               <input type="checkbox" name="wookiee" onClick={this.isWookie} />
               <span className="slider round" />
             </label>
           </div>
         </div>
         <form name="form">
-          <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          <input
+            type="text"
+            className="form-control"
+            name="specie"
+            value={specie}
+            onChange={this.handleChange}
+            disabled={!isSearchAllowed}
+          />
           {!isSearchAllowed &&
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
-        {/* {species} */}
         <SpecieGrid species={species} />
-        {/* <SpecieGraph></SpecieGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
+          { previousAllowed &&
+            <span
+              role="button"
+              tabIndex="0"
+              className="next-previous"
+              onClick={() => this.navToPage(page - 1)}
+              onKeyDown={this.handleKeyDown}
+            ><img src="./images/previous.png" alt="" />
+            </span> }
+          { nextAllowed &&
+            <span
+              role="button"
+              tabIndex="0"
+              className="next-previous"
+              onClick={() => this.navToPage(page + 1)}
+              onKeyDown={this.handleKeyDown}
+            ><img src="./images/next.png" alt="" />
+            </span> }
         </div>
       </div>
     );

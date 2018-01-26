@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './index.css';
 
-export class PlanetGrid extends Component {
+class PlanetGrid extends Component {
   constructor(props) {
     super(props);
 
@@ -29,7 +29,6 @@ export class PlanetGrid extends Component {
               <th>Rotation Period</th>
               <th>Orbital Period</th>
               <th>Diameter</th>
-              <th>Climate</th>
               <th>Gravity</th>
               <th>Terrain</th>
               <th>Surface Water</th>
@@ -44,7 +43,6 @@ export class PlanetGrid extends Component {
                 <td className="text-right">{planet.rotation_period}</td>
                 <td className="text-right">{planet.orbital_period}</td>
                 <td className="text-right">{planet.diameter}</td>
-                <td>{planet.climate}</td>
                 <td>{planet.gravity}</td>
                 <td>{planet.terrain}</td>
                 <td className="text-right">{planet.surface_water}</td>
@@ -75,7 +73,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  // logout
 }, dispatch);
 
 export default connect(

@@ -1,10 +1,27 @@
-export * from './auth/auth.services';
-export * from './axios/axios-base.service';
-export * from './data/data.service';
-export * from './math/math';
-export * from './people/people.services';
-export * from './planet/planet.services';
-export * from './search/search.services';
-export * from './specie/specie.services';
-export * from './storage/storage.services';
-export * from './user/user.services';
+import authUser from './auth/auth.services';
+import axiosInstance from './axios/axios-base.service';
+import wookieeToEnglish from './data/data.service';
+import removeCommas from './math/math.services';
+import peopleService from './people/people.services';
+import planetService from './planet/planet.services';
+import specieService from './specie/specie.services';
+import secondsMax, { isSearchAllowedService } from './search/search.services';
+import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from './storage/storage.services';
+import { loginService, logoutService } from './user/user.services';
+
+export {
+  authUser,
+  axiosInstance,
+  wookieeToEnglish,
+  removeCommas,
+  peopleService,
+  planetService,
+  specieService,
+  secondsMax,
+  isSearchAllowedService,
+  setSessionStorageItem,
+  removeSessionStorageItem,
+  getSessionStorageItem,
+  loginService,
+  logoutService,
+};

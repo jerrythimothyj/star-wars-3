@@ -1,11 +1,10 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import planetService from './planet.services';
-import { SEARCH_PLANETS } from '../../constants/planet.constants';
+import { SEARCH_PLANETS } from '../../constants';
 import remainingSeconds from '../search/search.services';
 
-
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const initialState = {
   planet: '',

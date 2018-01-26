@@ -1,4 +1,4 @@
-import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants/specie.constants';
+import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants';
 import specieService from '../services/specie/specie.services';
 import { isSearchAllowedService } from '../services/search/search.services';
 
@@ -31,16 +31,7 @@ export function searchSpeciesFailed() {
 
 export const searchSpecies = (specie, page, format) => (dispatch) => {
   dispatch(searchSpeciesRequested());
-
-  // specieService(specie, page, format).then((speciesData) => {
-  //   if (speciesData.results) {
-  //     dispatch(searchSpeciesAC(specie, speciesData.results, speciesData.previous, speciesData.next, page, format));
-  //   } else {
-  //     dispatch(searchSpeciesFailed());
-  //   }
-  // });
   dispatch(specieService(specie, page, format));
-
 };
 
 export function searchSpecieAllowedRequested() {

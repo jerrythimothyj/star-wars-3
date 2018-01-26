@@ -1,4 +1,3 @@
-
 import axios from '../axios/axios-base.service';
 import wookieeToEnglish from '../data/data.service';
 import * as actions from '../../actions';
@@ -15,8 +14,7 @@ const specieService = (specie, page, format = 'wookiee') => dispatch => axios.ge
     } else {
       dispatch(actions.searchSpeciesFailed());
     }
-  }, (error) => {
-    console.log(error);
+  }, () => {
     dispatch(actions.searchSpeciesFailed());
   });
 

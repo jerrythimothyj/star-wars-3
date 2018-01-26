@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PeopleGrid } from '../../components/people-grid';
+import { PeopleGrid } from '../../components';
 import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
-import { authUser } from '../../services/auth/auth.services';
-import remainingSeconds from '../../services/search/search.services';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 
-export class People extends Component {
+class People extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +26,7 @@ export class People extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
-      remainingSeconds,
+      remainingSeconds: secondsMax,
       format: '',
     };
 
@@ -41,7 +40,6 @@ export class People extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      // people: nextProps.people,
       peoples: nextProps.peoples,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -73,7 +71,15 @@ export class People extends Component {
 
   render() {
     const {
-      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
+      people,
+      peoples,
+      isSearchAllowed,
+      loaded,
+      previousAllowed,
+      nextAllowed,
+      page,
+      remainingSeconds,
+      format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -94,24 +100,45 @@ export class People extends Component {
           <div className="col"><h1>Search Peoples</h1></div>
           <div className="col text-right">
             Wookiee<br />
-            <label className="switch">
+            <label htmlFor="wookiee" className="switch">
               <input type="checkbox" name="wookiee" onClick={this.isWookie} />
               <span className="slider round" />
             </label>
           </div>
         </div>
         <form name="form">
-          <input type="text" className="form-control" name="people" value={people} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          <input
+            type="text"
+            className="form-control"
+            name="people"
+            value={people}
+            onChange={this.handleChange}
+            disabled={!isSearchAllowed}
+          />
           {!isSearchAllowed &&
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
-        {/* {peoples} */}
         <PeopleGrid peoples={peoples} />
-        {/* <PeopleGraph></PeopleGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
+          { previousAllowed &&
+          <span
+            role="button"
+            tabIndex="0"
+            className="next-previous"
+            onClick={() => this.navToPage(page - 1)}
+            onKeyDown={this.handleKeyDown}
+          ><img src="./images/previous.png" alt="" />
+          </span> }
+          { nextAllowed &&
+            <span
+              role="button"
+              tabIndex="0"
+              className="next-previous"
+              onClick={() => this.navToPage(page + 1)}
+              onKeyDown={this.handleKeyDown}
+            ><img src="./images/next.png" alt="" />
+            </span> }
         </div>
       </div>
     );

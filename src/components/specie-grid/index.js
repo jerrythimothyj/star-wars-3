@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-export class SpecieGrid extends Component {
+class SpecieGrid extends Component {
   constructor(props) {
     super(props);
 
@@ -10,6 +10,7 @@ export class SpecieGrid extends Component {
       species: this.props.species,
     };
   }
+
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -49,17 +50,17 @@ export class SpecieGrid extends Component {
                 <td className="text-right">{specie.average_lifespan}</td>
                 <td>{specie.language}</td>
                 <td className="text-center">
-                  {(specie.classification === 'amphibian' || specie.classification === 'rascakacahrhahrawh') && <img src="./images/amphibian.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'artificial' || specie.classification === 'rarcaoahwwahoaahraan') && <img src="./images/artificial.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'gastropod' || specie.classification === 'rrracaorcooakoowa') && <img src="./images/gastropod.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'insectoid' || specie.classification === 'ahwhcwooaaoooahwa') && <img src="./images/insectoid.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'mammal' || specie.classification === 'scrascscraan') && <img src="./images/mammal.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'mammals' || specie.classification === 'scrascscraanc') && <img src="./images/mammals.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'reptile' || specie.classification === 'rcwoakaoahanwo') && <img src="./images/reptile.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'reptilian' || specie.classification === 'rcwoakaoahanahrawh') && <img src="./images/reptilian.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'sentient' || specie.classification === 'cwowhaoahwowhao') && <img src="./images/sentient.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-                || (specie.classification === 'unknown' || specie.classification === 'huwhorwhooohwh') && <img src="./images/unknown.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
-              }
+                  {((specie.classification === 'amphibian' || specie.classification === 'rascakacahrhahrawh') && <img src="./images/amphibian.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'artificial' || specie.classification === 'rarcaoahwwahoaahraan') && <img src="./images/artificial.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'gastropod' || specie.classification === 'rrracaorcooakoowa') && <img src="./images/gastropod.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'insectoid' || specie.classification === 'ahwhcwooaaoooahwa') && <img src="./images/insectoid.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'mammal' || specie.classification === 'scrascscraan') && <img src="./images/mammal.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'mammals' || specie.classification === 'scrascscraanc') && <img src="./images/mammals.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'reptile' || specie.classification === 'rcwoakaoahanwo') && <img src="./images/reptile.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'reptilian' || specie.classification === 'rcwoakaoahanahrawh') && <img src="./images/reptilian.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'sentient' || specie.classification === 'cwowhaoahwowhao') && <img src="./images/sentient.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                ) || ((specie.classification === 'unknown' || specie.classification === 'huwhorwhooohwh') && <img src="./images/unknown.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
+                )}
                 </td>
               </tr>)) }
           </tbody>
@@ -74,7 +75,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  // logout
 }, dispatch);
 
 export default connect(

@@ -13,16 +13,12 @@ export const loginService = (username, password) => dispatch => axiosInstance.ge
                 response.data.results[0].birth_year === password
     ) {
       setSessionStorageItem('loggedInUser', response.data.results[0].name);
-      //   return true;
       dispatch(actions.loginAC(username, password));
       dispatch(push('/planets'));
     } else {
       dispatch(actions.loginFailed());
     }
-    // return false;
-  }, (error) => {
-    console.log(error);
-    // return false;
+  }, () => {
     dispatch(actions.loginFailed());
   });
 
