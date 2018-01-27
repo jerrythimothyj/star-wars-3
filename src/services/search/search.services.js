@@ -1,8 +1,7 @@
 import { setTimeout } from 'timers';
 
-const secondsMax = 60;
+export const secondsMax = 60;
 const noOfSearchesMax = 14;
-export default secondsMax;
 let secondsCtr = secondsMax;
 let noOfSearches = 0;
 
