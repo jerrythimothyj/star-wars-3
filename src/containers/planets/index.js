@@ -36,7 +36,8 @@ class Planet extends Component {
 
 
   componentWillMount() {
-    this.init = true;
+    const { planet, page, format } = this.state;
+    this.props.searchPlanets(planet, page, format);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +51,17 @@ class Planet extends Component {
       remainingSeconds: nextProps.remainingSeconds,
       format: nextProps.format,
     });
+
+    if (!nextProps.isSearchAllowed) {
+      searchKey = nextProps.planet;
+      const that = this;
+      setTimeout(() => { that.props.isPlanetSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+    }
+
+    if (nextProps.isSearchAllowed && this.searchKeyChanged) {
+      this.props.searchPlanets(nextProps.planet, 1, nextProps.format);
+      this.searchKeyChanged = false;
+    }
   }
 
   handleChange(e) {
@@ -80,20 +92,7 @@ class Planet extends Component {
       nextAllowed,
       page,
       remainingSeconds,
-      format,
     } = this.state;
-
-    if (!isSearchAllowed) {
-      searchKey = planet;
-      const that = this;
-      setTimeout(() => { that.props.isPlanetSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
-    }
-
-    if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchPlanets(planet, page, format);
-      this.searchKeyChanged = false;
-      this.init = false;
-    }
 
     return (
       <div>

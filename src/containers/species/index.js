@@ -36,7 +36,8 @@ class Specie extends Component {
 
 
   componentWillMount() {
-    this.init = true;
+    const { specie, page, format } = this.state;
+    this.props.searchSpecies(specie, page, format);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +51,17 @@ class Specie extends Component {
       remainingSeconds: nextProps.remainingSeconds,
       format: nextProps.format,
     });
+
+    if (!nextProps.isSearchAllowed) {
+      searchKey = nextProps.specie;
+      const that = this;
+      setTimeout(() => { that.props.isSpecieSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+    }
+
+    if (nextProps.isSearchAllowed && this.searchKeyChanged) {
+      this.props.searchSpecies(nextProps.specie, 1, nextProps.format);
+      this.searchKeyChanged = false;
+    }
   }
 
   handleChange(e) {
@@ -80,20 +92,7 @@ class Specie extends Component {
       nextAllowed,
       page,
       remainingSeconds,
-      format,
     } = this.state;
-
-    if (!isSearchAllowed) {
-      searchKey = specie;
-      const that = this;
-      setTimeout(() => { that.props.isSpecieSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
-    }
-
-    if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchSpecies(specie, page, format);
-      this.searchKeyChanged = false;
-      this.init = false;
-    }
 
     return (
       <div>

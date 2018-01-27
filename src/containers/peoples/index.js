@@ -51,6 +51,12 @@ class People extends Component {
       format: nextProps.format,
     });
 
+    if (!nextProps.isSearchAllowed) {
+      searchKey = nextProps.people;
+      const that = this;
+      setTimeout(() => { that.props.isPeopleSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+    }
+
     if (nextProps.isSearchAllowed && this.searchKeyChanged) {
       this.props.searchPeoples(nextProps.people, 1, nextProps.format);
       this.searchKeyChanged = false;
@@ -86,12 +92,6 @@ class People extends Component {
       page,
       remainingSeconds,
     } = this.state;
-
-    if (!isSearchAllowed) {
-      searchKey = people;
-      const that = this;
-      setTimeout(() => { that.props.isPeopleSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
-    }
 
     return (
       <div>
