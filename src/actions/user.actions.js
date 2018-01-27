@@ -17,6 +17,8 @@ export function loginAC(username, password) {
     submitted: true,
     loginSucceeded: true,
     loginFailed: false,
+    logoutSucceeded: false,
+    logoutFailed: false,
     loaded: true,
   };
 }

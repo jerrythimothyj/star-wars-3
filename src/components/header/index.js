@@ -2,21 +2,18 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {
-  logout,
-} from '../../actions';
+import { logout } from '../../actions';
 import { getSessionStorageItem } from '../../services';
 
 import './index.css';
 
 
-export class Header extends Component {
+class Header extends Component {
   render() {
     this.isUserLoggedIn = getSessionStorageItem('loggedInUser');
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light header-navbar">
-        {/* <a className="navbar-brand">Star Wars</a> */}
         <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
           {this.isUserLoggedIn &&
           <ul className="navbar-nav">

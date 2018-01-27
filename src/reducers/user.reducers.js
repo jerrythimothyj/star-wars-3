@@ -28,6 +28,8 @@ export default (state = initialState, action) => {
         submitted: action.submitted,
         loginSucceeded: action.loginSucceeded,
         loginFailed: action.loginFailed,
+        logoutSucceeded: action.logoutSucceeded,
+        logoutFailed: action.logoutFailed,
         loaded: action.loaded,
       };
 

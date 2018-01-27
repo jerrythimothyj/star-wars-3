@@ -20,6 +20,8 @@ class Login extends Component {
       submitted: false,
       loginSucceeded: false,
       loginFailed: false,
+      logoutSucceeded: false,
+      logoutFailed: false,
       loaded: true,
     };
 
@@ -31,6 +33,8 @@ class Login extends Component {
     this.setState({
       loginSucceeded: nextProps.loginSucceeded,
       loginFailed: nextProps.loginFailed,
+      logoutSucceeded: nextProps.logoutSucceeded,
+      logoutFailed: nextProps.logoutFailed,
       loaded: nextProps.loaded,
     });
   }
