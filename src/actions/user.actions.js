@@ -1,6 +1,5 @@
-import { push } from 'react-router-redux';
 import { LOGIN_REQUESTED, LOGIN, LOGOUT_REQUESTED, LOGOUT, LOGIN_FAILED, LOGOUT_FAILED } from '../constants';
-import { loginService, logoutService } from '../services/user/user.services';
+import { loginService, logoutService } from '../services';
 
 export function loginRequested() {
   return {
@@ -61,10 +60,5 @@ export function logoutFailed() {
 
 export const logout = () => (dispatch) => {
   dispatch(logoutRequested());
-  if (logoutService()) {
-    dispatch(logoutAC());
-    dispatch(push('/'));
-  } else {
-    dispatch(logoutFailed());
-  }
+  dispatch(logoutService());
 };

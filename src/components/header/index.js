@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import {
   logout,
 } from '../../actions';
-import { getSessionStorageItem } from '../../services/storage/storage.services';
+import { getSessionStorageItem } from '../../services';
 
 import './index.css';
 

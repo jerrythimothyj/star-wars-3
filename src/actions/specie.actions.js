@@ -1,6 +1,5 @@
 import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants';
-import specieService from '../services/specie/specie.services';
-import { isSearchAllowedService } from '../services/search/search.services';
+import { specieService, isSearchAllowedService } from '../services';
 
 export function searchSpeciesRequested() {
   return {

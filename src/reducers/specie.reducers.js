@@ -1,5 +1,5 @@
 import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants';
-import remainingSeconds from '../services/search/search.services';
+import { secondsMax } from '../services';
 
 const initialState = {
   specie: '',
@@ -9,7 +9,7 @@ const initialState = {
   previousAllowed: false,
   nextAllowed: false,
   page: 1,
-  remainingSeconds,
+  remainingSeconds: secondsMax,
   format: '',
 };
 

@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import axiosInstance from '../axios/axios-base.service';
-import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../storage/storage.services';
+import { setSessionStorageItem, removeSessionStorageItem, getSessionStorageItem } from '../index';
 import * as actions from '../../actions';
 
 export const loginService = (username, password) => dispatch => axiosInstance.get(`people/?search=${username}`)
@@ -22,10 +22,12 @@ export const loginService = (username, password) => dispatch => axiosInstance.ge
     dispatch(actions.loginFailed());
   });
 
-export const logoutService = () => {
+export const logoutService = () => (dispatch) => {
   removeSessionStorageItem('loggedInUser');
   if (!getSessionStorageItem('loggedInUser')) {
-    return true;
+    dispatch(actions.logoutAC());
+    dispatch(push('/'));
+  } else {
+    dispatch(actions.logoutFailed());
   }
-  return false;
 };

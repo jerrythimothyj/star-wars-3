@@ -1,6 +1,6 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { loginService } from './user.services';
+import { loginService, logoutService } from './user.services';
 import '../../mock-localstorage';
 
 const middlewares = [thunk];
@@ -50,4 +50,17 @@ it('should execute userService invalid', () => {
       };
       expect(actions[0]).toEqual(expectedActions);
     });
+});
+
+it('should execute userService logout', () => {
+  const store = mockStore({ initialState });
+
+  store.dispatch(logoutService());
+  const actions = store.getActions();
+  const expectedActions = {
+    type: 'user/LOGOUT',
+    logoutSucceeded: true,
+    logoutFailed: false,
+  };
+  expect(actions[0]).toEqual(expectedActions);
 });
