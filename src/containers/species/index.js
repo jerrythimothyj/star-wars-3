@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { SpecieGrid } from '../../components';
+import { SpecieGrid, NextPrevious } from '../../components';
 import { searchSpecies, isSpecieSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
@@ -132,26 +132,12 @@ class Specie extends Component {
         </form>
         <Loader color="#FFF" loaded={loaded} />
         <SpecieGrid species={species} />
-        <div className="text-center">
-          { previousAllowed &&
-            <span
-              role="button"
-              tabIndex="0"
-              className="next-previous"
-              onClick={() => this.navToPage(page - 1)}
-              onKeyDown={this.handleKeyDown}
-            ><img src="./images/previous.png" alt="" />
-            </span> }
-          { nextAllowed &&
-            <span
-              role="button"
-              tabIndex="0"
-              className="next-previous"
-              onClick={() => this.navToPage(page + 1)}
-              onKeyDown={this.handleKeyDown}
-            ><img src="./images/next.png" alt="" />
-            </span> }
-        </div>
+        <NextPrevious
+          previousAllowed={previousAllowed}
+          nextAllowed={nextAllowed}
+          page={page}
+          navToPage={pageNo => this.navToPage(pageNo)}
+        />
       </div>
     );
   }

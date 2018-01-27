@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PlanetGrid } from '../../components';
+import { PlanetGrid, NextPrevious } from '../../components';
 import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
@@ -133,26 +133,12 @@ class Planet extends Component {
         </form>
         <Loader color="#FFF" loaded={loaded} />
         <PlanetGrid planets={planets} />
-        <div className="text-center">
-          { previousAllowed &&
-          <span
-            role="button"
-            tabIndex="0"
-            className="next-previous"
-            onClick={() => this.navToPage(page - 1)}
-            onKeyDown={this.handleKeyDown}
-          ><img src="./images/previous.png" alt="" />
-          </span> }
-          { nextAllowed &&
-            <span
-              role="button"
-              tabIndex="0"
-              className="next-previous"
-              onClick={() => this.navToPage(page + 1)}
-              onKeyDown={this.handleKeyDown}
-            ><img src="./images/next.png" alt="" />
-            </span> }
-        </div>
+        <NextPrevious
+          previousAllowed={previousAllowed}
+          nextAllowed={nextAllowed}
+          page={page}
+          navToPage={pageNo => this.navToPage(pageNo)}
+        />
       </div>
     );
   }
