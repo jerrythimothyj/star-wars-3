@@ -56,7 +56,7 @@ class Login extends Component {
     } = this.state;
     return (
       <div>
-        <Loader loaded={loaded}>
+        <Loader color="#FFF" loaded={loaded}>
           <div className="login">
             <h1>Login</h1>
             <form name="form" onSubmit={this.handleSubmit}>

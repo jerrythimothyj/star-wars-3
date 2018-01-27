@@ -100,7 +100,7 @@ class People extends Component {
           <div className="col text-right">
             Wookiee<br />
             <label htmlFor="wookiee" className="switch">
-              <input type="checkbox" name="wookiee" onClick={this.isWookie} />
+              <input type="checkbox" name="wookiee" id="wookiee" onClick={this.isWookie} />
               <span className="slider round" />
             </label>
           </div>
@@ -117,7 +117,7 @@ class People extends Component {
           {!isSearchAllowed &&
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
-        <Loader loaded={loaded} />
+        <Loader color="#FFF" loaded={loaded} />
         <PeopleGrid peoples={peoples} />
         <div className="text-center">
           { previousAllowed &&
