@@ -27,7 +27,6 @@ export class SpecieGrid extends Component {
             <tr>
               <th>Name</th>
               <th>Classification</th>
-              <th>Designation</th>
               <th>Average Height</th>
               <th>Skin Colors</th>
               <th>Hair Colors</th>
@@ -42,7 +41,6 @@ export class SpecieGrid extends Component {
               <tr key={specie.name}>
                 <td>{specie.name}</td>
                 <td>{specie.classification}</td>
-                <td>{specie.designation}</td>
                 <td className="text-right">{specie.average_height}</td>
                 <td>{specie.skin_colors}</td>
                 <td>{specie.hair_colors}</td>
