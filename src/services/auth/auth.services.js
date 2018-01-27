@@ -1,8 +1,10 @@
 import { getSessionStorageItem } from '../storage/storage.services';
 
-export const authUser = () =>  {
-    if(!getSessionStorageItem('loggedInUser')) {
-        return false
-    }
-    return true;
-}
+const authUser = () => {
+  if (!getSessionStorageItem('loggedInUser')) {
+    return false;
+  }
+  return true;
+};
+
+export default authUser;

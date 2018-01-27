@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PlanetGrid } from '../../components/planet-grid';
+import { PlanetGrid } from '../../components';
 import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
-import { authUser } from '../../services/auth/auth.services';
-import remainingSeconds from '../../services/search/search.services';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 
-
-export class Planet extends Component {
+class Planet extends Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +26,7 @@ export class Planet extends Component {
       previousAllowed: false,
       nextAllowed: false,
       page: 1,
-      remainingSeconds,
+      remainingSeconds: secondsMax,
       format: '',
     };
 
@@ -43,7 +41,6 @@ export class Planet extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      // planet: nextProps.planet,
       planets: nextProps.planets,
       isSearchAllowed: nextProps.isSearchAllowed,
       loaded: nextProps.loaded,
@@ -75,8 +72,15 @@ export class Planet extends Component {
 
   render() {
     const {
-      planet, planets, isSearchAllowed, loaded,
-      previousAllowed, nextAllowed, page, remainingSeconds, format,
+      planet,
+      planets,
+      isSearchAllowed,
+      loaded,
+      previousAllowed,
+      nextAllowed,
+      page,
+      remainingSeconds,
+      format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -97,7 +101,7 @@ export class Planet extends Component {
           <div className="col"><h1>Search Planets</h1></div>
           <div className="col text-right">
             Wookiee<br />
-            <label className="switch">
+            <label htmlFor="wookiee" className="switch">
               <input type="checkbox" name="wookiee" onClick={this.isWookie} />
               <span className="slider round" />
             </label>
@@ -117,18 +121,26 @@ export class Planet extends Component {
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
         <Loader loaded={loaded} />
-        {/* {planets} */}
         <PlanetGrid planets={planets} />
-        {/* <PlanetGraph></PlanetGraph> */}
         <div className="text-center">
           { previousAllowed &&
-          <span className="next-previous" onClick={() => this.navToPage(page - 1)}>
-            <img src="./images/previous.png" alt="" />
+          <span
+            role="button"
+            tabIndex="0"
+            className="next-previous"
+            onClick={() => this.navToPage(page - 1)}
+            onKeyDown={this.handleKeyDown}
+          ><img src="./images/previous.png" alt="" />
           </span> }
           { nextAllowed &&
-          <span className="next-previous" onClick={() => this.navToPage(page + 1)}>
-            <img src="./images/next.png" alt="" />
-          </span> }
+            <span
+              role="button"
+              tabIndex="0"
+              className="next-previous"
+              onClick={() => this.navToPage(page + 1)}
+              onKeyDown={this.handleKeyDown}
+            ><img src="./images/next.png" alt="" />
+            </span> }
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants/planet.constants';
-import remainingSeconds from '../services/search/search.services';
+import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants';
+import { secondsMax } from '../services';
 
 const initialState = {
   planet: '',
@@ -9,7 +9,7 @@ const initialState = {
   previousAllowed: false,
   nextAllowed: false,
   page: 1,
-  remainingSeconds,
+  remainingSeconds: secondsMax,
   format: '',
 };
 

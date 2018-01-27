@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { removeCommas } from '../../services';
+
 
 export class PeopleGrid extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ export class PeopleGrid extends Component {
       peoples: this.props.peoples,
     };
   }
+
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -27,7 +30,6 @@ export class PeopleGrid extends Component {
               <th>Name</th>
               <th>Height</th>
               <th>Mass</th>
-              <th>Hair Color</th>
               <th>Skin Color</th>
               <th>Eye Color</th>
               <th>Birth Year</th>
@@ -41,17 +43,19 @@ export class PeopleGrid extends Component {
                 <td>{people.name}</td>
                 <td className="text-right">{people.height}</td>
                 <td className="text-right">{people.mass}</td>
-                <td>{people.hair_color}</td>
                 <td>{people.skin_color}</td>
                 <td>{people.eye_color}</td>
                 <td>{people.birth_year}</td>
                 <td>{people.gender}</td>
                 <td className="text-center">{
-                        (people.gender === 'male' || people.gender === 'scraanwo') && <img src="./images/male.png" alt="" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
-                        ||
+                        ((people.gender === 'male' || people.gender === 'scraanwo') && <img src="./images/male.png" alt="" style={{ maxWidth: `${removeCommas(people.mass)}px`, maxHeight: `${people.height}px` }} />
+                      ) || (
                         (people.gender === 'female' || people.gender === 'wwwoscraanwo') && <img src="./images/female.png" alt=""style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
-                        ||
-                        (people.gender === 'n/a' || people.gender === 'wh/ra') && <img src="./images/c3po.png" alt="" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />}
+                      ) || (
+                        (people.gender === 'hermaphrodite' || people.gender === 'acworcscraakacrcoowaahaowo') && <img src="./images/hermaphrodite.png" alt=""style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                      ) || (
+                        (people.gender === 'n/a' || people.gender === 'none' || people.gender === 'wh/ra' || people.gender === 'whoowhwo') && <img src="./images/c3po.png" alt="" style={{ maxWidth: `${people.mass}px`, maxHeight: `${people.height}px` }} />
+                    )}
                 </td>
               </tr>)) }
           </tbody>
@@ -66,7 +70,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  // logout
 }, dispatch);
 
 export default connect(

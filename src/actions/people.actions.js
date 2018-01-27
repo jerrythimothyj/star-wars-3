@@ -1,6 +1,5 @@
-import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants/people.constants';
-import { peopleService } from '../services/people/people.services';
-import { isSearchAllowedService } from '../services/search/search.services';
+import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants';
+import { isSearchAllowedService, peopleService } from '../services';
 
 
 export function searchPeoplesRequested() {
@@ -32,15 +31,6 @@ export function searchPeoplesFailed() {
 
 export const searchPeoples = (people, page, format) => (dispatch) => {
   dispatch(searchPeoplesRequested());
-
-  // dispatch(peopleService(people, page, format)).then((peoplesData) => {
-  //   if (peoplesData.body.results) {
-  //     dispatch(searchPeoplesAC(people, peoplesData.body.results,
-  //              peoplesData.previous, peoplesData.next, page, format));
-  //   } else {
-  //     dispatch(searchPeoplesFailed());
-  //   }
-  // });
   dispatch(peopleService(people, page, format));
 };
 

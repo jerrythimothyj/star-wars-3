@@ -1,10 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import store, { history } from './store';
-import App from './containers/app';
+import App from './containers';
 
 import './index.css';
 

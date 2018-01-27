@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -6,7 +7,7 @@ import { login, logout } from '../../actions';
 
 import './index.css';
 
-export class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -19,8 +20,6 @@ export class Login extends Component {
       submitted: false,
       loginSucceeded: false,
       loginFailed: false,
-      logoutSucceeded: false,
-      logoutFailed: false,
       loaded: true,
     };
 
@@ -32,10 +31,13 @@ export class Login extends Component {
     this.setState({
       loginSucceeded: nextProps.loginSucceeded,
       loginFailed: nextProps.loginFailed,
-      logoutSucceeded: nextProps.logoutSucceeded,
-      logoutFailed: nextProps.logoutFailed,
       loaded: nextProps.loaded,
     });
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
@@ -46,11 +48,6 @@ export class Login extends Component {
     if (username && password) {
       this.props.login(username, password);
     }
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
   }
 
   render() {
@@ -68,7 +65,6 @@ export class Login extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  id="username"
                   name="username"
                   value={username}
                   onChange={this.handleChange}
