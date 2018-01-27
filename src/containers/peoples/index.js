@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PeopleGrid } from '../../components';
+import { PeopleGrid, NextPrevious } from '../../components';
 import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
@@ -131,26 +131,12 @@ class People extends Component {
         </form>
         <Loader color="#FFF" loaded={loaded} />
         <PeopleGrid peoples={peoples} />
-        <div className="text-center">
-          { previousAllowed &&
-          <span
-            role="button"
-            tabIndex="0"
-            className="next-previous"
-            onClick={() => this.navToPage(page - 1)}
-            onKeyDown={this.handleKeyDown}
-          ><img src="./images/previous.png" alt="" />
-          </span> }
-          { nextAllowed &&
-            <span
-              role="button"
-              tabIndex="0"
-              className="next-previous"
-              onClick={() => this.navToPage(page + 1)}
-              onKeyDown={this.handleKeyDown}
-            ><img src="./images/next.png" alt="" />
-            </span> }
-        </div>
+        <NextPrevious
+          previousAllowed={previousAllowed}
+          nextAllowed={nextAllowed}
+          page={page}
+          navToPage={pageNo => this.navToPage(pageNo)}
+        />
       </div>
     );
   }
