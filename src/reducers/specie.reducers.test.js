@@ -12,7 +12,7 @@ describe('specie reducer', () => {
       nextAllowed: false,
       page: 1,
       previousAllowed: false,
-      remainingSeconds: 30,
+      remainingSeconds: 60,
     });
   });
 

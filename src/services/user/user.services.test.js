@@ -29,6 +29,8 @@ it('should execute userService valid', () => {
         submitted: true,
         loginSucceeded: true,
         loginFailed: false,
+        logoutSucceeded: false,
+        logoutFailed: false,
         loaded: true,
       };
       expect(actions[0]).toEqual(expectedActions);
