@@ -61,7 +61,7 @@ export function searchSpecieAllowedFailed(remainingSeconds) {
 export const isSpecieSearchAllowedFn = specie => (dispatch) => {
   dispatch(searchSpecieAllowedRequested());
 
-  const remainingSeconds = isSearchAllowedService();
+  const remainingSeconds = isSearchAllowedService(specie);
   if (remainingSeconds === true) {
     dispatch(searchSpecieAllowedAC(specie));
   } else {

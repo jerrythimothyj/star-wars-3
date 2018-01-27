@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { PeopleGrid, NextPrevious, SearchBox } from '../../components';
 import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
-import { authUser, secondsMax } from '../../services';
+import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
 
 let searchKey = '';
 let timer = null;
@@ -37,6 +37,8 @@ class People extends Component {
 
   componentWillMount() {
     const { people, page, format } = this.state;
+    resetSearchAllowedServiceCounter();
+    this.props.isPeopleSearchAllowedFn(people);
     this.props.searchPeoples(people, page, format);
   }
 

@@ -62,7 +62,7 @@ export function searchPeopleAllowedFailed(remainingSeconds) {
 export const isPeopleSearchAllowedFn = people => (dispatch) => {
   dispatch(searchPeopleAllowedRequested());
 
-  const remainingSeconds = isSearchAllowedService();
+  const remainingSeconds = isSearchAllowedService(people);
   if (remainingSeconds === true) {
     dispatch(searchPeopleAllowedAC(people));
   } else {

@@ -60,7 +60,7 @@ class Planet extends Component {
       const that = this;
       setTimeout(
         () => { that.props.isPlanetSearchAllowedFn(searchKey); },
-        (nextProps.remainingSeconds) * 1000,
+        nextProps.remainingSeconds * 1000,
       );
     }
 
