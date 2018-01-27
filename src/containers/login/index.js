@@ -28,9 +28,14 @@ export class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      loginSucceeded: nextProps.loginSucceeded,
+      loginFailed: nextProps.loginFailed,
+      logoutSucceeded: nextProps.logoutSucceeded,
+      logoutFailed: nextProps.logoutFailed,
+      loaded: nextProps.loaded,
+    });
   }
 
   handleSubmit(e) {
@@ -43,14 +48,9 @@ export class Login extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loginSucceeded: nextProps.loginSucceeded,
-      loginFailed: nextProps.loginFailed,
-      logoutSucceeded: nextProps.logoutSucceeded,
-      logoutFailed: nextProps.logoutFailed,
-      loaded: nextProps.loaded,
-    });
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -65,14 +65,27 @@ export class Login extends Component {
             <form name="form" onSubmit={this.handleSubmit}>
               <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
                 <label htmlFor="username">Username</label>
-                <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
                 {submitted && !username &&
                   <div className="text-danger">Username is required</div>
                   }
               </div>
               <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
                 <label htmlFor="password">Password</label>
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
                 {submitted && !password &&
                   <div className="text-danger">Password is required</div>
                   }

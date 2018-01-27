@@ -106,7 +106,14 @@ export class Specie extends Component {
           </div>
         </div>
         <form name="form">
-          <input type="text" className="form-control" name="specie" value={specie} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          <input
+            type="text"
+            className="form-control"
+            name="specie"
+            value={specie}
+            onChange={this.handleChange}
+            disabled={!isSearchAllowed}
+          />
           {!isSearchAllowed &&
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
@@ -115,8 +122,14 @@ export class Specie extends Component {
         <SpecieGrid species={species} />
         {/* <SpecieGraph></SpecieGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
+          { previousAllowed &&
+          <span className="next-previous" onClick={() => this.navToPage(page - 1)}>
+            <img src="./images/previous.png" alt="" />
+          </span> }
+          { nextAllowed &&
+          <span className="next-previous" onClick={() => this.navToPage(page + 1)}>
+            <img src="./images/next.png" alt="" />
+          </span> }
         </div>
       </div>
     );

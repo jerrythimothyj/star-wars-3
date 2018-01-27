@@ -73,7 +73,8 @@ export class People extends Component {
 
   render() {
     const {
-      people, peoples, isSearchAllowed, loaded, previousAllowed, nextAllowed, page, remainingSeconds, format,
+      people, peoples, isSearchAllowed, loaded, previousAllowed,
+      nextAllowed, page, remainingSeconds, format,
     } = this.state;
 
     if (!isSearchAllowed) {
@@ -101,7 +102,14 @@ export class People extends Component {
           </div>
         </div>
         <form name="form">
-          <input type="text" className="form-control" name="people" value={people} onChange={this.handleChange} disabled={!isSearchAllowed} />
+          <input
+            type="text"
+            className="form-control"
+            name="people"
+            value={people}
+            onChange={this.handleChange}
+            disabled={!isSearchAllowed}
+          />
           {!isSearchAllowed &&
           <h3>Please wait for {remainingSeconds} seconds</h3>}
         </form>
@@ -110,8 +118,14 @@ export class People extends Component {
         <PeopleGrid peoples={peoples} />
         {/* <PeopleGraph></PeopleGraph> */}
         <div className="text-center">
-          { previousAllowed && <span className="next-previous" onClick={() => this.navToPage(page - 1)}><img src="./images/previous.png" alt="" /></span> }
-          { nextAllowed && <span className="next-previous" onClick={() => this.navToPage(page + 1)}><img src="./images/next.png" alt="" /></span> }
+          { previousAllowed &&
+          <span className="next-previous" onClick={() => { this.navToPage(page - 1); }}>
+            <img src="./images/previous.png" alt="" />
+          </span> }
+          { nextAllowed &&
+          <span className="next-previous" onClick={() => { this.navToPage(page + 1); }}>
+            <img src="./images/next.png" alt="" />
+          </span> }
         </div>
       </div>
     );

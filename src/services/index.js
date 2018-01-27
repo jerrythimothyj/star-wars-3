@@ -1,7 +1,6 @@
 export * from './auth/auth.services';
 export * from './axios/axios-base.service';
 export * from './data/data.service';
-export * from './math/math';
 export * from './people/people.services';
 export * from './planet/planet.services';
 export * from './search/search.services';

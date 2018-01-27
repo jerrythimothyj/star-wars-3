@@ -8,8 +8,8 @@ const initialState = {
   loginFailed: false,
   logoutSucceeded: false,
   logoutFailed: false,
-  loaded: true
-}
+  loaded: true,
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -17,8 +17,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         submitted: action.submitted,
-        loaded: action.loaded
-      }
+        loaded: action.loaded,
+      };
 
     case LOGIN:
       return {
@@ -28,38 +28,38 @@ export default (state = initialState, action) => {
         submitted: action.submitted,
         loginSucceeded: action.loginSucceeded,
         loginFailed: action.loginFailed,
-        loaded: action.loaded
-      }
-    
+        loaded: action.loaded,
+      };
+
     case LOGIN_FAILED:
       return {
         ...state,
         submitted: action.submitted,
         loginSucceeded: action.loginSucceeded,
         loginFailed: action.loginFailed,
-        loaded: action.loaded
-      }
-    
+        loaded: action.loaded,
+      };
+
     case LOGOUT_REQUESTED:
       return {
-        ...state
-      }
+        ...state,
+      };
 
     case LOGOUT:
       return {
         ...state,
         logoutSucceeded: action.logoutSucceeded,
-        logoutFailed: action.logoutFailed
-      }
-    
-      case LOGOUT_FAILED:
-        return {
-          ...state,
-          logoutSucceeded: action.logoutSucceeded,
-          logoutFailed: action.logoutFailed
-        }
+        logoutFailed: action.logoutFailed,
+      };
+
+    case LOGOUT_FAILED:
+      return {
+        ...state,
+        logoutSucceeded: action.logoutSucceeded,
+        logoutFailed: action.logoutFailed,
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
