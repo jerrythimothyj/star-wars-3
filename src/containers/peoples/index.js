@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PeopleGrid, NextPrevious } from '../../components';
+import { PeopleGrid, NextPrevious, SearchBox } from '../../components';
 import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
@@ -71,7 +71,6 @@ class People extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    // this.props.isPeopleSearchAllowedFn(e.target.value);
     const that = this;
     searchKey = e.target.value;
 
@@ -107,28 +106,15 @@ class People extends Component {
 
     return (
       <div>
-        <div className="row">
-          <div className="col"><h1>Search Peoples</h1></div>
-          <div className="col text-right">
-            Wookiee<br />
-            <label htmlFor="wookiee" className="switch">
-              <input type="checkbox" name="wookiee" id="wookiee" onClick={this.isWookie} />
-              <span className="slider round" />
-            </label>
-          </div>
-        </div>
-        <form name="form">
-          <input
-            type="text"
-            className="form-control"
-            name="people"
-            value={people}
-            onChange={this.handleChange}
-            disabled={!isSearchAllowed}
-          />
-          {!isSearchAllowed &&
-          <h3>Please wait for {remainingSeconds} seconds</h3>}
-        </form>
+        <SearchBox
+          toSearch="Search People"
+          isWookie={e => this.isWookie(e)}
+          searchKey={people}
+          searchBox="people"
+          handleChange={e => this.handleChange(e)}
+          isSearchAllowed={isSearchAllowed}
+          remainingSeconds={remainingSeconds}
+        />
         <Loader color="#FFF" loaded={loaded} />
         <PeopleGrid peoples={peoples} />
         <NextPrevious

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
-import { PlanetGrid, NextPrevious } from '../../components';
+import { PlanetGrid, NextPrevious, SearchBox } from '../../components';
 import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
@@ -72,7 +72,6 @@ class Planet extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    // this.props.isPlanetSearchAllowedFn(e.target.value);
     const that = this;
     searchKey = e.target.value;
 
@@ -108,29 +107,15 @@ class Planet extends Component {
 
     return (
       <div>
-        <div className="row">
-          <div className="col"><h1>Search Planets</h1></div>
-          <div className="col text-right">
-            Wookiee<br />
-            <label htmlFor="wookiee" className="switch">
-              <input type="checkbox" name="wookiee" id="wookiee" onClick={this.isWookie} />
-              <span className="slider round" />
-            </label>
-          </div>
-        </div>
-
-        <form name="form">
-          <input
-            type="text"
-            className="form-control"
-            name="planet"
-            value={planet}
-            onChange={this.handleChange}
-            disabled={!isSearchAllowed}
-          />
-          {!isSearchAllowed &&
-          <h3>Please wait for {remainingSeconds} seconds</h3>}
-        </form>
+        <SearchBox
+          toSearch="Search Planets"
+          isWookie={e => this.isWookie(e)}
+          searchKey={planet}
+          searchBox="planet"
+          handleChange={e => this.handleChange(e)}
+          isSearchAllowed={isSearchAllowed}
+          remainingSeconds={remainingSeconds}
+        />
         <Loader color="#FFF" loaded={loaded} />
         <PlanetGrid planets={planets} />
         <NextPrevious

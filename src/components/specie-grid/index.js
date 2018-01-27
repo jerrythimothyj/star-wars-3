@@ -32,7 +32,6 @@ export class SpecieGrid extends Component {
               <th>Hair Colors</th>
               <th>Eye Colors</th>
               <th>Average Lifespan</th>
-              <th>Language</th>
               <th />
             </tr>
           </thead>
@@ -46,7 +45,6 @@ export class SpecieGrid extends Component {
                 <td>{specie.hair_colors}</td>
                 <td>{specie.eye_colors}</td>
                 <td className="text-right">{specie.average_lifespan}</td>
-                <td>{specie.language}</td>
                 <td className="text-center">
                   {((specie.classification === 'amphibian' || specie.classification === 'rascakacahrhahrawh') && <img src="./images/amphibian.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
                 ) || ((specie.classification === 'artificial' || specie.classification === 'rarcaoahwwahoaahraan') && <img src="./images/artificial.png" alt="" style={{ maxHeight: `${specie.average_height}px`, maxWidth: '100px' }} />
