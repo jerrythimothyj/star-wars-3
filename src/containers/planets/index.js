@@ -7,6 +7,7 @@ import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
+let timer = null;
 
 class Planet extends Component {
   constructor(props) {
@@ -55,7 +56,10 @@ class Planet extends Component {
     if (!nextProps.isSearchAllowed) {
       searchKey = nextProps.planet;
       const that = this;
-      setTimeout(() => { that.props.isPlanetSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+      setTimeout(
+        () => { that.props.isPlanetSearchAllowedFn(searchKey); },
+        nextProps.remainingSeconds * 500,
+      );
     }
 
     if (nextProps.isSearchAllowed && this.searchKeyChanged) {
@@ -68,7 +72,15 @@ class Planet extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isPlanetSearchAllowedFn(e.target.value);
+    // this.props.isPlanetSearchAllowedFn(e.target.value);
+    const that = this;
+    searchKey = e.target.value;
+
+    clearTimeout(timer);
+    timer = setTimeout(
+      () => { that.props.isPlanetSearchAllowedFn(searchKey); },
+      1000,
+    );
   }
 
   navToPage(page) {

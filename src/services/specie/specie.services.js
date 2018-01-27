@@ -6,14 +6,14 @@ import * as actions from '../../actions';
 const specieService = (specie, page, format = '') => dispatch => axios.get(`species/?search=${specie}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
-    if (response &&
-                response.data &&
-                response.data.results
-    ) {
-      dispatch(actions.searchSpeciesAC(specie, response.data.results, response.data.previous, response.data.next, page, format));
-    } else {
-      dispatch(actions.searchSpeciesFailed());
-    }
+    dispatch(actions.searchSpeciesAC(
+      specie,
+      response.data.results,
+      response.data.previous,
+      response.data.next,
+      page,
+      format,
+    ));
   }, () => {
     dispatch(actions.searchSpeciesFailed());
   });

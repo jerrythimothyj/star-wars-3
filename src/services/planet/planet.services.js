@@ -5,19 +5,14 @@ import * as actions from '../../actions';
 const planetService = (planet, page, format = '') => dispatch => axiosInstance.get(`planets/?search=${planet}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
-    if (response &&
-                response.data &&
-                response.data.results
-    ) {
-      dispatch(actions.searchPlanetsAC(
-        planet,
-        response.data.results,
-        response.data.previous,
-        response.data.next,
-        page,
-        format,
-      ));
-    } else { dispatch(actions.searchPlanetsFailed()); }
+    dispatch(actions.searchPlanetsAC(
+      planet,
+      response.data.results,
+      response.data.previous,
+      response.data.next,
+      page,
+      format,
+    ));
   }, () => {
     dispatch(actions.searchPlanetsFailed());
   });
