@@ -7,6 +7,7 @@ import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
+let timer = null;
 
 class People extends Component {
   constructor(props) {
@@ -54,7 +55,10 @@ class People extends Component {
     if (!nextProps.isSearchAllowed) {
       searchKey = nextProps.people;
       const that = this;
-      setTimeout(() => { that.props.isPeopleSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+      setTimeout(
+        () => { that.props.isPeopleSearchAllowedFn(searchKey); },
+        nextProps.remainingSeconds * 1000,
+      );
     }
 
     if (nextProps.isSearchAllowed && this.searchKeyChanged) {
@@ -67,7 +71,15 @@ class People extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isPeopleSearchAllowedFn(e.target.value);
+    // this.props.isPeopleSearchAllowedFn(e.target.value);
+    const that = this;
+    searchKey = e.target.value;
+
+    clearTimeout(timer);
+    timer = setTimeout(
+      () => { that.props.isPeopleSearchAllowedFn(searchKey); },
+      500,
+    );
   }
 
   navToPage(page) {

@@ -7,6 +7,7 @@ import { searchSpecies, isSpecieSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
+let timer = null;
 
 class Specie extends Component {
   constructor(props) {
@@ -55,7 +56,10 @@ class Specie extends Component {
     if (!nextProps.isSearchAllowed) {
       searchKey = nextProps.specie;
       const that = this;
-      setTimeout(() => { that.props.isSpecieSearchAllowedFn(searchKey); }, nextProps.remainingSeconds * 1000);
+      setTimeout(
+        () => { that.props.isSpecieSearchAllowedFn(searchKey); },
+        nextProps.remainingSeconds * 1000,
+      );
     }
 
     if (nextProps.isSearchAllowed && this.searchKeyChanged) {
@@ -68,7 +72,15 @@ class Specie extends Component {
     this.searchKeyChanged = true;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.props.isSpecieSearchAllowedFn(e.target.value);
+    // this.props.isSpecieSearchAllowedFn(e.target.value);
+    const that = this;
+    searchKey = e.target.value;
+
+    clearTimeout(timer);
+    timer = setTimeout(
+      () => { that.props.isSpecieSearchAllowedFn(searchKey); },
+      500,
+    );
   }
 
   navToPage(page) {
