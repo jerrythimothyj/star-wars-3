@@ -1,4 +1,5 @@
 import React from 'react';
+import { setTimeout, clearTimeout } from 'timers';
 
 let secondsCtr;
 let localTimer = null;

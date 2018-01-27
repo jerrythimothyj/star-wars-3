@@ -1,17 +1,20 @@
-import { setTimeout } from 'timers';
+import { setTimeout, clearTimeout } from 'timers';
 
 export const secondsMax = 60;
-const noOfSearchesMax = 15;
+const noOfSearchesMax = 2;
 let secondsCtr = secondsMax;
 let noOfSearches = 0;
+let timerSearchService = null;
 
 const timer = () => {
   secondsCtr -= 1;
   if (secondsCtr < 0) {
     secondsCtr = secondsMax;
     noOfSearches = 0;
+    clearTimeout(timerSearchService);
   } else {
-    setTimeout(timer, 1000);
+    console.log('else block', secondsCtr);
+    timerSearchService = setTimeout(timer, 1000);
   }
 };
 
@@ -33,5 +36,6 @@ export const isSearchAllowedService = (searchKey) => {
 export const resetSearchAllowedServiceCounter = () => {
   noOfSearches = 0;
   secondsCtr = 0;
+  clearTimeout(timerSearchService);
 };
 

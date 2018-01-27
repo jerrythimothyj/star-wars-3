@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
+import { setTimeout, clearTimeout } from 'timers';
 import { SpecieGrid, NextPrevious, SearchBox } from '../../components';
 import { searchSpecies, isSpecieSearchAllowedFn, logout } from '../../actions';
 import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
