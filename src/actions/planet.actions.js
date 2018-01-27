@@ -61,7 +61,7 @@ export function searchPlanetAllowedFailed(remainingSeconds) {
 export const isPlanetSearchAllowedFn = planet => (dispatch) => {
   dispatch(searchPlanetAllowedRequested());
 
-  const remainingSeconds = isSearchAllowedService();
+  const remainingSeconds = isSearchAllowedService(planet);
   if (remainingSeconds === true) {
     dispatch(searchPlanetAllowedAC(planet));
   } else {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { PlanetGrid, NextPrevious, SearchBox } from '../../components';
 import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
-import { authUser, secondsMax } from '../../services';
+import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
 
 let searchKey = '';
 let timer = null;
@@ -38,6 +38,8 @@ class Planet extends Component {
 
   componentWillMount() {
     const { planet, page, format } = this.state;
+    resetSearchAllowedServiceCounter();
+    this.props.isPlanetSearchAllowedFn(planet);
     this.props.searchPlanets(planet, page, format);
   }
 
@@ -58,7 +60,7 @@ class Planet extends Component {
       const that = this;
       setTimeout(
         () => { that.props.isPlanetSearchAllowedFn(searchKey); },
-        nextProps.remainingSeconds * 1000,
+        (nextProps.remainingSeconds) * 1000,
       );
     }
 
