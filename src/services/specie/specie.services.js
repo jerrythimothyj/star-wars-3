@@ -3,7 +3,7 @@ import wookieeToEnglish from '../data/data.service';
 import * as actions from '../../actions';
 
 
-const specieService = (specie, page, format = 'wookiee') => dispatch => axios.get(`species/?search=${specie}&page=${page}&format=${format}`)
+const specieService = (specie, page, format = '') => dispatch => axios.get(`species/?search=${specie}&page=${page}&format=${format}`)
   .then((response) => {
     response.data = wookieeToEnglish(response.data);
     if (response &&

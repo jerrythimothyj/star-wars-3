@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import peopleService from './people.services';
-import { SEARCH_PEOPLES } from '../../constants';
+import { SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED } from '../../constants';
 import remainingSeconds from '../search/search.services';
 
 
@@ -36,6 +36,22 @@ it('should execute peopleService', () => {
           nextAllowed: false,
           page: 1,
           format: '',
+          loaded: true,
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+});
+
+it('should execute peopleService else block', () => {
+  const store = mockStore({ initialState });
+
+  return store.dispatch(peopleService('lukey', 2, ''))
+    .then(() => {
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: SEARCH_PEOPLES_FAILED,
           loaded: true,
         },
       ];

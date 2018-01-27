@@ -35,7 +35,8 @@ class People extends Component {
   }
 
   componentWillMount() {
-    this.init = true;
+    const { people, page, format } = this.state;
+    this.props.searchPeoples(people, page, format);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,6 +50,11 @@ class People extends Component {
       remainingSeconds: nextProps.remainingSeconds,
       format: nextProps.format,
     });
+
+    if (nextProps.isSearchAllowed && this.searchKeyChanged) {
+      this.props.searchPeoples(nextProps.people, 1, nextProps.format);
+      this.searchKeyChanged = false;
+    }
   }
 
   handleChange(e) {
@@ -79,19 +85,12 @@ class People extends Component {
       nextAllowed,
       page,
       remainingSeconds,
-      format,
     } = this.state;
 
     if (!isSearchAllowed) {
       searchKey = people;
       const that = this;
       setTimeout(() => { that.props.isPeopleSearchAllowedFn(searchKey); }, remainingSeconds * 1000);
-    }
-
-    if (isSearchAllowed && (this.searchKeyChanged || this.init)) {
-      this.props.searchPeoples(people, page, format);
-      this.searchKeyChanged = false;
-      this.init = false;
     }
 
     return (

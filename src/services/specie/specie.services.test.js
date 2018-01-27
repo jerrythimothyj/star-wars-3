@@ -1,8 +1,8 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import specieService from './specie.services';
-import { SEARCH_SPECIES } from '../../constants';
-import remainingSeconds from '../search/search.services';
+import { SEARCH_SPECIES, SEARCH_SPECIES_FAILED } from '../../constants';
+import { secondsMax } from '../index';
 
 
 const middlewares = [thunk];
@@ -15,7 +15,7 @@ const initialState = {
   previousAllowed: false,
   nextAllowed: false,
   page: 1,
-  remainingSeconds,
+  remainingSeconds: secondsMax,
   format: '',
 };
 
@@ -36,6 +36,22 @@ it('should execute specieService', () => {
           nextAllowed: false,
           page: 1,
           format: '',
+          loaded: true,
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+});
+
+it('should execute specieService else block', () => {
+  const store = mockStore({ initialState });
+
+  return store.dispatch(specieService('huttt', 2, ''))
+    .then(() => {
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: SEARCH_SPECIES_FAILED,
           loaded: true,
         },
       ];

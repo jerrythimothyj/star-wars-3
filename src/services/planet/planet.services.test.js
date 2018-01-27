@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import planetService from './planet.services';
-import { SEARCH_PLANETS } from '../../constants';
+import { SEARCH_PLANETS, SEARCH_PLANETS_FAILED } from '../../constants';
 import remainingSeconds from '../search/search.services';
 
 const middlewares = [thunk];
@@ -35,6 +35,22 @@ it('should execute planetService', () => {
           nextAllowed: false,
           page: 1,
           format: '',
+          loaded: true,
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+});
+
+it('should execute planetService else block', () => {
+  const store = mockStore({ initialState });
+
+  return store.dispatch(planetService('alderaaan', 2, ''))
+    .then(() => {
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: SEARCH_PLANETS_FAILED,
           loaded: true,
         },
       ];
