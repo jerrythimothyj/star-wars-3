@@ -1,4 +1,10 @@
-import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PEOPLES_REQUESTED,
+  SEARCH_PEOPLES,
+  SEARCH_PEOPLES_FAILED,
+  SEARCH_PEOPLE_ALLOWED_REQUESTED,
+  SEARCH_PEOPLE_ALLOWED,
+  SEARCH_PEOPLE_ALLOWED_FAILED,
+  RESET_SEARCH_PEOPLE_COUNTER } from '../constants';
 import { secondsMax } from '../services';
 
 const initialState = {
@@ -58,6 +64,12 @@ export default (state = initialState, action) => {
         ...state,
         isSearchAllowed: action.isSearchAllowed,
         loaded: action.loaded,
+        remainingSeconds: action.remainingSeconds,
+      };
+
+    case RESET_SEARCH_PEOPLE_COUNTER:
+      return {
+        ...state,
         remainingSeconds: action.remainingSeconds,
       };
 

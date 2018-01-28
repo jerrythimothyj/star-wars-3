@@ -1,5 +1,14 @@
-import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants';
-import { specieService, isSearchAllowedService } from '../services';
+import { SEARCH_SPECIES_REQUESTED,
+  SEARCH_SPECIES,
+  SEARCH_SPECIES_FAILED,
+  SEARCH_SPECIE_ALLOWED_REQUESTED,
+  SEARCH_SPECIE_ALLOWED,
+  SEARCH_SPECIE_ALLOWED_FAILED,
+  RESET_SEARCH_SPECIE_COUNTER } from '../constants';
+import { specieService,
+  isSearchAllowedService,
+  resetSearchAllowedServiceCounter,
+  secondsMax } from '../services';
 
 export function searchSpeciesRequested() {
   return {
@@ -68,3 +77,16 @@ export const isSpecieSearchAllowedFn = specie => (dispatch) => {
     dispatch(searchSpecieAllowedFailed(remainingSeconds));
   }
 };
+
+export function resetSearchSpecieCounter() {
+  return {
+    type: RESET_SEARCH_SPECIE_COUNTER,
+    remainingSeconds: secondsMax,
+  };
+}
+
+export const resetSearchSpecieCounterFn = () => (dispatch) => {
+  dispatch(resetSearchSpecieCounter());
+  resetSearchAllowedServiceCounter();
+};
+

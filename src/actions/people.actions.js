@@ -1,5 +1,14 @@
-import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants';
-import { isSearchAllowedService, peopleService } from '../services';
+import { SEARCH_PEOPLES_REQUESTED,
+  SEARCH_PEOPLES,
+  SEARCH_PEOPLES_FAILED,
+  SEARCH_PEOPLE_ALLOWED_REQUESTED,
+  SEARCH_PEOPLE_ALLOWED,
+  SEARCH_PEOPLE_ALLOWED_FAILED,
+  RESET_SEARCH_PEOPLE_COUNTER } from '../constants';
+import { isSearchAllowedService,
+  peopleService,
+  resetSearchAllowedServiceCounter,
+  secondsMax } from '../services';
 
 
 export function searchPeoplesRequested() {
@@ -68,4 +77,16 @@ export const isPeopleSearchAllowedFn = people => (dispatch) => {
   } else {
     dispatch(searchPeopleAllowedFailed(remainingSeconds));
   }
+};
+
+export function resetSearchPeopleCounter() {
+  return {
+    type: RESET_SEARCH_PEOPLE_COUNTER,
+    remainingSeconds: secondsMax,
+  };
+}
+
+export const resetSearchPeopleCounterFn = () => (dispatch) => {
+  dispatch(resetSearchPeopleCounter());
+  resetSearchAllowedServiceCounter();
 };

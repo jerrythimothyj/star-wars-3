@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { setTimeout, clearTimeout } from 'timers';
 import { PeopleGrid, NextPrevious, SearchBox } from '../../components';
-import { searchPeoples, isPeopleSearchAllowedFn, logout } from '../../actions';
-import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
+import { searchPeoples, isPeopleSearchAllowedFn, resetSearchPeopleCounterFn, logout } from '../../actions';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 let timer = null;
@@ -38,7 +38,7 @@ class People extends Component {
 
   componentWillMount() {
     const { people, page, format } = this.state;
-    resetSearchAllowedServiceCounter();
+    this.props.resetSearchPeopleCounterFn();
     this.props.isPeopleSearchAllowedFn(people);
     this.props.searchPeoples(people, page, format);
   }
@@ -146,6 +146,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchPeoples,
   isPeopleSearchAllowedFn,
+  resetSearchPeopleCounterFn,
   logout,
 }, dispatch);
 

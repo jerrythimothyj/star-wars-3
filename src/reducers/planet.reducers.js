@@ -1,4 +1,10 @@
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PLANETS_REQUESTED,
+  SEARCH_PLANETS,
+  SEARCH_PLANETS_FAILED,
+  SEARCH_PLANET_ALLOWED_REQUESTED,
+  SEARCH_PLANET_ALLOWED,
+  SEARCH_PLANET_ALLOWED_FAILED,
+  RESET_SEARCH_PLANET_COUNTER } from '../constants';
 import { secondsMax } from '../services';
 
 const initialState = {
@@ -58,6 +64,12 @@ export default (state = initialState, action) => {
         ...state,
         isSearchAllowed: action.isSearchAllowed,
         loaded: action.loaded,
+        remainingSeconds: action.remainingSeconds,
+      };
+
+    case RESET_SEARCH_PLANET_COUNTER:
+      return {
+        ...state,
         remainingSeconds: action.remainingSeconds,
       };
 

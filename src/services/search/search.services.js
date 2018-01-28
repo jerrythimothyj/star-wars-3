@@ -1,7 +1,7 @@
 import { setTimeout, clearTimeout } from 'timers';
 
 export const secondsMax = 60;
-const noOfSearchesMax = 2;
+const noOfSearchesMax = 15;
 let secondsCtr = secondsMax;
 let noOfSearches = 0;
 let timerSearchService = null;
@@ -13,7 +13,6 @@ const timer = () => {
     noOfSearches = 0;
     clearTimeout(timerSearchService);
   } else {
-    console.log('else block', secondsCtr);
     timerSearchService = setTimeout(timer, 1000);
   }
 };

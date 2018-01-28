@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { setTimeout, clearTimeout } from 'timers';
 import { SpecieGrid, NextPrevious, SearchBox } from '../../components';
-import { searchSpecies, isSpecieSearchAllowedFn, logout } from '../../actions';
-import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
+import { searchSpecies, isSpecieSearchAllowedFn, resetSearchSpecieCounterFn, logout } from '../../actions';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 let timer = null;
@@ -39,7 +39,7 @@ class Specie extends Component {
 
   componentWillMount() {
     const { specie, page, format } = this.state;
-    resetSearchAllowedServiceCounter();
+    this.props.resetSearchSpecieCounterFn();
     this.props.isSpecieSearchAllowedFn(specie);
     this.props.searchSpecies(specie, page, format);
   }
@@ -147,6 +147,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchSpecies,
   isSpecieSearchAllowedFn,
+  resetSearchSpecieCounterFn,
   logout,
 }, dispatch);
 

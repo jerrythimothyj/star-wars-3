@@ -1,5 +1,14 @@
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED, RESET_SEARCH_PLANET_COUNTER } from '../constants';
-import { planetService, isSearchAllowedService, resetSearchAllowedServiceCounter, secondsMax } from '../services';
+import { SEARCH_PLANETS_REQUESTED,
+  SEARCH_PLANETS,
+  SEARCH_PLANETS_FAILED,
+  SEARCH_PLANET_ALLOWED_REQUESTED,
+  SEARCH_PLANET_ALLOWED,
+  SEARCH_PLANET_ALLOWED_FAILED,
+  RESET_SEARCH_PLANET_COUNTER } from '../constants';
+import { planetService,
+  isSearchAllowedService,
+  resetSearchAllowedServiceCounter,
+  secondsMax } from '../services';
 
 export function searchPlanetsRequested() {
   return {
