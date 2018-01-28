@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import { setTimeout, clearTimeout } from 'timers';
 import { PlanetGrid, NextPrevious, SearchBox } from '../../components';
-import { searchPlanets, isPlanetSearchAllowedFn, logout } from '../../actions';
-import { authUser, secondsMax, resetSearchAllowedServiceCounter } from '../../services';
+import { searchPlanets, isPlanetSearchAllowedFn, resetSearchPlanetCounterFn, logout } from '../../actions';
+import { authUser, secondsMax } from '../../services';
 
 let searchKey = '';
 let timer = null;
@@ -39,7 +39,7 @@ class Planet extends Component {
 
   componentWillMount() {
     const { planet, page, format } = this.state;
-    resetSearchAllowedServiceCounter();
+    this.props.resetSearchPlanetCounterFn();
     this.props.isPlanetSearchAllowedFn(planet);
     this.props.searchPlanets(planet, page, format);
   }
@@ -147,6 +147,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   searchPlanets,
   isPlanetSearchAllowedFn,
+  resetSearchPlanetCounterFn,
   logout,
 }, dispatch);
 

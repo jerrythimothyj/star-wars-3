@@ -21,6 +21,7 @@ function SearchBox(props) {
     toSearch, isWookie, searchKey, searchBox, handleChange, isSearchAllowed, remainingSeconds,
   } = props;
   secondsCtr = remainingSeconds;
+  clearTimeout(localTimer);
   if (!isSearchAllowed) { timer(); }
   return (
     <div>
@@ -44,7 +45,7 @@ function SearchBox(props) {
           disabled={!isSearchAllowed}
         />
         {!isSearchAllowed &&
-          <h3>Please wait for <span id="secondsCtr">{secondsCtr}</span> seconds</h3>}
+        <h3>Please wait for <span id="secondsCtr">{secondsCtr}</span> seconds</h3>}
       </form>
     </div>
   );
