@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { SpecieGrid } from './index';
+import SpecieGrid from './index';
 import '../../mock-localstorage';
 import speciesData from '../../../mock/species.json';
 

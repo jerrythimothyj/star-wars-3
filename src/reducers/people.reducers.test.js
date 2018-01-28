@@ -1,5 +1,12 @@
 import reducer from './people.reducers';
-import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PEOPLES_REQUESTED,
+  SEARCH_PEOPLES,
+  SEARCH_PEOPLES_FAILED,
+  SEARCH_PEOPLE_ALLOWED_REQUESTED,
+  SEARCH_PEOPLE_ALLOWED,
+  SEARCH_PEOPLE_ALLOWED_FAILED,
+  RESET_SEARCH_PEOPLE_COUNTER } from '../constants';
+import { secondsMax } from '../services/';
 
 describe('people reducer', () => {
   it('should return the initial state', () => {
@@ -93,6 +100,15 @@ describe('people reducer', () => {
       isSearchAllowed: false,
     })).toEqual({
       isSearchAllowed: false,
+    });
+  });
+
+  it('should handle RESET_SEARCH_PEOPLE_COUNTER', () => {
+    expect(reducer({}, {
+      type: RESET_SEARCH_PEOPLE_COUNTER,
+      remainingSeconds: secondsMax,
+    })).toEqual({
+      remainingSeconds: secondsMax,
     });
   });
 });

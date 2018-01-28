@@ -1,5 +1,13 @@
 import reducer from './specie.reducers';
-import { SEARCH_SPECIES_REQUESTED, SEARCH_SPECIES, SEARCH_SPECIES_FAILED, SEARCH_SPECIE_ALLOWED_REQUESTED, SEARCH_SPECIE_ALLOWED, SEARCH_SPECIE_ALLOWED_FAILED } from '../constants';
+import { SEARCH_SPECIES_REQUESTED,
+  SEARCH_SPECIES,
+  SEARCH_SPECIES_FAILED,
+  SEARCH_SPECIE_ALLOWED_REQUESTED,
+  SEARCH_SPECIE_ALLOWED,
+  SEARCH_SPECIE_ALLOWED_FAILED,
+  RESET_SEARCH_SPECIE_COUNTER,
+} from '../constants';
+import { secondsMax } from '../services/';
 
 describe('specie reducer', () => {
   it('should return the initial state', () => {
@@ -93,6 +101,15 @@ describe('specie reducer', () => {
       isSearchAllowed: false,
     })).toEqual({
       isSearchAllowed: false,
+    });
+  });
+
+  it('should handle RESET_SEARCH_SPECIE_COUNTER', () => {
+    expect(reducer({}, {
+      type: RESET_SEARCH_SPECIE_COUNTER,
+      remainingSeconds: secondsMax,
+    })).toEqual({
+      remainingSeconds: secondsMax,
     });
   });
 });

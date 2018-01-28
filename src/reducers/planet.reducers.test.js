@@ -1,5 +1,13 @@
 import reducer from './planet.reducers';
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PLANETS_REQUESTED,
+  SEARCH_PLANETS,
+  SEARCH_PLANETS_FAILED,
+  SEARCH_PLANET_ALLOWED_REQUESTED,
+  SEARCH_PLANET_ALLOWED,
+  SEARCH_PLANET_ALLOWED_FAILED,
+  RESET_SEARCH_PLANET_COUNTER } from '../constants';
+import { secondsMax } from '../services/';
+
 
 describe('planet reducer', () => {
   it('should return the initial state', () => {
@@ -93,6 +101,15 @@ describe('planet reducer', () => {
       isSearchAllowed: false,
     })).toEqual({
       isSearchAllowed: false,
+    });
+  });
+
+  it('should handle RESET_SEARCH_PLANET_COUNTER', () => {
+    expect(reducer({}, {
+      type: RESET_SEARCH_PLANET_COUNTER,
+      remainingSeconds: secondsMax,
+    })).toEqual({
+      remainingSeconds: secondsMax,
     });
   });
 });

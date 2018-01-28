@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import peopleService from './people.services';
 import { SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED } from '../../constants';
-import remainingSeconds from '../search/search.services';
+import remainingSeconds from '../../services';
 
 
 const middlewares = [thunk];

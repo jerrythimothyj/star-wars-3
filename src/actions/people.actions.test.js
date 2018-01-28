@@ -1,5 +1,31 @@
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import '../mock-localstorage';
 import * as actions from './people.actions';
-import { SEARCH_PEOPLES_REQUESTED, SEARCH_PEOPLES, SEARCH_PEOPLES_FAILED, SEARCH_PEOPLE_ALLOWED_REQUESTED, SEARCH_PEOPLE_ALLOWED, SEARCH_PEOPLE_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PEOPLES_REQUESTED,
+  SEARCH_PEOPLES,
+  SEARCH_PEOPLES_FAILED,
+  SEARCH_PEOPLE_ALLOWED_REQUESTED,
+  SEARCH_PEOPLE_ALLOWED,
+  SEARCH_PEOPLE_ALLOWED_FAILED,
+  RESET_SEARCH_PEOPLE_COUNTER,
+} from '../constants';
+import { secondsMax } from '../services';
+
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+const initialState = {
+  people: '',
+  peoples: [],
+  isSearchAllowed: true,
+  loaded: true,
+  previousAllowed: false,
+  nextAllowed: false,
+  page: 1,
+  remainingSeconds: secondsMax,
+  format: '',
+};
 
 
 describe('people actions', () => {
@@ -59,5 +85,56 @@ describe('people actions', () => {
       loaded: true,
     };
     expect(actions.searchPeopleAllowedFailed('3')).toEqual(expectedAction);
+  });
+
+  it('should create searchPeoples', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.searchPeoples());
+    const storeActions = store.getActions();
+    const expectedAction = {
+      type: SEARCH_PEOPLES_REQUESTED,
+      loaded: false,
+    };
+    expect(storeActions[0]).toEqual(expectedAction);
+  });
+
+  it('should create isPeopleSearchAllowedFn', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.isPeopleSearchAllowedFn('luke'));
+    const storeActions = store.getActions();
+    const expectedAction = [
+      {
+        loaded: true,
+        type: SEARCH_PEOPLE_ALLOWED_REQUESTED,
+      },
+      {
+        isSearchAllowed: true,
+        loaded: true,
+        people: 'luke',
+        type: SEARCH_PEOPLE_ALLOWED,
+      },
+    ];
+
+    expect(storeActions).toEqual(expectedAction);
+  });
+
+  it('should create RESET_SEARCH_PEOPLE_COUNTER', () => {
+    const expectedAction = {
+      type: RESET_SEARCH_PEOPLE_COUNTER,
+      remainingSeconds: secondsMax,
+    };
+    expect(actions.resetSearchPeopleCounter()).toEqual(expectedAction);
+  });
+
+  it('should create resetSearchPeopleCounterFn', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.resetSearchPeopleCounterFn());
+    const storeActions = store.getActions();
+    const expectedAction = [{ remainingSeconds: 60, type: 'people/RESET_SEARCH_PEOPLE_COUNTER' }];
+
+    expect(storeActions).toEqual(expectedAction);
   });
 });
