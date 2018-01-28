@@ -10,7 +10,7 @@ import { authUser, secondsMax } from '../../services';
 let searchKey = '';
 let timer = null;
 
-class Planet extends Component {
+export class Planet extends Component {
   constructor(props) {
     super(props);
 

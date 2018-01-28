@@ -7,7 +7,7 @@ import { login, logout } from '../../actions';
 
 import './index.css';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -70,6 +70,7 @@ class Login extends Component {
                   type="text"
                   className="form-control"
                   name="username"
+                  id="username"
                   value={username}
                   onChange={this.handleChange}
                 />
@@ -83,6 +84,7 @@ class Login extends Component {
                   type="password"
                   className="form-control"
                   name="password"
+                  id="password"
                   value={password}
                   onChange={this.handleChange}
                 />
