@@ -1,6 +1,29 @@
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import '../mock-localstorage';
 import * as actions from './planet.actions';
-import { SEARCH_PLANETS_REQUESTED, SEARCH_PLANETS, SEARCH_PLANETS_FAILED, SEARCH_PLANET_ALLOWED_REQUESTED, SEARCH_PLANET_ALLOWED, SEARCH_PLANET_ALLOWED_FAILED } from '../constants';
+import { SEARCH_PLANETS_REQUESTED,
+  SEARCH_PLANETS,
+  SEARCH_PLANETS_FAILED,
+  SEARCH_PLANET_ALLOWED_REQUESTED,
+  SEARCH_PLANET_ALLOWED,
+  SEARCH_PLANET_ALLOWED_FAILED,
+  RESET_SEARCH_PLANET_COUNTER } from '../constants';
+import { secondsMax } from '../services';
 
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+const initialState = {
+  planet: '',
+  planets: [],
+  isSearchAllowed: true,
+  loaded: true,
+  previousAllowed: false,
+  nextAllowed: false,
+  page: 1,
+  remainingSeconds: secondsMax,
+  format: '',
+};
 
 describe('planet actions', () => {
   it('should create SEARCH_PLANETS_REQUESTED', () => {
@@ -59,5 +82,56 @@ describe('planet actions', () => {
       loaded: true,
     };
     expect(actions.searchPlanetAllowedFailed('3')).toEqual(expectedAction);
+  });
+
+  it('should create searchPlanets', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.searchPlanets());
+    const storeActions = store.getActions();
+    const expectedAction = {
+      type: SEARCH_PLANETS_REQUESTED,
+      loaded: false,
+    };
+    expect(storeActions[0]).toEqual(expectedAction);
+  });
+
+  it('should create isPlanetSearchAllowedFn', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.isPlanetSearchAllowedFn('alderaan'));
+    const storeActions = store.getActions();
+    const expectedAction = [
+      {
+        loaded: true,
+        type: SEARCH_PLANET_ALLOWED_REQUESTED,
+      },
+      {
+        isSearchAllowed: true,
+        loaded: true,
+        planet: 'alderaan',
+        type: SEARCH_PLANET_ALLOWED,
+      },
+    ];
+
+    expect(storeActions).toEqual(expectedAction);
+  });
+
+  it('should create RESET_SEARCH_PLANET_COUNTER', () => {
+    const expectedAction = {
+      type: RESET_SEARCH_PLANET_COUNTER,
+      remainingSeconds: secondsMax,
+    };
+    expect(actions.resetSearchPlanetCounter()).toEqual(expectedAction);
+  });
+
+  it('should create resetSearchPlanetCounterFn', () => {
+    const store = mockStore({ initialState });
+
+    store.dispatch(actions.resetSearchPlanetCounterFn());
+    const storeActions = store.getActions();
+    const expectedAction = [{ remainingSeconds: 60, type: RESET_SEARCH_PLANET_COUNTER }];
+
+    expect(storeActions).toEqual(expectedAction);
   });
 });

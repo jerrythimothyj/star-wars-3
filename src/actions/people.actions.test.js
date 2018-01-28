@@ -133,7 +133,7 @@ describe('people actions', () => {
 
     store.dispatch(actions.resetSearchPeopleCounterFn());
     const storeActions = store.getActions();
-    const expectedAction = [{ remainingSeconds: 60, type: 'people/RESET_SEARCH_PEOPLE_COUNTER' }];
+    const expectedAction = [{ remainingSeconds: 60, type: RESET_SEARCH_PEOPLE_COUNTER }];
 
     expect(storeActions).toEqual(expectedAction);
   });
