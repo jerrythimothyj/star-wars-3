@@ -1,26 +1,7 @@
-// import React, { Component } from 'react';
 import React from 'react';
-// import { connect } from 'react-redux';
 import './index.css';
 
-// export class PlanetGrid extends Component {
-// constructor(props) {
-//   super(props);
-
-//   this.state = {
-//     planets: this.props.planets,
-//   };
-// }
-
-// componentWillReceiveProps(nextProps) {
-//   this.setState({
-//     planets: nextProps.planets,
-//   });
-// }
-
 function PlanetGrid(props) {
-  // render() {
-  // const { planets } = this.props;
   const { planets } = props;
   return (
     <div className="table-responsive">
@@ -71,11 +52,5 @@ function PlanetGrid(props) {
     </div>
   );
 }
-// }
 
-// const mapStateToProps = state => ({
-//   planets: state.planet.planets,
-// });
-
-// export default connect(mapStateToProps )(PlanetGrid);
 export default PlanetGrid;
