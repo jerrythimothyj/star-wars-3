@@ -18,8 +18,6 @@ export const loginService = (username, password) => dispatch => axiosInstance.ge
     } else {
       dispatch(actions.loginFailed());
     }
-  }, () => {
-    dispatch(actions.loginFailed());
   });
 
 export const logoutService = () => (dispatch) => {
@@ -27,7 +25,5 @@ export const logoutService = () => (dispatch) => {
   if (!getSessionStorageItem('loggedInUser')) {
     dispatch(actions.logoutAC());
     dispatch(push('/'));
-  } else {
-    dispatch(actions.logoutFailed());
   }
 };
